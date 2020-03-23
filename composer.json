@@ -1,6 +1,6 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
     "require": {
         "php": "^7.2.5",
         "ext-ctype": "*",
@@ -11,8 +11,7 @@
         "symfony/framework-bundle": "5.0.*",
         "symfony/yaml": "5.0.*"
     },
-    "require-dev": {
-    },
+    "require-dev": {},
     "config": {
         "preferred-install": {
             "*": "dist"
