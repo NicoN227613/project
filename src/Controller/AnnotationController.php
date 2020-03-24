@@ -5,12 +5,12 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 /**
- * @Route("/annotation")
+ * @Route("/annotation", methods="GET")
  */
 class AnnotationController extends AbstractController
 {
     /**
-     * @Route("/annotation", name="annotation")
+     * @Route("")
      */
     public function index()
     {
