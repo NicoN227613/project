@@ -49,7 +49,7 @@ class Product
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $expiresOn;
+    private $expiration_date;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -143,14 +143,14 @@ class Product
         return $this;
     }
 
-    public function getExpiresOn(): ?\DateTimeInterface
+    public function getExpirationDate(): ?\DateTimeInterface
     {
-        return $this->expiresOn;
+        return $this->expiration_date;
     }
 
-    public function setExpiresOn(?\DateTimeInterface $expiresOn): self
+    public function setExpirationDate(?\DateTimeInterface $expiration_date): self
     {
-        $this->expiresOn = $expiresOn;
+        $this->expiration_date = $expiration_date;
 
         return $this;
     }
