@@ -4,6 +4,8 @@
 <ul>
     {% for product in products %}
     <li>{{ product.name }}</li>
-    {% endfor %}
+    <a href="{{ path('app_product_show', { id: product.id }) }}">
+        Voir
+    </a> {% endfor %}
 </ul>
 {% endblock body %}

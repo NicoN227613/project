@@ -22,4 +22,20 @@ class ProductController extends AbstractController
             'products' => $products,
         ]);
     }
+    /**
+     * @Route("/{id}", requirements={"id": "\d+"})
+     */
+    public function show(int $id, ProductRepository $repository)
+    {
+        $product = $repository->find($id);
+
+        if(!$product) {
+            throw $this->createNotFoundException('Ce produit n\'existe pas');
+        }
+
+        return $this->render('product/show.html.twig', [
+            'product' => $product,
+        ]);
+
+    }
 }
