@@ -27,18 +27,6 @@
     <!-- commentaire HTML-->
     <div class="example-wrapper">
         {% block body %}{% endblock %}
-        <p>Tests expression :</p>
-        <ul>
-            <li>{{'une chaine'}}</li>
-            <li>{{(3 + 15) % 3}}</li>
-            <li>{{"3" == 2 + 1}}</li>
-        </ul>
-        <p>Les 3 syntaxes :</p>
-        <ul>
-            <li>instructions { % % }</li>
-            <li>interpolation { { } }</li>
-            <li>commentaire { # # }</li>
-        </ul>
     </div>
     {% block javascripts %}{% endblock %}
 </body>
