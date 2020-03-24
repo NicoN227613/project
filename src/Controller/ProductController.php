@@ -22,6 +22,7 @@ class ProductController extends AbstractController
             'products' => $products,
         ]);
     }
+
     /**
      * @Route("/{id}", requirements={"id": "\d+"})
      */
@@ -30,12 +31,11 @@ class ProductController extends AbstractController
         $product = $repository->find($id);
 
         if(!$product) {
-            throw $this->createNotFoundException('Ce produit n\'existe pas');
+            throw $this->createNotFoundException("Ce produit n'existe pas");
         }
 
         return $this->render('product/show.html.twig', [
             'product' => $product,
         ]);
-
     }
 }
