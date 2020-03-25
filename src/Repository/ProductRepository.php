@@ -43,8 +43,18 @@ class ProductRepository extends ServiceEntityRepository
             ->andWhere('p.exampleField = :val')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
     */
+
+    public function findWithCategories()
+    {
+        return $this->createQueryBuilder('p')
+            ->leftjoin('p.classifiedIn', 'c')
+            ->addSelect('c')
+            ->orderBy('p.purchase_date', 'DESC')
+            ->setMaxResults(50)
+            ->getQuery()
+            ->getResult();
+    }
 }
