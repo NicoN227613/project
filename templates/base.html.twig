@@ -10,10 +10,11 @@
 </head>
 
 <body>
-    {% app.flashes is not empty %} {% for message in messages %}
+    {% for label, messages in app.flashes %} {% for message in messages %}
     <div class="{{ label }}">
         {{ message }}
-    </div> {% endif %} {% block body %}{% endblock %} {% block javascripts %}{% endblock %}
+    </div>
+    {% endfor %} {% endfor %} {% block body %}{% endblock %} {% block javascripts %}{% endblock %}
 </body>
 
 </html>

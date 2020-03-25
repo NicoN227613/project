@@ -66,6 +66,11 @@ class Product
      */
     private $updatedAt;
 
+    public function __construct() {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updateAt = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

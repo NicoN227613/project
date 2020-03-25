@@ -7,7 +7,6 @@ use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -44,38 +43,7 @@ class ProductController extends AbstractController
     {
         $product = new Product();
 
-        $form = $this->createFormBuilder($product)
-            ->add('name', null, [
-                'label' => 'Nom'
-            ])
-            ->add('category', null, [
-                'label' => 'Catégorie'
-            ])
-            ->add('emplacement', null, [
-                'label' => 'Emplacement'
-            ])
-            ->add('quantity', null, [
-                'label' => 'Quantité'
-            ])
-            ->add('unity', null, [
-                'label' => 'Unité'
-            ])
-            ->add('purchaseDate', DateType::class, [
-                'html5' => true,
-                'widget' => 'single_text',
-                'label' => 'Acheté le'
-            ])
-            ->add('expirationDate', DateType::class, [
-                'html5' => true,
-                'widget' => 'single_text',
-                'label' => 'A consommer avant le'
-            ])
-            ->add('bestBeforeDate', DateType::class, [
-                'html5' => true,
-                'widget' => 'single_text',
-                'label' => 'A consommer de préférence avant le'
-            ])
-            ->getForm();
+        $form = $this->createForm(Product::class, $product);
 
         $form->handleRequest($request);
 
@@ -91,6 +59,27 @@ class ProductController extends AbstractController
 
         return $this->render('product/new.html.twig', [
             'new_form' => $form->createView(),
+        ]);
+    }
+    /**
+     * @Route("/{id}/edit", methods={"GET", "PUT"})
+     */
+    public function edit(Product $product, Request $request, EntityManagerInterface $manager){
+        
+        $form = $this->createForm(Product::class, $product, [
+            'method' => 'PUT',
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $this->manager->flush();
+            $this->addFlash('success', $product->getName().'Mis à jour!');
+            return $this->redirectToRoute('app_product_show');
+        }
+        return $this->render('product/edit.html.twig', [
+            'product' => $product,
+            'edit_form' => $form->createView()
         ]);
     }
 }

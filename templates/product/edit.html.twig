@@ -1,0 +1,3 @@
+{% extends 'base.html.twig' %} {% block body %}
+<h1>Édition de {{ product.name }}</h1>
+{{ include('product/_form.html.twig', {form: edit_form, action: 'Mise à jour'}) }} {% endblock %}
