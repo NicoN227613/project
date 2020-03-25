@@ -26,7 +26,7 @@ class ProductType extends AbstractType
             'class' => Category::class,
             'choice_label' => 'name',
             'multiple' => true,
-            'label' => 'Catégories',
+            'label' => 'Catégorie',
             'required' => false,
         ])
         ->add('emplacement', null, [
