@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -29,8 +31,10 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}", requirements={"id": "\d+"})
      */
-    public function show(Product $product)
+    public function show(Product $product, ValidatorInterface $validator)
     {
+        // pas utile ici, juste pour un exemple de validation hors formulaire
+        $errors = $validator->validate($product);
         return $this->render('product/show.html.twig', [
             'product' => $product,
         ]);
@@ -43,7 +47,7 @@ class ProductController extends AbstractController
     {
         $product = new Product();
 
-        $form = $this->createForm(Product::class, $product);
+        $form = $this->createForm(ProductType::class, $product);
 
         $form->handleRequest($request);
 
@@ -66,20 +70,22 @@ class ProductController extends AbstractController
      */
     public function edit(Product $product, Request $request, EntityManagerInterface $manager){
         
-        $form = $this->createForm(Product::class, $product, [
+        $form = $this->createForm(ProductType::class, $product, [
             'method' => 'PUT',
         ]);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $this->manager->flush();
-            $this->addFlash('success', $product->getName().'Mis à jour!');
-            return $this->redirectToRoute('app_product_show');
+            $manager->flush();
+            $this->addFlash('success', 'Le produit ' . $product->getName() . 'à bien était modifié !');
+            return $this->redirectToRoute('app_product_show', [
+                'id' => $product->getId(),
+            ]);
         }
         return $this->render('product/edit.html.twig', [
             'product' => $product,
-            'edit_form' => $form->createView()
+            'edit_form' => $form->createView(),
         ]);
     }
 }

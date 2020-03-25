@@ -4,9 +4,10 @@ namespace App\Form;
 
 use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class ProductType extends AbstractType
 {
@@ -22,8 +23,11 @@ class ProductType extends AbstractType
         ->add('emplacement', null, [
             'label' => 'Emplacement'
         ])
-        ->add('quantity', null, [
-            'label' => 'Quantité'
+        ->add('quantity', IntegerType::class, [
+            'label' => 'Quantité',
+            'attr' => [
+                'min' => 0,
+            ]
         ])
         ->add('unity', null, [
             'label' => 'Unité'
@@ -31,7 +35,10 @@ class ProductType extends AbstractType
         ->add('purchaseDate', DateType::class, [
             'html5' => true,
             'widget' => 'single_text',
-            'label' => 'Acheté le'
+            'label' => 'Acheté le',
+            'attr' => [
+                'max' => date('Y-m-d'),
+            ]
         ])
         ->add('expirationDate', DateType::class, [
             'html5' => true,
