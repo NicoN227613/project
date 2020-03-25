@@ -2,11 +2,10 @@
 
 namespace App\Controller;
 
-use DateTime;
-
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -49,17 +48,17 @@ class ProductController extends AbstractController
             ->add('emplacement')
             ->add('quantity')
             ->add('unity')
-            ->add('purchaseDate', DateTime::class, [
+            ->add('purchaseDate', DateType::class, [
                 'html5' => true,
-                'widget' => 'single text',
+                'widget' => 'single_text',
             ])
-            ->add('expirationDate', DateTime::class, [
+            ->add('expirationDate', DateType::class, [
                 'html5' => true,
-                'widget' => 'single text',
+                'widget' => 'single_text',
             ])
-            ->add('bestBeforeDate', DateTime::class, [
+            ->add('bestBeforeDate', DateType::class, [
                 'html5' => true,
-                'widget' => 'single text',
+                'widget' => 'single_text',
             ])
             ->getForm();
 
