@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Product;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -19,6 +21,13 @@ class ProductType extends AbstractType
         ])
         ->add('category', null, [
             'label' => 'Catégorie'
+        ])
+        ->add('classifiedIn', EntityType::class, [
+            'class' => Category::class,
+            'choice_label' => 'name',
+            'multiple' => true,
+            'label' => 'Catégories',
+            'required' => false,
         ])
         ->add('emplacement', null, [
             'label' => 'Emplacement'
@@ -50,6 +59,7 @@ class ProductType extends AbstractType
             'widget' => 'single_text',
             'label' => 'A consommer de préférence avant le'
         ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
