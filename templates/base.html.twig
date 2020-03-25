@@ -10,25 +10,10 @@
 </head>
 
 <body>
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
-        
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-    </style>
-    {# commentaire twig #}
-    <!-- commentaire HTML-->
-    <div class="example-wrapper">
-        {% block body %}{% endblock %}
-    </div>
-    {% block javascripts %}{% endblock %}
+    {% app.flashes is not empty %} {% for message in messages %}
+    <div class="{{ label }}">
+        {{ message }}
+    </div> {% endif %} {% block body %}{% endblock %} {% block javascripts %}{% endblock %}
 </body>
 
 </html>
