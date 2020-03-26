@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/admin/product")
+ * @IsGranted("ROLE_ADMIN")
  */
 class ProductController extends AbstractController 
 {
@@ -45,6 +46,7 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/{id}/edit", methods={"GET", "PUT"})
+     * @IsGranted("PRODUCT_EDIT", subject="product")
      */
     public function edit(Product $product, Request $request, EntityManagerInterface $manager){
         
