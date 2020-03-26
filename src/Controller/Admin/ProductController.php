@@ -7,6 +7,7 @@ use App\Form\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -16,10 +17,12 @@ class ProductController extends AbstractController
 {
     /**
      * @Route("/new", methods={"GET", "POST"})
+     * @IsGranted("ROLE_AUTHOR")
      */
     public function new(Request $request, EntityManagerInterface $manager)
     {
         $product = new Product();
+        $product->setAuthor($this->getUser());
 
         $form = $this->createForm(ProductType::class, $product);
 
