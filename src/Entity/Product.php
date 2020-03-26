@@ -186,7 +186,7 @@ class Product
     /**
      * @return Emplacement
      */
-    public function getPlaceIn(): Emplacement
+    public function getPlaceIn(): ?Emplacement
     {
         return $this->placeIn;
     }
@@ -201,7 +201,7 @@ class Product
     /**
      * @return Unity
      */
-    public function getUnits(): Unity
+    public function getUnits(): ?Unity
     {
         return $this->units;
     }
