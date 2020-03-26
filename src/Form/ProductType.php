@@ -3,13 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Entity\Emplacement;
 use App\Entity\Product;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Unity;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductType extends AbstractType
 {
@@ -19,18 +21,19 @@ class ProductType extends AbstractType
         ->add('name', null, [
             'label' => 'Nom'
         ])
-        ->add('category', null, [
-            'label' => 'Catégorie'
-        ])
         ->add('classifiedIn', EntityType::class, [
             'class' => Category::class,
             'choice_label' => 'name',
-            'multiple' => true,
+            'multiple' => false,
             'label' => 'Catégorie',
             'required' => false,
         ])
-        ->add('emplacement', null, [
-            'label' => 'Emplacement'
+        ->add('placeIn', EntityType::class, [
+            'class' => Emplacement::class,
+            'choice_label' => 'name',
+            'multiple' => false,
+            'label' => 'Emplacement',
+            'required' => false,
         ])
         ->add('quantity', IntegerType::class, [
             'label' => 'Quantité',
@@ -38,8 +41,12 @@ class ProductType extends AbstractType
                 'min' => 0,
             ]
         ])
-        ->add('unity', null, [
-            'label' => 'Unité'
+        ->add('units', EntityType::class, [
+            'class' => Unity::class,
+            'choice_label' => 'name',
+            'multiple' => false,
+            'label' => 'Unity',
+            'required' => false,
         ])
         ->add('purchaseDate', DateType::class, [
             'html5' => true,

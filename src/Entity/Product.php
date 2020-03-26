@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -26,29 +27,11 @@ class Product
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $category;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $emplacement;
-
-    /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
      * @Assert\GreaterThan(0, message="Définir une quantité au dessus de zéro")
      */
     private $quantity;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $unity;
 
     /**
      * @ORM\Column(type="datetime")
@@ -77,14 +60,23 @@ class Product
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
      */
     private $classifiedIn;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Emplacement")
+     */
+    private $placeIn;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Unity")
+     */
+    private $units;
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
         $this->updateAt = new \DateTimeImmutable();
-        $this->classifiedIn = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -104,30 +96,6 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): self
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    public function getEmplacement(): ?string
-    {
-        return $this->emplacement;
-    }
-
-    public function setEmplacement(string $emplacement): self
-    {
-        $this->emplacement = $emplacement;
-
-        return $this;
-    }
-
     public function getQuantity(): ?float
     {
         return $this->quantity;
@@ -136,18 +104,6 @@ class Product
     public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getUnity(): ?string
-    {
-        return $this->unity;
-    }
-
-    public function setUnity(string $unity): self
-    {
-        $this->unity = $unity;
 
         return $this;
     }
@@ -213,27 +169,46 @@ class Product
     }
 
     /**
-     * @return Collection|Category[]
+     * @return Category
      */
-    public function getClassifiedIn(): Collection
+    public function getClassifiedIn(): ?Category
     {
         return $this->classifiedIn;
     }
 
-    public function addClassifiedIn(Category $classifiedIn): self
+    public function setClassifiedIn(?Category $classifiedIn)
     {
-        if (!$this->classifiedIn->contains($classifiedIn)) {
-            $this->classifiedIn[] = $classifiedIn;
-        }
+        $this->classifiedIn = $classifiedIn;
+
+        return $this;
+    }
+    
+    /**
+     * @return Emplacement
+     */
+    public function getPlaceIn(): Emplacement
+    {
+        return $this->placeIn;
+    }
+
+    public function setPlaceIn(?Emplacement $placeIn)
+    {
+        $this->placeIn = $placeIn;
 
         return $this;
     }
 
-    public function removeClassifiedIn(Category $classifiedIn): self
+    /**
+     * @return Unity
+     */
+    public function getUnits(): Unity
     {
-        if ($this->classifiedIn->contains($classifiedIn)) {
-            $this->classifiedIn->removeElement($classifiedIn);
-        }
+        return $this->units;
+    }
+
+    public function setUnits(?Unity $units)
+    {
+        $this->units = $units;
 
         return $this;
     }

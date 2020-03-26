@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Category;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,34 +21,9 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Product
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-    */
-
+     /**
+     * @return Product[]
+     */
     public function findWithCategories()
     {
         return $this->createQueryBuilder('p')
@@ -56,5 +33,29 @@ class ProductRepository extends ServiceEntityRepository
             ->setMaxResults(50)
             ->getQuery()
             ->getResult();
+    }
+    /**
+     * @return Product[]
+     */
+    public function findWithCategoriesBis()
+    {
+        $this->getEntityManager()->createQuery(
+            'SELECT b, c FROM '.Product::class.' b '.
+            'LEFT JOIN b.classifiedIn c '.
+            'ORDER BY b.purchase_date DESC'
+        )->setMaxResults(50)
+        ->getResult();
+    }
+
+    public function findByClassifiedInOne(Category $category)
+    {
+        return $this->createQueryBuilder('b')
+        ->join('b.classifiedIn', 'c',
+        Join::WITH,'c = :category')
+        ->orderBy('b.purchase_date','DESC')
+        ->setMaxResults(50)
+        ->getQuery()
+        ->setParameter('category', $category)
+        ->getResult();
     }
 }

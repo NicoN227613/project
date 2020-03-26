@@ -2,12 +2,15 @@
 <a href="{{ path('app_product_index')}}">
     Retour à la liste
 </a> {{ dump(product) }}
+
 <h1>{{ product.name }}</h1>
-<h3>Catégorie : {{ product.category }}</h3>
-<h3>Catégorie : {% for category in product.classifiedIn %} {{ category.name }} {{ loop.last ? '' : ', ' }} {% endfor %}
+<h3>Catégorie : {% for category in product.classifiedIn %} {{ category.name }} {% endfor %}
 </h3>
-<h3>Quantité : {{ product.quantity }} {{ product.unity }}</h3>
-<h3>Emplacement : {{ product.emplacement }}</h3>
+<h3>Emplacement : {% for emplacement in product.placeIn %} {{ emplacement.name }} {% endfor %}
+</h3>
+<h3>Quantité : {{ product.quantity }}</h3>
+<h3>Unité : {% for unity in product.units %} {{ unity.name }} {% endfor %}
+</h3>
 <h3>Date d'achat : {{ product.purchaseDate | date('d/m/Y') }}</h3>
 <h3>A consommer avant le : {{ product.expirationDate | date('d/m/Y') }}</h3>
 <h3>Ajouter le : {{ product.createdAt | date('d/m/Y') }}</h3>
