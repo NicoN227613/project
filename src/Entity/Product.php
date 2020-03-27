@@ -74,6 +74,12 @@ class Product
      */
     private $units;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
         $this->updateAt = new \DateTimeImmutable();
@@ -186,7 +192,7 @@ class Product
     /**
      * @return Emplacement
      */
-    public function getPlaceIn(): Emplacement
+    public function getPlaceIn(): ?Emplacement
     {
         return $this->placeIn;
     }
@@ -201,7 +207,7 @@ class Product
     /**
      * @return Unity
      */
-    public function getUnits(): Unity
+    public function getUnits(): ?Unity
     {
         return $this->units;
     }
@@ -209,6 +215,18 @@ class Product
     public function setUnits(?Unity $units)
     {
         $this->units = $units;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

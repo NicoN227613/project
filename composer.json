@@ -13,9 +13,14 @@
         "symfony/form": "5.0.*",
         "symfony/framework-bundle": "5.0.*",
         "symfony/orm-pack": "^1.0",
+<<<<<<< HEAD
         "symfony/translation": "5.0.*",
+=======
+        "symfony/security-bundle": "5.0.*",
+>>>>>>> 39c6df15eb293e9739bb93268b6049222e50ae45
         "symfony/twig-pack": "^1.0",
         "symfony/validator": "5.0.*",
+        "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "5.0.*"
     },
     "require-dev": {
