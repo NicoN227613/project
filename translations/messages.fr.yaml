@@ -1,0 +1,5 @@
+product:
+  index_page:
+      title: 'Liste des produits'
+  action:
+      see: 'Voir'

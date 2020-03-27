@@ -6,7 +6,7 @@
 <ul>
     {% for product in products %}
         <li>{{ product.name }}</li>
-        <a href="{{ path('app_product_show', { id: product.id }) }}">Voir</a> 
+        <a href="{{ path('app_product_show', { id: product.id }) }}">{{'product.action.see'}}</a> 
     {% endfor %}
 </ul>
 {% endblock body %}
