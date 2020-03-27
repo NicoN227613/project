@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Welcome!{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap" rel="stylesheet">
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
 </head>
 
@@ -17,8 +18,21 @@
         </div>
         {% endfor %} 
     {% endfor %} 
-    
-    {% block body %}{% endblock %} 
+        <nav class="nav">
+            <a href="#"><img src="" class="nav__logo" alt=""></a>
+            <ul class="nav__menu">
+                <li><a href="#">Mes Achats</a></li>
+                <li><a href="#">Ajouter</a></li>
+                <li><a href="#">Mes produits</a></li>
+                <li><button class="nav__btn">Contact</button></li>
+                <li><button class="nav__btn">Connexion</button></li>
+            </ul>
+            <button class="nav__burger">
+                <span></span>
+            </button>
+        </nav>
+    {% block body %}
+    {% endblock %} 
     {% block javascripts %}{{ encore_entry_script_tags('app')}}{% endblock %}
 </body>
 

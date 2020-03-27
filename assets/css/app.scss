@@ -1,6 +1,44 @@
-@import "_reset";
-@import "_typography";
-
-body {
-    background-color: lightgreen;
+// Variables
+// ==================
+:root {
+    --color: #5C5C5C;
+    --background: #FFF7DF;
+    --color_btn_nav: linear-gradient(227.48deg,#00FF00 1.55%,  #008000 95.8%);
 }
+// Outils
+// ==================
+@import "tools/reset";
+@import "tools/typography";
+
+// Generic
+// ==================
+body {
+    font-family: $f-m;
+    font-style: 16px;
+    line-height: 1.4;
+    color: var(--color);
+    background: var(--background);
+}
+.container,
+%container {
+    max-width: 1370px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// Modules
+// ==================
+
+// Pages
+// ==================
+@import "modules/nav";
+@import "modules/btn";
+
+
+
+
+
+
+
