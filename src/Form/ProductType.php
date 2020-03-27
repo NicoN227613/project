@@ -45,7 +45,7 @@ class ProductType extends AbstractType
             'class' => Unity::class,
             'choice_label' => 'name',
             'multiple' => false,
-            'label' => 'Unity',
+            'label' => 'Unité',
             'required' => false,
         ])
         ->add('purchaseDate', DateType::class, [

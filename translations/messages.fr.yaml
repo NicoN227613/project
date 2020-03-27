@@ -1,5 +1,12 @@
 product:
-  index_page:
-      title: 'Liste des produits'
-  action:
-      see: 'Voir'
+    index_page:
+        title: 'Liste des produits'
+    new_page:
+        title: 'Ajouter un produit'
+    edit_page:
+        title: 'Edition du produit'
+    action:
+        back_to_list: 'Retour à la liste'
+        new: 'Ajouter un produit'
+        see: 'Voir'
+        edit: 'Editer'

@@ -1,14 +1,20 @@
-{% extends "base.html.twig" %} {% block body %}
-<a href="{{ path('app_product_index')}}">
-    Retour à la liste
-</a> {{ dump(product) }}
+{% extends "base.html.twig" %} 
 
-<h1>{{ product.name }}</h1>
-<h3>Catégorie : {{ product.classifiedIn.name }}</h3>
-<h3>Emplacement : {{ product.placeIn.name }}</h3>
-<h3>Quantité : {{ product.quantity }}</h3>
-<h3>Unité : {{ product.units.name }}</h3>
-<h3>Date d'achat : {{ product.purchaseDate | date('d/m/Y') }}</h3>
-<h3>A consommer avant le : {{ product.expirationDate | date('d/m/Y') }}</h3>
-<h3>Ajouter le : {{ product.createdAt | date('d/m/Y') }}</h3>
-<a href="{{ path('app_admin_product_edit', {id: product.id}) }}">Editer</a>{% endblock body %}
+{% block body %}
+
+    
+    <h1>{{ product.name }}</h1>
+    <h3>Catégorie : {{ product.classifiedIn.name }}</h3>
+    <h3>Emplacement : {{ product.placeIn.name }}</h3>
+    <h3>Quantité : {{ product.quantity }}</h3>
+    <h3>Unité : {{ product.units.name }}</h3>
+    <h3>Date d'achat : {{ product.purchaseDate | date('d/m/Y') }}</h3>
+    <h3>A consommer avant le : {{ product.expirationDate | date('d/m/Y') }}</h3>
+    <h3>Ajouter le : {{ product.createdAt | date('d/m/Y') }}</h3>
+    <a href="{{ path('app_admin_product_edit', {id: product.id}) }}">
+        {{'product.action.edit' | trans }}
+    </a>
+    <a href="{{ path('app_product_index')}}">
+        {{'product.action.back_to_list' | trans }}
+    </a> 
+{% endblock body %}
