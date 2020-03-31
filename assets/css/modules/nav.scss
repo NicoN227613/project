@@ -1,28 +1,48 @@
 .nav {
     @extend %container;
+    font-family: $f-m;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-top: 32px;
+
+    ul {
+        display: flex;
+        align-items: center;
+    }
 }
-.nav__logo {
-    height: 32px;
-    display: flex;
-    align-items: center;
-}
-.nav__menu {
-    margin-left: auto;
+.nav__menu,
+.nav__side {
     display: flex;
     font-size: 18px;
+
+    svg {
+        width: 12px;
+        height: 12px;
+        margin-right: 8px;
+    }
     
-    & a:hover {
-        color: var(--green);
+    .active,
+    a:hover {
+        color: var(--contrast);
     }
-    .active{
-        color: var(--green);
-    }
+    
 }
 .nav__menu > * + * {
     margin-left: 24px;
+}
+.nav__home,
+.nav__search {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 16px;
+    border-right: 1px solid var(--border);
+    margin-right: 16px;
+    padding-right: 8px;
+}
+.nav__home + li {
+    margin-left: 0;
 }
 
 // Burger

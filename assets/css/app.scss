@@ -3,38 +3,34 @@
 :root {
     --color: #5C5C5C;
     --background: #FFF7DF;
-    --green: #7BED8D;
+    --contrast: #00FF00;
+    --border: #5C5C5C;
+    --green: #00FF00;
 }
 // Outils
 // ==================
 @import "tools/reset";
 @import "tools/typography";
+@import "tools/container";
 
 // Generic
 // ==================
 body {
-    font-family: $f-m;
+    font-family: $f-r;
     font-style: 16px;
     line-height: 1.4;
     color: var(--color);
     background: var(--background);
 }
-.container,
-%container {
-    max-width: 1370px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 // Modules
 // ==================
+@import "modules/nav";
+@import "modules/btn";
 
 // Pages
 // ==================
-@import "modules/nav";
-@import "modules/btn";
+
 
 
 

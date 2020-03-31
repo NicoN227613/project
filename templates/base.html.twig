@@ -11,6 +11,22 @@
 </head>
 
 <body>
+    <nav class="nav">
+        <ul class="nav__menu">
+            <li class="nav__home"><a href="#" title="Accueil">{{ icon('home') }}</a></li>
+            <li><a href="#">{{ icon('shopping-cart') }} Mes Achats</a></li>
+            <li><a href="#">{{ icon('add') }} Ajouter</a></li>
+            <li><a href="#">{{ icon('bags') }} Mes produits</a></li>
+            <li><a href="#">{{ icon('contact') }} Contact</a></li>
+        </ul>
+        <ul class="nav__side">
+            <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
+            <li class="nav__account"><a href="{{ path('app_security_login') }}">{{ icon('user') }} Se connecter</a></li>
+        </ul>
+        <button class="nav__burger">
+            <span></span>
+        </button>
+    </nav>
     {% for label, messages in app.flashes %} 
         {% for message in messages %}
         <div class="{{ label }}">
@@ -18,19 +34,6 @@
         </div>
         {% endfor %} 
     {% endfor %} 
-        <nav class="nav">
-            <a href="#"><img src="" class="nav__logo" alt=""></a>
-            <ul class="nav__menu">
-                <li><a href="#">Mes Achats</a></li>
-                <li><a href="#">Ajouter</a></li>
-                <li><a href="{{ path('app_product_index')}}" class="{% if 'current_menu' == 'home' %}active{% endif %}">Mes produits</a></li>
-                <li><button class="nav__btn">Contact</button></li>
-                <li><button class="nav__btn">Connexion</button></li>
-            </ul>
-            <button class="nav__burger">
-                <span></span>
-            </button>
-        </nav>
     {% block body %}
     {% endblock %} 
     {% block javascripts %}{{ encore_entry_script_tags('app')}}{% endblock %}

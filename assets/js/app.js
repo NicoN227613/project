@@ -12,7 +12,7 @@ import '../css/app.scss';
 // import $ from 'jquery';
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
-
+// Nav Burger
 document.querySelector('.nav__burger').addEventListener('click', function() {
     document.querySelector('.nav__menu').classList.toggle('is-active')
     document.querySelector('.nav__burger').classList.toggle('is-active')
