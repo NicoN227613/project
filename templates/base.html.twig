@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Fresh Food{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap" rel="stylesheet">
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
 </head>
@@ -23,7 +23,7 @@
             <ul class="nav__menu">
                 <li><a href="#">Mes Achats</a></li>
                 <li><a href="#">Ajouter</a></li>
-                <li><a href="#">Mes produits</a></li>
+                <li><a href="{{ path('app_product_index')}}" class="{% if 'current_menu' == 'home' %}active{% endif %}">Mes produits</a></li>
                 <li><button class="nav__btn">Contact</button></li>
                 <li><button class="nav__btn">Connexion</button></li>
             </ul>

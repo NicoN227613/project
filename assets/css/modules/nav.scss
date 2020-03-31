@@ -13,8 +13,15 @@
     margin-left: auto;
     display: flex;
     font-size: 18px;
+    
+    & a:hover {
+        color: var(--green);
+    }
+    .active{
+        color: var(--green);
+    }
 }
-.nav__menu > * + *{
+.nav__menu > * + * {
     margin-left: 24px;
 }
 

@@ -103,7 +103,7 @@
         "version": "2.2.3"
     },
     "php": {
-        "version": "7.4"
+        "version": "7.3"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -320,16 +320,16 @@
         ]
     },
     "symfony/security-core": {
-        "version": "v5.0.5"
+        "version": "v5.0.7"
     },
     "symfony/security-csrf": {
-        "version": "v5.0.5"
+        "version": "v5.0.7"
     },
     "symfony/security-guard": {
-        "version": "v5.0.5"
+        "version": "v5.0.7"
     },
     "symfony/security-http": {
-        "version": "v5.0.5"
+        "version": "v5.0.7"
     },
     "symfony/service-contracts": {
         "version": "v2.0.1"
