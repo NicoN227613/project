@@ -13,10 +13,10 @@
 <body>
     <nav class="nav">
         <ul class="nav__menu">
-            <li class="nav__home"><a href="#" title="Accueil">{{ icon('home') }}</a></li>
+            <li class="nav__home"><a href="/" title="Accueil">{{ icon('home') }}</a></li>
             <li><a href="#">{{ icon('shopping-cart') }} Mes Achats</a></li>
-            <li><a href="#">{{ icon('add') }} Ajouter</a></li>
-            <li><a href="#">{{ icon('bags') }} Mes produits</a></li>
+            <li><a href="{{ path('app_admin_product_new') }}">{{ icon('add') }} Ajouter</a></li>
+            <li><a href="{{ path('app_product_index')}}">{{ icon('bags') }} Mes produits</a></li>
             <li><a href="#">{{ icon('contact') }} Contact</a></li>
         </ul>
         <ul class="nav__side">
@@ -27,6 +27,7 @@
             <span></span>
         </button>
     </nav>
+    <hr>
     {% for label, messages in app.flashes %} 
         {% for message in messages %}
         <div class="{{ label }}">

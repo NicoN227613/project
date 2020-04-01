@@ -1,0 +1,33 @@
+.btn {
+    font-family: $f-r;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--btn_submit);
+    padding: 14px 24px;
+    background: transparent;
+    border: 2px solid var(--btn_submit);
+    border-radius: 100px;
+ }
+.btn__text {
+    color: #FFFFFF;
+    background: var(--btn_submit);
+    border: 2px solid var(--btn_submit);
+    border-radius: 100px;
+    transition: .5s;
+}
+.btn__text:hover {
+    color: var(--btn_submit_hover);
+    background: #FFFFFF;
+    border: 2px solid var(--btn_submit_hover);
+}
+.btn svg {
+    margin-right: 8px;
+    transition: transform .3s;
+}
+.btn:hover svg {
+    transform: translateX(4px);
+}

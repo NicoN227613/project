@@ -15,10 +15,9 @@
 .nav__side {
     display: flex;
     font-size: 18px;
+    white-space: nowrap;
 
     svg {
-        width: 12px;
-        height: 12px;
         margin-right: 8px;
     }
     
@@ -96,6 +95,7 @@
     .nav__menu {
         display: flex;
         position: fixed;
+        white-space: nowrap;
         background: rgba(#FFF, 0.9);
         top: 0;
         left: 0;

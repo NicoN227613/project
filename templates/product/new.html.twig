@@ -1,3 +1,8 @@
-{% extends "base.html.twig" %}{% block body %}
+{% extends "base.html.twig" %}
+
+{% block body %}
+
 <h1>{{'product.new_page.title' | trans }}</h1>
-{{ include('product/_form.html.twig', {form: new_form, action: 'Ajouter'}) }} {% endblock %}
+{{ include('product/_form.html.twig', {form: new_form, action: 'Ajouter'}) }} 
+
+{% endblock %}
