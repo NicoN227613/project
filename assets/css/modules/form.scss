@@ -15,15 +15,15 @@
         height: 25px;
     }
     & label {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    white-space: nowrap;
-    color: var(--font_label);
-    min-width: 88px;
-    padding-left: 16px;
-    order: -1;
-    transition: color .3s;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        white-space: nowrap;
+        color: var(--label);
+        min-width: 120px;
+        padding-left: 16px;
+        order: -1;
+        transition: color .3s;
     }
     & label::after {
         content: '';

@@ -1,12 +1,18 @@
 product:
-    index_page:
-        title: 'Liste des produits'
-    new_page:
-        title: 'Ajouter un produit'
-    edit_page:
-        title: 'Edition du produit'
     action:
+        add: 'Ajouter'
+        edit: 'Editer'
         back_to_list: 'Retour à la liste'
         new: 'Ajouter un produit'
         see: 'Voir'
-        edit: 'Editer'
+    form:
+        name: 'Nom'
+        category: 'Catégorie'
+        emplacement: 'Emplacement'
+        quantity: 'Quantité'
+        unity: 'Unité'
+        purchaseDate: "Date d'achat"
+        expirationDate: 'DLC'
+        bestBeforeDate: 'DDM'
+    index:
+        title: 'Liste des produits'    

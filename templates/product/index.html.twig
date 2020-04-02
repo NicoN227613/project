@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-<h1>{{'product.index_page.title' | trans }}</h1>
-<a href="{{ path('app_admin_product_new') }}">{{'product.action.new' | trans }}</a> 
+<h1>{{'product.index.title' | trans }}</h1>
+<a href="{{ path('app_admin_product_new') }}">{{'product.action.new' | trans }}</a>
 <ul>
     {% for product in products %}
-        <li>{{ product.name }}</li>
-        <a href="{{ path('app_product_show', { id: product.id }) }}">{{'product.action.see' | trans }}</a> 
+    <li>{{ product.name }}</li>
+    <a href="{{ path('app_product_show', { id: product.id }) }}">{{'product.action.see' | trans }}</a>
     {% endfor %}
 </ul>
 {% endblock body %}
