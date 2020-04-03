@@ -14,6 +14,9 @@ class TwigExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * Génère le code HTML pour une icone SVG
+     */
     public function svgIcon(string $name): string
     {
         return <<<HTML
