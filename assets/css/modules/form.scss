@@ -44,6 +44,21 @@
     background-color: transparent;
     border: none;
 }
+select.form__control {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+select.form__control + label::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    background: url(../../../public/select.svg);
+    width: 16px;
+    height: 9px;
+    margin-top: -4px;
+}
 .form__group .form__control:focus + label {
     color: #00FF00;
 }

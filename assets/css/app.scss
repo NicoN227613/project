@@ -27,11 +27,6 @@ body {
     background: var(--background);
 }
 
-hr {
-    background-color: var(--border);
-    margin: 32px 0;
-}
-
 // Modules
 // ==================
 @import "modules/nav";
@@ -42,7 +37,7 @@ hr {
 
 // Pages
 // ==================
-
+@import "pages/products.scss";
 
 
 

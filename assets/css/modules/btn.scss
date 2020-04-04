@@ -25,9 +25,10 @@
     border: 2px solid var(--btn_submit_hover);
 }
 .btn svg {
-    margin-right: 8px;
+    display: none;
     transition: transform .3s;
 }
 .btn:hover svg {
-    transform: translateX(4px);
+    display: flex;
+    transform: translateX(224px);
 }

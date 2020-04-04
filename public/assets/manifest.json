@@ -2,5 +2,6 @@
   "assets/app.css": "http://localhost:8080/assets/app.css",
   "assets/app.js": "http://localhost:8080/assets/app.js",
   "assets/runtime.js": "http://localhost:8080/assets/runtime.js",
-  "assets/vendors~app.js": "http://localhost:8080/assets/vendors~app.js"
+  "assets/vendors~app.js": "http://localhost:8080/assets/vendors~app.js",
+  "assets/images/select.svg": "http://localhost:8080/assets/images/select.9f46e6d8.svg"
 }
