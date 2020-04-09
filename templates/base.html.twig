@@ -6,46 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Fresh Food{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap"
+        rel="stylesheet">
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
 </head>
 
 <body>
     <nav class="nav">
+        {% if app.user %}
         <ul class="nav__menu">
             <li class="nav__home {{ app.request.get('_route') == 'home' ? 'active' }}">
                 <a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a>
             </li>
             <li><a href="#">{{ icon('shopping-cart') }} Mes Achats</a></li>
-            <li class="{{ app.request.get('_route') == 'app_admin_product_new' ? 'active' }}">
-                <a href="{{ path('app_admin_product_new') }}">{{ icon('add') }} Ajouter</a>
-            </li>
             <li class="{{ app.request.get('_route') == 'app_product_index' ? 'active' }}">
                 <a href="{{ path('app_product_index')}}">{{ icon('bags') }} Mes produits</a>
             </li>
             <li><a href="#">{{ icon('contact') }} Contact</a></li>
         </ul>
+        {% else %}
+        {% endif %}
+        {% if app.user %}
         <ul class="nav__side">
             <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
-            {% if app.user %}
-                <li class="nav__account"><a href="{{ path('security_logout') }}">{{ icon('user') }} {{ app.user.username }}</a></li>    
-            {% else %}
-                <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a></li>
-            {% endif %}
+            <li class="nav__account"><a href="{{ path('security_logout') }}">{{ icon('door') }}{{ app.user.username }}</a></li>
         </ul>
+        {% else %}
+        <ul class="nav__side">
+            <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
+            <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a></li>
+        </ul>
+        {% endif %}
+        </ul>
+        {% if app.user %}
         <button class="nav__burger">
             <span></span>
         </button>
+        {% else %}
+        {% endif %}
     </nav>
-    {% for label, messages in app.flashes %} 
-        {% for message in messages %}
-        <div class="{{ label }}">
-            {{ message }}
-        </div>
-        {% endfor %} 
-    {% endfor %} 
+    {% for label, messages in app.flashes %}
+    {% for message in messages %}
+    <div class="{{ label }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endfor %}
     {% block body %}
-    {% endblock %} 
+    {% endblock %}
     {% block javascripts %}{{ encore_entry_script_tags('app')}}{% endblock %}
 </body>
 

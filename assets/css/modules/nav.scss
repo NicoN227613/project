@@ -23,9 +23,7 @@
         color: var(--contrast);
     }
 }
-.nav__menu li.active > a {
-    color: var(--contrast);
-}
+.nav__menu li.active > a,
 .nav__side li.active > a {
     color: var(--contrast);
 }
@@ -45,8 +43,14 @@
 .nav__home + li {
     margin-left: 0;
 }
-
 @media only screen and (max-width: 768px) {
+    .nav__menu svg,
+    .nav__home {
+        display: none;
+    }
+    .nav__home {
+        border-right: none;
+    }
     .nav__menu {
         display: flex;
         position: fixed;
@@ -69,7 +73,7 @@
         transition: transform .5s, opacity .5s;
         opacity: 0;
     }
-    @each $i in 2, 3, 4, 5 {
+    @each $i in 2, 3, 4{
         .nav__menu > *:nth-child(#{$i}n) {
             transition-delay: $i * .1s;
         }
