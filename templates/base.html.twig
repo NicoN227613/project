@@ -45,13 +45,6 @@
         {% else %}
         {% endif %}
     </nav>
-    {% for label, messages in app.flashes %}
-    {% for message in messages %}
-    <div class="{{ label }}">
-        {{ message }}
-    </div>
-    {% endfor %}
-    {% endfor %}
     {% block body %}
     {% endblock %}
     {% block javascripts %}{{ encore_entry_script_tags('app')}}{% endblock %}

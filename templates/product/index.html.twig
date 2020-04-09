@@ -1,8 +1,15 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+{% for label, messages in app.flashes %}
+{% for message in messages %}
+<div class="{{ label }}">
+    {{ message }}
+</div>
+{% endfor %}
+{% endfor %}
 <h1>{{'product.index.title' | trans }}</h1>
-<a href="{{ path('app_admin_product_new') }}">{{'product.action.new' | trans }}</a>
+<a href="{{ path('app_product_new') }}">{{'product.action.new' | trans }}</a>
 <ul>
     {% for product in products %}
     <li>{{ product.name }}</li>
