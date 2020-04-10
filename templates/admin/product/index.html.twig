@@ -10,7 +10,7 @@
         <form class="dashboard__search form__search">
             <input type="text" name="q" placeholder="Rechercher un produit">
         </form>
-        <a href="#" class="dashboard__btn">Ajouter un produit</a>
+        <a href="{{ path('app_admin_product_new')}}" class="dashboard__btn">Ajouter un produit</a>
     </div>
     <table class="table">
         <thead>
@@ -37,7 +37,11 @@
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ link }}">{{ icon('edit')}}</a>
-                        <a href="">{{ icon('trash')}}</a>
+                        <form method="POST" action="{{ path('app_admin_product_delete', {id: product.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+                            <button>{{ icon('trash')}}</button>
+                        </form>
                     </div>
                 </td>
             </tr>

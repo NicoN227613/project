@@ -45,7 +45,7 @@ class ProductController extends BaseController
             $manager->flush();
 
             $this->addFlash('success', 'Nouveau produit créé');
-            return $this->redirectToRoute('app_product_show', [
+            return $this->redirectToRoute('products_index', [
                 'id' => $product->getId(),
             ]);
         }
@@ -76,5 +76,18 @@ class ProductController extends BaseController
             'product' => $product,
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     *@Route("/product/{id}", requirements={"id": "\d+"}, methods="DELETE")
+     */
+    public function delete(Product $product, Request $request, EntityManagerInterface $manager)
+    {
+        if($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))){
+            $manager->remove($product);
+            $manager->flush();
+            $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était supprimé!');
+        }
+        return $this->redirectToRoute('products_index');
     }
 }

@@ -92,6 +92,7 @@ class ProductController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
     /**
      *@Route("/{id}", requirements={"id": "\d+"}, methods="DELETE")
      */
@@ -100,7 +101,7 @@ class ProductController extends AbstractController
         if($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))){
             $this->manager->remove($product);
             $this->manager->flush();
-            $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était supprimé!');
+            $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était supprimé !');
         }
         return $this->redirectToRoute('app_product_index');
     }

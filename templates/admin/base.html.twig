@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}Fresh Food{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap"
+        rel="stylesheet">
     {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('app') }}
     {% endblock %}
     {% block javascripts %}
-        {{ encore_entry_script_tags('app')}}
+    {{ encore_entry_script_tags('app')}}
     {% endblock %}
 </head>
 
@@ -31,25 +32,28 @@
         </ul>
         <ul class="nav__side">
             {% if app.user %}
-                <li class="nav__account"><a href="{{ path('security_logout') }}" title="Se déconnecter">{{ icon('door') }} {{ app.user.username }}</a></li>    
+            <li class="nav__account"><a href="{{ path('security_logout') }}" title="Se déconnecter">{{ icon('door') }}
+                    {{ app.user.username }}</a></li>
             {% else %}
-                <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a></li>
+            <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a
+                    href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a></li>
             {% endif %}
         </ul>
         <button class="nav__burger">
             <span></span>
         </button>
     </nav>
-    {% for label, messages in app.flashes %} 
+    <div class="container">
+        {% for label, messages in app.flashes %}
         {% for message in messages %}
         <div class="{{ label }}">
             {{ message }}
         </div>
-        {% endfor %} 
-    {% endfor %}
-    <div class="container">
-        {% block body %}{% endblock %} 
-    </div>  
-    
+        {% endfor %}
+        {% endfor %}
+        {% block body %}{% endblock %}
+    </div>
+
 </body>
+
 </html>
