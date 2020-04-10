@@ -10,6 +10,7 @@
     --btn_submit: #00FF00;
     --btn_submit_hover: #00FF00;
     --switch: #00FF00;
+    --red: #FB4635;
 }
 // Outils
 // ==================
@@ -34,10 +35,13 @@ body {
 @import "modules/btn";
 @import "modules/form";
 @import "modules/switch";
+@import "modules/table";
+@import "modules/card";
 
 // Pages
 // ==================
-@import "pages/products.scss";
+@import "pages/products";
+@import "pages/dashboard";
 
 
 

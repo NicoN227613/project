@@ -4,20 +4,31 @@ namespace App\Controller\Admin;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/admin/product")
  * @IsGranted("ROLE_ADMIN")
  */
-class ProductController extends AbstractController 
+class ProductController extends BaseController 
 {
     /**
-     * @Route("/new", methods={"GET", "POST"})
+    * @Route("/products", name="products_index", methods="GET")
+    */
+    public function index(ProductRepository $repository)
+    {
+        $products = $repository->findAll();
+
+        return $this->render('admin/product/index.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
+    /**
+     * @Route("product/new", methods={"GET", "POST"})
      * @IsGranted("ROLE_AUTHOR")
      */
     public function new(Request $request, EntityManagerInterface $manager)
@@ -39,13 +50,13 @@ class ProductController extends AbstractController
             ]);
         }
 
-        return $this->render('product/new.html.twig', [
+        return $this->render('admin/product/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", methods={"GET", "PUT"})
+     * @Route("/product/{id}/edit", methods={"GET", "PUT"})
      * @IsGranted("PRODUCT_EDIT", subject="product")
      */
     public function edit(Product $product, Request $request, EntityManagerInterface $manager){
@@ -59,11 +70,9 @@ class ProductController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
             $this->addFlash('success', 'Le produit ' . $product->getName() . ' a bien était modifié !');
-            return $this->redirectToRoute('app_product_show', [
-                'id' => $product->getId(),
-            ]);
+            return $this->redirectToRoute('products_index');
         }
-        return $this->render('product/edit.html.twig', [
+        return $this->render('admin/product/edit.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
         ]);

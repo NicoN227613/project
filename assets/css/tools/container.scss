@@ -2,7 +2,8 @@
     --container-padding: 20px;
     --container-width: calc(100% - var(--container-padding) * 2);
 }
-%container {
+%container,
+.container {
     box-sizing: border-box;
     width: 100%;
     padding-left: calc(50% - var(--container-width) / 2);
