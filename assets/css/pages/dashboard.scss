@@ -26,13 +26,7 @@
 }
 .dashboard__search input {
     max-width: 300px;
-    background: url(../../../public/input-search.svg) right 16px center / 12px 12px no-repeat;
-}
-.dashboard__btn {
-    @extend .btn;
-    background: var(--green);
-    color: #FFFFFF;
-    border-radius: 4px;
+    background: var(--background);
 }
 .form__search input {
     display: flex;
@@ -61,10 +55,14 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
+
+    & > * + * {
+        margin-left: 8px;
+      }
+}
+.dashboard__actions button svg {
+    color: var(--red);
 }
 .text-right {
     text-align: right!important;
-}
-.text-center {
-    text-align: center!important;    
 }

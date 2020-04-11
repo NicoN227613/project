@@ -10,10 +10,11 @@
 {% endfor %}
 <h1>{{'product.index.title' | trans }}</h1>
 <a href="{{ path('app_product_new') }}">{{'product.action.new' | trans }}</a>
+{% for product in products %}
 <ul>
-    {% for product in products %}
     <li>{{ product.name }}</li>
     <a href="{{ path('app_product_show', { id: product.id }) }}">{{'product.action.see' | trans }}</a>
-    {% endfor %}
 </ul>
+
+{% endfor %}
 {% endblock body %}

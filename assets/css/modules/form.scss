@@ -9,7 +9,7 @@
     height: 60px;
     display: flex;
     align-items: stretch;
-    border-radius: 100px;
+    border-radius: 8px;
     svg {
         width: 25px;
         height: 25px;
@@ -34,7 +34,7 @@
         bottom: 0;
         right: 0;
         background-color: #F9F9F9;
-        border-radius: 100px;
+        border-radius: 8px;
     }
 }
 .form__control {
@@ -58,6 +58,8 @@ select.form__control + label::before {
     width: 16px;
     height: 9px;
     margin-top: -4px;
+}.form__group .form__control:hover + label {
+    color: #00FF00;
 }
 .form__group .form__control:focus + label {
     color: #00FF00;
@@ -66,5 +68,18 @@ select.form__control + label::before {
     background: #FFFFFF;
     border: 2px solid #00FF00;
     box-shadow: 0px 1px 3px rgba(238, 238, 238, 0.85);
-    border-radius: 100px;
+    border-radius: 8px;
+}
+.row {
+    display: grid;
+    grid-template-columns: 1fr; 
+    grid-gap: 16px;
+
+    @media only screen and (min-width: 900px) {
+        align-items: center;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+}
+.stack > * + * {
+    margin-top: 16px;
 }

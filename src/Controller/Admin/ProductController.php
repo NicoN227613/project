@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -18,9 +19,13 @@ class ProductController extends BaseController
     /**
     * @Route("/products", name="products_index", methods="GET")
     */
-    public function index(ProductRepository $repository)
+    public function index(ProductRepository $repository, PaginatorInterface $paginator, Request $request)
     {
-        $products = $repository->findAll();
+        $products = $paginator->paginate(
+            $repository->findAll(),
+            $request->query->getInt('page', 1),
+            5
+        );
 
         return $this->render('admin/product/index.html.twig', [
             'products' => $products,
@@ -68,6 +73,7 @@ class ProductController extends BaseController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $product->setUpdatedAt(new \DateTime());
             $manager->flush();
             $this->addFlash('success', 'Le produit ' . $product->getName() . ' a bien était modifié !');
             return $this->redirectToRoute('products_index');

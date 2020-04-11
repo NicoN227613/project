@@ -28,8 +28,7 @@
     color: var(--color);
     opacity: .5;
     transition: .3s;
-
-    & :hover {
-        opacity: 1;
-    }
+}
+.table svg:hover {
+   opacity: 1; 
 }
