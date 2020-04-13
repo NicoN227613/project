@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
+use App\Entity\ProductSearch;
+use App\Form\ProductSearchType;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,24 +19,28 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class ProductController extends BaseController 
 {
     /**
-    * @Route("/products", name="products_index", methods="GET")
+    * @Route("/products", methods="GET")
     */
     public function index(ProductRepository $repository, PaginatorInterface $paginator, Request $request)
     {
+        $search = new ProductSearch();
+        $form = $this->createForm(ProductSearchType::class, $search);
+        $form->handleRequest($request);
+
         $products = $paginator->paginate(
-            $repository->findAll(),
+            $repository->findAllById($search),
             $request->query->getInt('page', 1),
             5
         );
 
         return $this->render('admin/product/index.html.twig', [
             'products' => $products,
+            'form' => $form->createView()
         ]);
     }
 
     /**
      * @Route("product/new", methods={"GET", "POST"})
-     * @IsGranted("ROLE_AUTHOR")
      */
     public function new(Request $request, EntityManagerInterface $manager)
     {
@@ -64,8 +70,9 @@ class ProductController extends BaseController
      * @Route("/product/{id}/edit", methods={"GET", "PUT"})
      * @IsGranted("PRODUCT_EDIT", subject="product")
      */
-    public function edit(Product $product, Request $request, EntityManagerInterface $manager){
-        
+    public function edit(Product $product, Request $request, EntityManagerInterface $manager)
+    {
+
         $form = $this->createForm(ProductType::class, $product, [
             'method' => 'PUT',
         ]);

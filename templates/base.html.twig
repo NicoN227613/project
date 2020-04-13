@@ -29,12 +29,14 @@
         {% if app.user %}
         <ul class="nav__side">
             <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
-            <li class="nav__account"><a href="{{ path('security_logout') }}">{{ icon('door') }}{{ app.user.username }}</a></li>
+            <li class="nav__account"><a
+                    href="{{ path('security_logout') }}">{{ icon('door') }}{{ app.user.username }}</a></li>
         </ul>
         {% else %}
         <ul class="nav__side">
             <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
-            <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a></li>
+            <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a
+                    href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a></li>
         </ul>
         {% endif %}
         </ul>
@@ -46,6 +48,14 @@
         {% endif %}
     </nav>
     {% block body %}
+    <div class="container">
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_admin_page_index') }}">Accéder à l'administration</a>
+        {% endif %}
+        {% if is_granted('ROLE_USER') %}
+
+        {% endif %}
+    </div>
     {% endblock %}
     {% block javascripts %}{{ encore_entry_script_tags('app')}}{% endblock %}
 </body>

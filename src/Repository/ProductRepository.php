@@ -4,9 +4,11 @@ namespace App\Repository;
 
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Entity\ProductSearch;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +21,21 @@ class ProductRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Product::class);
+    }
+
+    /**
+     * @return Query
+     */
+    public function findAllById(ProductSearch $search): Query
+    {
+        $query =  $this->createQueryBuilder('p');
+
+        if($search->getName()) {
+            $query = $query->where('p.name LIKE :name')
+            ->setParameter('name', $search->getName());
+        }
+
+        return $query->getQuery();
     }
 
      /**
