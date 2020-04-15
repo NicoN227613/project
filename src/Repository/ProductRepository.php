@@ -26,9 +26,10 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * @return Query
      */
-    public function findAllById(ProductSearch $search): Query
+    public function findAllProducts(ProductSearch $search): Query
     {
-        $query =  $this->createQueryBuilder('p');
+        $query =  $this->createQueryBuilder('p')
+                        ->orderBy('p.id', 'DESC');
 
         if($search->getName()) {
             $query = $query->where('p.name LIKE :name')

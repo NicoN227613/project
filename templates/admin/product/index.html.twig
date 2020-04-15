@@ -2,7 +2,7 @@
 
 {% block body %}
 <div class="dashboard__title">
-    {{ icon('pen') }}
+    {{ icon('bags') }}
     Gestion des produits
 </div>
 <div class="dashboard__card">
@@ -12,7 +12,7 @@
         </form>#}
         {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
         {{ form_end(form)}}
-        <a href="{{ path('app_admin_product_new')}}" class="btn">Ajouter un produit</a>
+        <a href="{{ path('admin_product_new')}}" class="btn">Ajouter un produit</a>
     </div>
     <table class="table">
         <thead>
@@ -28,15 +28,16 @@
         <tbody>
             {% for product in products %}
             <tr>
-                <td>{{ product.id }}</th>
-                <td>{{ product.name }}</th>
-                <td>{{ product.author.email }}</th>
-                <td>{{ product.createdAt | date('d F Y') }}</th>
-                <td>{{ product.updatedAt | date('d F Y H:i') }}</th>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.author.email }}</td>
+                <td>{{ product.createdAt | date('d F Y') }}</td>
+                <td>{{ product.updatedAt | date('d F Y H:i') }}</td>
                 <td>
                     <div class="dashboard__actions">
-                        <a href="{{ path('app_admin_product_edit', {id: product.id}) }}">{{ icon('edit')}}</a>
-                        <form method="POST" action="{{ path('app_admin_product_delete', {id: product.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
+                        <a href="#">{{ icon('eye') }}</a>
+                        <a href="{{ path('admin_product_edit', {id: product.id}) }}">{{ icon('edit')}}</a>
+                        <form method="POST" action="{{ path('admin_product_delete', {id: product.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
                             <button>{{ icon('trash')}}</button>

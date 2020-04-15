@@ -1,0 +1,51 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+<div class="dashboard__title">
+    {{ icon('user') }}
+    Gestion des utilisateurs
+</div>
+<div class="dashboard__card">
+    <div class="dashboard__card__top">
+        {#<form class="dashboard__search form__search">
+            <input type="text" name="q" placeholder="Rechercher un produit">
+        </form>#}
+        {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
+        {{ form_end(form)}}
+        <a href="{{ path('admin_user_new')}}" class="btn">Ajouter un utilisateur</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pseudo</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td></td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles[0] }}</td>
+                <td>
+                    <div class="dashboard__actions">
+                        <a href="#">{{ icon('edit')}}</a>
+                        <form method="POST" action="#" onsubmit="return confirm('Etes-vous sur de supprimer ce compte ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                            <button>{{ icon('trash')}}</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(users) }}
+</div>
+
+{% endblock %}

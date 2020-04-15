@@ -20,11 +20,14 @@
     <nav class="nav">
         <ul class="nav__menu">
             {% if app.user %}
-            <li class="nav__home {{ app.request.get('_route') == 'app_admin_page_index' ? 'active' }}">
-                <a href="{{ path('app_admin_page_index') }}" title="Accueil">{{ icon('home') }}</a>
+            <li class="nav__home {{ app.request.get('_route') == 'admin_home' ? 'active' }}">
+                <a href="{{ path('admin_home') }}" title="Accueil">{{ icon('home') }}</a>
             </li>
-            <li class="{{ app.request.get('_route') == 'app_admin_product_index' ? 'active' }}">
-                <a href="{{ path('app_admin_product_index')}}">{{ icon('bags') }} Produits</a>
+            <li class="{{ app.request.get('_route') == 'admin_user_index' ? 'active' }}">
+                <a href="{{ path('admin_user_index')}}">{{ icon('user') }} Comptes</a>
+            </li>
+            <li class="{{ app.request.get('_route') == 'admin_product_index' ? 'active' }}">
+                <a href="{{ path('admin_product_index')}}">{{ icon('bags') }} Produits</a>
             </li>
             {% else %}
 
@@ -32,8 +35,7 @@
         </ul>
         <ul class="nav__side">
             {% if app.user %}
-            <li class="nav__account"><a href="{{ path('security_logout') }}" title="Se déconnecter">{{ icon('door') }}
-                    {{ app.user.username }}</a></li>
+            <li class="nav__account"><a href="{{ path('security_logout') }}" title="Se déconnecter">{{ icon('door') }}{{ app.user.username }}</a></li>
             {% else %}
             <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a
                     href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a></li>

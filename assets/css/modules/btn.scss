@@ -1,4 +1,4 @@
-.btn__submit {
+.btn {
     font-family: $f-r;
     font-weight: normal;
     font-size: 14px;
@@ -6,13 +6,24 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    color: var(--btn_submit);
+    color: #FFFFFF;
     cursor: pointer;
     padding: 14px 24px;
+    background: var(--btn);
+    border: 2px solid var(--btn);
+    border-radius: 8px; 
+}
+.btn__submit {
+    @extend .btn;
+    color: var(--btn_submit);
     background: transparent;
-    border: 2px solid var(--btn_submit);
-    border-radius: 8px;
- }
+}
+.btn__submit svg {
+    display: none;
+}
+.btn__submit:hover svg {
+    display: flex;
+}
 .btn__text {
     color: #FFFFFF;
     background: var(--btn_submit);
@@ -24,16 +35,4 @@
     color: var(--btn_submit_hover);
     background: #FFFFFF;
     border: 2px solid var(--btn_submit_hover);
-}
-.btn__submit svg {
-    display: none;
-}
-.btn__submit:hover svg {
-    display: flex;
-}
-.btn {
-    @extend .btn__submit;
-    background: var(--green);
-    color: #FFFFFF;
-    border-radius: 8px;
 }

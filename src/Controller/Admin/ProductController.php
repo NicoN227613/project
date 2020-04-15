@@ -16,10 +16,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * @IsGranted("ROLE_ADMIN")
  */
-class ProductController extends BaseController 
+final class ProductController extends BaseController
 {
     /**
-    * @Route("/products", methods="GET")
+    * @Route("/products", name="product_index", methods="GET")
     */
     public function index(ProductRepository $repository, PaginatorInterface $paginator, Request $request)
     {
@@ -28,7 +28,7 @@ class ProductController extends BaseController
         $form->handleRequest($request);
 
         $products = $paginator->paginate(
-            $repository->findAllById($search),
+            $repository->findAllProducts($search),
             $request->query->getInt('page', 1),
             5
         );
@@ -40,7 +40,7 @@ class ProductController extends BaseController
     }
 
     /**
-     * @Route("product/new", methods={"GET", "POST"})
+     * @Route("product/new", name="product_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $manager)
     {
@@ -48,7 +48,6 @@ class ProductController extends BaseController
         $product->setAuthor($this->getUser());
 
         $form = $this->createForm(ProductType::class, $product);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -67,7 +66,7 @@ class ProductController extends BaseController
     }
 
     /**
-     * @Route("/product/{id}/edit", methods={"GET", "PUT"})
+     * @Route("/product/{id}/edit", name="product_edit", methods={"GET", "PUT"})
      * @IsGranted("PRODUCT_EDIT", subject="product")
      */
     public function edit(Product $product, Request $request, EntityManagerInterface $manager)
@@ -92,7 +91,7 @@ class ProductController extends BaseController
     }
 
     /**
-     *@Route("/product/{id}", requirements={"id": "\d+"}, methods="DELETE")
+     *@Route("/product/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      */
     public function delete(Product $product, Request $request, EntityManagerInterface $manager)
     {

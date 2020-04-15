@@ -7,10 +7,12 @@
     --border: #5C5C5C;
     --green: #00FF00;
     --label:  #5C5C5C;
+    --btn: #23DB72;
     --btn_submit: #00FF00;
     --btn_submit_hover: #00FF00;
     --switch: #00FF00;
     --red: #FB4635;
+    
 }
 // Outils
 // ==================
@@ -22,7 +24,7 @@
 // ==================
 body {
     font-family: $f-r;
-    font-style: 16px;
+    font-size: 16px;
     line-height: 1.4;
     color: var(--color);
     background: var(--background);
