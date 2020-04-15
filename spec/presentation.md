@@ -1,0 +1,12 @@
+- Ce site 
+- architecture technique symfony/MySQL
+- La cible:
+    - Tout le monde qui sont contre le gaspillage, et qui ont un pouvoir d'achat
+- 3 principales fonctionnalités:
+    - Système d'authentification 
+    - CRUD de produits alimentaires
+    - ajouter des produits dans un panier pour créer une liste de course
+    - Système de contact
+    - Système de préférence (couleur pour les différentes)
+- Avantage décisif:
+    - Notification Date de péremption
