@@ -1,0 +1,1 @@
+Gestion des utilisateurs, des produits, des catégories des emplacements et des unités
