@@ -12,6 +12,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -63,5 +64,20 @@ class UserController extends BaseController
         return $this->render('admin/user/new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/user/{id}", name="user_delete", requirements={"id": "\d+"}, methods="DELETE")
+     * @ParamConverter("user", options={"id" = "id"})
+     */
+    public function delete(User $user, Request $request, EntityManagerInterface $manager)
+    {
+        if($this->isCsrfTokenValid('delete' . $user->getId(),
+        $request->get('_token'))){
+            $manager->remove($user);
+            $manager->flush();
+            $this->addFlash('success', 'L utilisateur ' . $user->getEmail() . ' a bien était supprimé!');
+        }
+        return $this->redirectToRoute('user_index');
     }
 }

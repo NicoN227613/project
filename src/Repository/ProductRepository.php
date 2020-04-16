@@ -22,7 +22,7 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
-
+    
     /**
      * @return Query
      */

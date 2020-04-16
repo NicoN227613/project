@@ -3,15 +3,16 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
+use App\Form\ProductType;
 use App\Entity\ProductSearch;
 use App\Form\ProductSearchType;
-use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -55,7 +56,7 @@ final class ProductController extends BaseController
             $manager->flush();
 
             $this->addFlash('success', 'Nouveau produit créé');
-            return $this->redirectToRoute('products_index', [
+            return $this->redirectToRoute('product_index', [
                 'id' => $product->getId(),
             ]);
         }
@@ -82,7 +83,7 @@ final class ProductController extends BaseController
             $product->setUpdatedAt(new \DateTime());
             $manager->flush();
             $this->addFlash('success', 'Le produit ' . $product->getName() . ' a bien était modifié !');
-            return $this->redirectToRoute('products_index');
+            return $this->redirectToRoute('product_index');
         }
         return $this->render('admin/product/edit.html.twig', [
             'product' => $product,
@@ -92,14 +93,15 @@ final class ProductController extends BaseController
 
     /**
      *@Route("/product/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
+     * @ParamConverter("product", options={"id" = "id"})
      */
     public function delete(Product $product, Request $request, EntityManagerInterface $manager)
     {
         if($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))){
             $manager->remove($product);
             $manager->flush();
-            $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était supprimé!');
+            $this->addFlash('success', 'Le produit ' . $product->getName() . ' a bien était supprimé!');
         }
-        return $this->redirectToRoute('products_index');
+        return $this->redirectToRoute('product_index');
     }
 }

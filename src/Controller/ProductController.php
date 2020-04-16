@@ -6,10 +6,10 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/product")
@@ -27,8 +27,7 @@ class ProductController extends AbstractController
     */
     public function index()
     {
-        $products = $this->repository->findWithCategories();
-
+        $products = $this->repository->findAll();
         return $this->render('product/index.html.twig', [
             'products' => $products,
         ]);
