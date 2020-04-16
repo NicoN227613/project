@@ -3,16 +3,17 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use App\Form\UserType;
 use App\Entity\UserSearch;
+use App\Form\UserType;
 use App\Form\UserSearchType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -20,21 +21,27 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserController extends BaseController
 {
+    public function __construct(UserRepository $repository, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    {
+        $this->repository = $repository;
+        $this->manager = $manager;
+        $this->encoder = $encoder;
+    }
+
     /**
     * @Route("/users", name="user_index", methods="GET")
     */
-    public function index(UserRepository $repository, PaginatorInterface $paginator, Request $request)
+    public function index(PaginatorInterface $paginator, Request $request)
     {
         $search = new UserSearch();
         $form = $this->createForm(UserSearchType::class, $search);
         $form->handleRequest($request);
 
         $users = $paginator->paginate(
-            $repository->findAllUsers($search),
+            $this->repository->findAllUsers($search),
             $request->query->getInt('page', 1),
             7
         );
-
         return $this->render('admin/user/index.html.twig', [
             'users' => $users,
             'form' => $form->createView()
@@ -44,7 +51,7 @@ class UserController extends BaseController
     /**
      * @Route("user/new", name="user_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    public function new(Request $request)
     {
         $user = new User();
 
@@ -52,12 +59,10 @@ class UserController extends BaseController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-
+            $hash = $this->encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
-            $manager->persist($user);
-            $manager->flush();
-
+            $this->manager->persist($user);
+            $this->manager->flush();
             $this->addFlash('success', 'Nouveau utilisateur crée');
             return $this->redirectToRoute('user_index');
         }
@@ -67,15 +72,38 @@ class UserController extends BaseController
     }
 
     /**
+     * @Route("/user/{id}/edit", name="user_edit", methods={"GET", "PUT"})
+     */
+    public function edit(User $user, Request $request)
+    {
+        $form = $this->createForm(UserType::class, $user, [
+            'method' => 'PUT',
+        ]);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $hash = $this->encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hash);
+            $this->manager->flush();
+            $this->addFlash('success', "L'utilisateur " . $user->getEmail() . " a bien était modifié !");
+            return $this->redirectToRoute('user_index');
+        }
+        return $this->render('admin/user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/user/{id}", name="user_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("user", options={"id" = "id"})
      */
-    public function delete(User $user, Request $request, EntityManagerInterface $manager)
+    public function delete(User $user, Request $request)
     {
         if($this->isCsrfTokenValid('delete' . $user->getId(),
         $request->get('_token'))){
-            $manager->remove($user);
-            $manager->flush();
+            $this->manager->remove($user);
+            $this->manager->flush();
             $this->addFlash('success', 'L utilisateur ' . $user->getEmail() . ' a bien était supprimé!');
         }
         return $this->redirectToRoute('user_index');
