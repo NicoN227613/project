@@ -1,0 +1,47 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+<div class="dashboard__title">
+    {{ icon('category') }}
+    Gestion des categories
+</div>
+<div class="dashboard__card">
+    <div class="dashboard__card__top">
+        {#<form class="dashboard__search form__search">
+            <input type="text" name="q" placeholder="Rechercher un produit">
+        </form>#}
+        {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
+        {{ form_end(form)}}
+        <a href="{{ path('admin_category_new') }}" class="btn">Ajouter une categorie</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+                <td>
+                    <div class="dashboard__actions">
+                        <a href="#">{{ icon('edit')}}</a>
+                        <form method="POST" action="#" onsubmit="return confirm('Etes-vous sur de supprimer cette catégorie ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                            <button>{{ icon('trash')}}</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(categories) }}
+</div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "admin/base.html.twig" %}
+
+{% block body %}
+{{ form_start(form, { 'attr' : { 'class' : 'form'}})}}
+{{ form_errors(form.name) }}
+<div class="form__group">
+    {{ form_widget(form.name, { 'attr' : { 'class' : 'form__control'}})}}
+    <label for="inputEmail">Nom</label>
+</div>
+<button type="submit" class="btn__submit btn__text">Créer{{ icon('arrow_right') }}</button>
+{{ form_end(form)}}
+{% endblock %}
