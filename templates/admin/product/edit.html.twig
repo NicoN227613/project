@@ -5,8 +5,5 @@
     {{ icon('pen') }}
     Edition d'un produit
 </div>
-
-<div class="dashboard__card">
-    {{ include('admin/product/_form.html.twig', {form: form, action: 'product.action.edit' | trans }) }}
-</div>
+{{ include('admin/product/_form.html.twig', {form: form, action: 'product.action.edit' | trans }) }}
 {% endblock %}

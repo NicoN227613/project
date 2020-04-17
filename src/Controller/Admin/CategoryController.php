@@ -12,6 +12,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -64,4 +65,39 @@ final class CategoryController extends BaseController
         ]);
     }
 
+    /**
+     * @Route("/category/{id}/edit", name="category_edit", methods={"GET", "PUT"})
+     */
+    public function edit(Category $category, Request $request)
+    {
+        $form = $this->createForm(CategoryType::class, $category, [
+            'method' => 'PUT',
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $this->manager->flush();
+            $this->addFlash('success', 'La catégorie ' . $category->getName() . ' a bien était modifiée !');
+            return $this->redirectToRoute('category_index');
+        }
+        return $this->render('admin/category/edit.html.twig', [
+            'category' => $category,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/category/{id}", name="category_delete", requirements={"id": "\d+"}, methods="DELETE")
+     * @ParamConverter("category", options={"id" = "id"})
+     */
+    public function delete(Category $category, Request $request, EntityManagerInterface $manager)
+    {
+        if($this->isCsrfTokenValid('delete' . $category->getId(), $request->get('_token'))){
+            $this->manager->remove($category);
+            $this->manager->flush();
+            $this->addFlash('success', 'La catégorie ' . $category->getName() . ' a bien était supprimée !');
+        }
+        return $this->redirectToRoute('category_index');
+    }
 }

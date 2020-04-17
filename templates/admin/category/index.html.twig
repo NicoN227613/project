@@ -29,8 +29,8 @@
                 <td>{{ category.name }}</td>
                 <td>
                     <div class="dashboard__actions">
-                        <a href="#">{{ icon('edit')}}</a>
-                        <form method="POST" action="#" onsubmit="return confirm('Etes-vous sur de supprimer cette catégorie ?')">
+                        <a href="{{ path('admin_category_edit', {id: category.id}) }}">{{ icon('edit')}}</a>
+                        <form method="POST" action="{{ path('admin_category_delete', {id: category.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer cette catégorie ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
                             <button>{{ icon('trash')}}</button>
