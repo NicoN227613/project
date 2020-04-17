@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use Doctrine\ORM\Query;
 use App\Entity\Category;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\CategorySearch;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +21,20 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+    /**
+     * @return Query
+     */
+    public function findAllCategories(CategorySearch $search): Query
+    {
+        $query = $this->createQueryBuilder('c')
+                        ->orderBy('c.id', 'DESC');
+
+        if($search->getName()) {
+            $query = $query->where('c.name LIKE :name')
+            ->setParameter('name', $search->getName());
+        }
+        return $query->getQuery();
+    }
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */

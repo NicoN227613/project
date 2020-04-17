@@ -19,8 +19,8 @@
                 <a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a>
             </li>
             <li><a href="#">{{ icon('shopping-cart') }} Mes Achats</a></li>
-            <li class="{{ app.request.get('_route') == 'app_product_index' ? 'active' }}">
-                <a href="{{ path('app_product_index')}}">{{ icon('bags') }} Mes produits</a>
+            <li class="{{ app.request.get('_route') == 'product_index' ? 'active' }}">
+                <a href="{{ path('product_index')}}">{{ icon('bags') }} Mes produits</a>
             </li>
             <li><a href="#">{{ icon('contact') }} Contact</a></li>
         </ul>

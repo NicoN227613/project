@@ -29,6 +29,9 @@
             <li class="{{ app.request.get('_route') == 'admin_product_index' ? 'active' }}">
                 <a href="{{ path('admin_product_index')}}">{{ icon('bags') }} Produits</a>
             </li>
+            <li class="{{ app.request.get('_route') == 'admin_category_index' ? 'active' }}">
+                <a href="{{ path('admin_category_index')}}">{{ icon('category') }} Catégories</a>
+            </li>
             {% else %}
 
             {% endif %}

@@ -6,10 +6,10 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/product")
@@ -23,19 +23,19 @@ class ProductController extends AbstractController
     }
 
     /**
-    * @Route("", methods="GET", name="app_product_index")
+    * 
+    * @Route("", name="product_index", methods="GET")
     */
     public function index()
     {
-        $products = $this->repository->findWithCategories();
-
+        $products = $this->repository->findAll();
         return $this->render('product/index.html.twig', [
             'products' => $products,
         ]);
     }
 
     /**
-     * @Route("/{id}", requirements={"id": "\d+"})
+     * @Route("/{id}", name="product_show", requirements={"id": "\d+"})
      */
     public function show(Product $product, ValidatorInterface $validator)
     {
@@ -47,7 +47,7 @@ class ProductController extends AbstractController
     }
     
     /**
-     *@Route("/new")
+     *@Route("/new", name="product_new")
      */
     public function new(Request $request)
     {
@@ -71,7 +71,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     *@Route("/{id}/edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
+     *@Route("/{id}/edit", name="product_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
     public function edit(Product $product, Request $request)
     {
@@ -94,7 +94,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     *@Route("/{id}", requirements={"id": "\d+"}, methods="DELETE")
+     *@Route("/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      */
     public function delete(Product $product, Request $request)
     {

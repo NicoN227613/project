@@ -1,5 +1,7 @@
+PRESENTATION FRESH FOOD
+
 - Ce site sert à enregistrer des produits alimentaires avec des caractéristiques et notamment une date de péremption qui va servir à envoyer une notification lors de l'approche de cette date.
-- architecture technique:
+- Architecture technique:
     - Symfony
     - MySQL
     - HTML
@@ -17,4 +19,6 @@
     - Système de contact, pouvoir envoyer un mail avec un commentaire de réclamation par exemple
     - Système de préférence (couleurs pour les différentes catégories)
 - Avantage décisif:
-    - Notification lors de l'approche d'une date de péremption d'un produit
+    - Notification lors de l'approche d'une date de péremption ou d'une date à durée minimale d'un produit
+
+-Etapes nécessaire lors d'une récupération du projet:
