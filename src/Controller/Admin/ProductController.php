@@ -7,7 +7,9 @@ use App\Form\ProductType;
 use App\Entity\ProductSearch;
 use App\Form\ProductSearchType;
 use App\Repository\ProductRepository;
+use App\EventDeclenche\PeremptionHTML;
 use Doctrine\ORM\EntityManagerInterface;
+use App\EventListener\PeremptionListener;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,7 +35,7 @@ final class ProductController extends BaseController
             $request->query->getInt('page', 1),
             5
         );
-
+        
         return $this->render('admin/product/index.html.twig', [
             'products' => $products,
             'form' => $form->createView()
