@@ -23,7 +23,7 @@ class ProductController extends AbstractController
     }
 
     /**
-    * @Route("", methods="GET")
+    * @Route("", methods="GET", name="app_product_index")
     */
     public function index()
     {

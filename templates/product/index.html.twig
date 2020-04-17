@@ -12,7 +12,14 @@
 <a href="{{ path('app_product_new') }}">{{'product.action.new' | trans }}</a>
 {% for product in products %}
 <ul>
-    <li>{{ product.name }}</li>
+    <li>
+        {{ product.name }}
+        {% if product.expirationDate | date('d F Y') < "now" | date('d F Y') %}
+            <span style="background: red; color: white;">Périmé</span>
+        {% elseif product.bestBeforeDate | date('d F Y') < "now" | date('d F Y') %}
+            <span style="background: red; color: white;">Périmé</span>
+        {% endif %}
+    </li>
     <a href="{{ path('app_product_show', { id: product.id }) }}">{{'product.action.see' | trans }}</a>
 </ul>
 
