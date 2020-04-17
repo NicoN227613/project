@@ -37,7 +37,7 @@ final class EmplacementController extends BaseController
         $emplacements = $paginator->paginate(
             $this->repository->findAllEmplacements($search),
             $request->query->getInt('page', 1),
-            5
+            7
         );
         return $this->render('admin/emplacement/index.html.twig', [
             'emplacements' => $emplacements,

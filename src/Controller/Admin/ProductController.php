@@ -33,7 +33,7 @@ final class ProductController extends BaseController
         $products = $paginator->paginate(
             $repository->findAllProducts($search),
             $request->query->getInt('page', 1),
-            5
+            7
         );
         
         return $this->render('admin/product/index.html.twig', [
@@ -70,8 +70,8 @@ final class ProductController extends BaseController
 
     /**
      * @Route("/product/{id}/edit", name="product_edit", methods={"GET", "PUT"})
-     * @IsGranted("PRODUCT_EDIT", subject="product")
      */
+     // @IsGranted("PRODUCT_EDIT", subject="product")
     public function edit(Product $product, Request $request, EntityManagerInterface $manager)
     {
 

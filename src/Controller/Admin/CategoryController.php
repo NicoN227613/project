@@ -3,8 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
-use App\Form\CategoryType;
 use App\Entity\CategorySearch;
+use App\Form\CategoryType;
 use App\Form\CategorySearchType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
