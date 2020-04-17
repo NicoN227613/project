@@ -9,15 +9,15 @@
     <h3>Date d'achat : {{ product.purchaseDate | date('d F Y') }}</h3>
     <h3>A consommer avant le : {{ product.expirationDate | date('d F Y') }}</h3>
     <h3>Ajouter le : {{ product.createdAt | date('d F Y') }}</h3>
-    <a href="{{ path('app_product_edit', {id: product.id}) }}">
+    <a href="{{ path('product_edit', {id: product.id}) }}">
         {{'product.action.edit' | trans }}
     </a>
-    <form method="POST" action="{{ path('app_product_delete', {id: product.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
+    <form method="POST" action="{{ path('product_delete', {id: product.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
         <input type="hidden" name="_method" value="DELETE">
         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
         <button>Supprimer</button>
     </form>
-    <a href="{{ path('app_product_index')}}">
+    <a href="{{ path('product_index')}}">
         {{'product.action.back_to_list' | trans }}
     </a> 
 {% endblock body %}

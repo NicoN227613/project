@@ -9,11 +9,11 @@
 {% endfor %}
 {% endfor %}
 <h1>{{'product.index.title' | trans }}</h1>
-<a href="{{ path('app_product_new') }}">{{'product.action.new' | trans }}</a>
+<a href="{{ path('product_new') }}">{{'product.action.new' | trans }}</a>
 {% for product in products %}
 <ul>
     <li>{{ product.name }}</li>
-    <a href="{{ path('app_product_show', { id: product.id }) }}">{{'product.action.see' | trans }}</a>
+    <a href="{{ path('product_show', { id: product.id }) }}">{{'product.action.see' | trans }}</a>
 </ul>
 
 {% endfor %}

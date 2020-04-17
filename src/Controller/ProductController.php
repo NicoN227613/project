@@ -23,7 +23,7 @@ class ProductController extends AbstractController
     }
 
     /**
-    * @Route("", methods="GET")
+    * @Route("", name="product_index", methods="GET")
     */
     public function index()
     {
@@ -34,7 +34,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", requirements={"id": "\d+"})
+     * @Route("/{id}", name="product_show", requirements={"id": "\d+"})
      */
     public function show(Product $product, ValidatorInterface $validator)
     {
@@ -46,7 +46,7 @@ class ProductController extends AbstractController
     }
     
     /**
-     *@Route("/new")
+     *@Route("/new", name="product_new")
      */
     public function new(Request $request)
     {
@@ -70,7 +70,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     *@Route("/{id}/edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
+     *@Route("/{id}/edit", name="product_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
     public function edit(Product $product, Request $request)
     {
@@ -93,7 +93,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     *@Route("/{id}", requirements={"id": "\d+"}, methods="DELETE")
+     *@Route("/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      */
     public function delete(Product $product, Request $request)
     {
