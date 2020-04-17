@@ -32,6 +32,9 @@
             <li class="{{ app.request.get('_route') == 'admin_category_index' ? 'active' }}">
                 <a href="{{ path('admin_category_index')}}">{{ icon('category') }} Catégories</a>
             </li>
+            <li class="{{ app.request.get('_route') == 'admin_emplacement_index' ? 'active' }}">
+                <a href="{{ path('admin_emplacement_index')}}">{{ icon('location') }} Emplacements</a>
+            </li>
             {% else %}
 
             {% endif %}
