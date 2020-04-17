@@ -1,6 +1,10 @@
 {% extends "admin/base.html.twig" %}
 
 {% block body %}
+<div class="dashboard__title">
+    {{ icon('pen') }}
+    Ajout d'un utilisateur
+</div>
 {{ form_start(form, { 'attr' : { 'class' : 'form'}})}}
 {{ form_errors(form.email) }}
 <div class="form__group">
@@ -15,8 +19,9 @@
 {{ form_errors(form.roles) }}
 <div class="form__group">
     {{ form_widget(form.roles, { 'attr' : { 'class' : 'form__control'} } ) }}
-    <label for="inputPassword">Rôle</label>
+    <label for="inputRoles">Rôle</label>
 </div>
 <button type="submit" class="btn__submit btn__text">Créer{{ icon('arrow_right') }}</button>
 {{ form_end(form)}}
+
 {% endblock %}

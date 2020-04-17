@@ -92,7 +92,7 @@ final class ProductController extends BaseController
     }
 
     /**
-     *@Route("/product/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
+     * @Route("/product/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("product", options={"id" = "id"})
      */
     public function delete(Product $product, Request $request, EntityManagerInterface $manager)
