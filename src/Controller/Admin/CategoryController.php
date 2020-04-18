@@ -3,8 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
-use App\Form\CategoryType;
 use App\Entity\CategorySearch;
+use App\Form\CategoryType;
 use App\Form\CategorySearchType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -66,7 +66,7 @@ final class CategoryController extends BaseController
     }
 
     /**
-     * @Route("/category/{id}/edit", name="category_edit", methods={"GET", "PUT"})
+     * @Route("/category/{id}/edit", requirements={"id": "\d+"}, name="category_edit", methods={"GET", "PUT"})
      */
     public function edit(Category $category, Request $request)
     {
@@ -91,7 +91,7 @@ final class CategoryController extends BaseController
      * @Route("/category/{id}", name="category_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("category", options={"id" = "id"})
      */
-    public function delete(Category $category, Request $request, EntityManagerInterface $manager)
+    public function delete(Category $category, Request $request)
     {
         if($this->isCsrfTokenValid('delete' . $category->getId(), $request->get('_token'))){
             $this->manager->remove($category);

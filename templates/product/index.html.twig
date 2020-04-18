@@ -13,8 +13,8 @@
     <section class="container">
 
         <h1>{{'product.index.title' | trans }}</h1>
-        <div>
-            <button><a href="{{ path('product_new') }}">{{'product.action.new' | trans }}</a></button>
+        <div class="div__btn">
+            <button class="btn"><a href="{{ path('product_new') }}">{{'product.action.new' | trans }}</a></button>
         </div>
 
         {% for product in products %}
@@ -36,9 +36,9 @@
                         </a>
 
                         {% if product.expirationDate | date('d F Y') < "now" | date('d F Y') %}
-                            <span style="background: red; color: white;">Périmé</span>
+                            <span class="notification__perimer">Périmé</span>
                         {% elseif product.bestBeforeDate | date('d F Y') < "now" | date('d F Y') %}
-                            <span style="background: red; color: white;">Périmé</span>
+                            <span class="notification__perimer">Périmé</span>
                         {% endif %}
 
                     </p>

@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Unity;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use App\Entity\UnitySearch;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Units|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +19,22 @@ class UnityRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Unity::class);
+    }
+
+    /**
+     * @return Query
+     */
+    public function findAllUnits(UnitySearch $search): Query
+    {
+        $query =  $this->createQueryBuilder('u')
+                        ->orderBy('u.id', 'DESC');
+
+        if($search->getName()) {
+            $query = $query->where('u.name LIKE :name')
+            ->setParameter('name', $search->getName());
+        }
+
+        return $query->getQuery();
     }
 
     // /**
