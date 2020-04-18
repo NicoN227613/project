@@ -3,6 +3,12 @@
     --duration: 0.3s;
 }
 
+.div__btn{
+    margin: 1rem 0;
+}
+
+/* carte produit */
+
 .card__product{
     box-shadow: 0px 0px 20px rgba(0,0,0, 0.1);
     transition: box-shadow var(--duration);
@@ -36,7 +42,7 @@
 
 .card__product__body{
     height: 9rem;
-    background-color: #57D53B;;
+    background-color: var(--btn);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 1.5rem;
