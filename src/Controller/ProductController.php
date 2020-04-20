@@ -28,7 +28,9 @@ class ProductController extends AbstractController
     */
     public function index()
     {
-        $products = $this->repository->findAll();
+        $userCurrent = $this->getUser()->getId();
+        //$products = $this->repository->findAll();
+        $products = $this->repository->findAllProductByUser($userCurrent);
         return $this->render('product/index.html.twig', [
             'products' => $products,
         ]);
@@ -61,7 +63,7 @@ class ProductController extends AbstractController
             $this->manager->persist($product);
             $this->manager->flush();
             $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était crée !');
-            return $this->redirectToRoute('app_product_index');
+            return $this->redirectToRoute('product_index');
         }
 
         return $this->render('product/new.html.twig', [
@@ -84,7 +86,7 @@ class ProductController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $this->manager->flush();
             $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était modifié !');
-            return $this->redirectToRoute('app_product_index');
+            return $this->redirectToRoute('product_index');
         }
 
         return $this->render('product/edit.html.twig', [
@@ -103,6 +105,6 @@ class ProductController extends AbstractController
             $this->manager->flush();
             $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était supprimé !');
         }
-        return $this->redirectToRoute('app_product_index');
+        return $this->redirectToRoute('product_index');
     }
 }
