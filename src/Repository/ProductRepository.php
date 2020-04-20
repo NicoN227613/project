@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\ProductSearch;
@@ -75,5 +76,15 @@ class ProductRepository extends ServiceEntityRepository
         ->getQuery()
         ->setParameter('category', $category)
         ->getResult();
+    }
+
+    public function findAllProductByUser(int $userId)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.author = :val')
+            ->setParameter('val', $userId)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }
