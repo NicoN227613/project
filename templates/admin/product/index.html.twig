@@ -39,9 +39,9 @@
                 <td>{{ product.createdAt | date('d F Y') }}</td>
                 <td>{{ product.updatedAt | date('d F Y H:i') }}</td>
                 <td>{% if product.expirationDate | date('d F Y') < "now" | date('d F Y') %}
-                        <span style="background: red; color: white;">Cette aliment est périmé</span>
+                        <span class="notification__perimer">Cet aliment est périmé</span>
                     {% elseif product.bestBeforeDate | date('d F Y') < "now" | date('d F Y') %}
-                        <span style="background: red; color: white;">Cette aliment est périmé</span>
+                        <span class="notification__perimer">Cet aliment est périmé</span>
                     {% endif %}</td>
                 <td>
                     <div class="dashboard__actions">

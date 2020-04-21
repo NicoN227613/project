@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\ProductSearch;

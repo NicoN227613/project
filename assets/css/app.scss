@@ -40,12 +40,13 @@ body {
 @import "modules/table";
 @import "modules/card";
 @import "modules/pagination";
-@import "modules/card_product_index";
+@import "modules/notification_perimer.scss";
 
 // Pages
 // ==================
 @import "pages/product";
 @import "pages/dashboard";
+@import "pages/card_product_index";
 
 
 
