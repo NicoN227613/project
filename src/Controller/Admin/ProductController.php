@@ -7,9 +7,7 @@ use App\Form\ProductType;
 use App\Entity\ProductSearch;
 use App\Form\ProductSearchType;
 use App\Repository\ProductRepository;
-use App\EventDeclenche\PeremptionHTML;
 use Doctrine\ORM\EntityManagerInterface;
-use App\EventListener\PeremptionListener;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -58,7 +56,7 @@ final class ProductController extends BaseController
             $manager->flush();
 
             $this->addFlash('success', 'Nouveau produit créé');
-            return $this->redirectToRoute('product_index', [
+            return $this->redirectToRoute('admin_product_index', [
                 'id' => $product->getId(),
             ]);
         }
@@ -85,7 +83,7 @@ final class ProductController extends BaseController
             $product->setUpdatedAt(new \DateTime());
             $manager->flush();
             $this->addFlash('success', 'Le produit ' . $product->getName() . ' a bien était modifié !');
-            return $this->redirectToRoute('product_index');
+            return $this->redirectToRoute('admin_product_index');
         }
         return $this->render('admin/product/edit.html.twig', [
             'product' => $product,
@@ -104,6 +102,6 @@ final class ProductController extends BaseController
             $manager->flush();
             $this->addFlash('success', 'Le produit ' . $product->getName() . ' a bien était supprimé!');
         }
-        return $this->redirectToRoute('product_index');
+        return $this->redirectToRoute('admin_product_index');
     }
 }

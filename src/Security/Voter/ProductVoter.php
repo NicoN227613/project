@@ -13,7 +13,7 @@ class ProductVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return $attribute === 'PRODUCT_EDIT'
+        return $attribute === 'PRODUCT'
             && $subject instanceof Product;
     }
 
@@ -30,6 +30,6 @@ class ProductVoter extends Voter
             return true;
         }
         
-        return false;
+       throw new \LogicException('Page introuvable');
     }
 }

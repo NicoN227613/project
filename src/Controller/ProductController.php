@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -28,7 +29,8 @@ class ProductController extends AbstractController
     */
     public function index()
     {
-        $products = $this->repository->findAll();
+        $userCurrent =$this->getUser()->getId();
+        $products = $this->repository->findAllProductByUser($userCurrent);
         return $this->render('product/index.html.twig', [
             'products' => $products,
         ]);
@@ -36,6 +38,7 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/{id}", name="product_show", requirements={"id": "\d+"})
+     * @IsGranted("PRODUCT", subject="product")
      */
     public function show(Product $product, ValidatorInterface $validator)
     {
@@ -47,7 +50,7 @@ class ProductController extends AbstractController
     }
     
     /**
-     *@Route("/new", name="product_new")
+     * @Route("/new", name="product_new")
      */
     public function new(Request $request)
     {
@@ -61,7 +64,7 @@ class ProductController extends AbstractController
             $this->manager->persist($product);
             $this->manager->flush();
             $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était crée !');
-            return $this->redirectToRoute('app_product_index');
+            return $this->redirectToRoute('product_index');
         }
 
         return $this->render('product/new.html.twig', [
@@ -71,7 +74,8 @@ class ProductController extends AbstractController
     }
 
     /**
-     *@Route("/{id}/edit", name="product_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
+     * @Route("/{id}/edit", name="product_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
+     * @IsGranted("PRODUCT", subject="product")
      */
     public function edit(Product $product, Request $request)
     {
@@ -84,7 +88,7 @@ class ProductController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $this->manager->flush();
             $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était modifié !');
-            return $this->redirectToRoute('app_product_index');
+            return $this->redirectToRoute('product_index');
         }
 
         return $this->render('product/edit.html.twig', [
@@ -94,7 +98,8 @@ class ProductController extends AbstractController
     }
 
     /**
-     *@Route("/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
+     * @Route("/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
+     * @IsGranted("PRODUCT", subject="product")
      */
     public function delete(Product $product, Request $request)
     {
@@ -103,6 +108,6 @@ class ProductController extends AbstractController
             $this->manager->flush();
             $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était supprimé !');
         }
-        return $this->redirectToRoute('app_product_index');
+        return $this->redirectToRoute('product_index');
     }
 }
