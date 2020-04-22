@@ -33,7 +33,7 @@
                 <td>{{ user.roles[0] }}</td>
                 <td>
                     <div class="dashboard__actions">
-                        <a href="#">{{ icon('edit')}}</a>
+                        <a href="{{ path('admin_user_edit', {id: user.id}) }}">{{ icon('edit')}}</a>
                         <form method="POST" action="{{ path('admin_user_delete', {id: user.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce compte ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">

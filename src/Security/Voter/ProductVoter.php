@@ -44,8 +44,5 @@ class ProductVoter extends Voter
                 return $product->getAuthor() === $user;
                 break;
         }
-
-        
-       
     }
 }

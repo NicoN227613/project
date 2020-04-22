@@ -14,7 +14,6 @@
         {{ form_end(form)}}
         <a href="{{ path('admin_product_new')}}" class="btn">Ajouter un produit</a>
     </div>
-    {#
     <table class="table">
         <thead>
             <tr>
@@ -45,7 +44,7 @@
                     {% endif %}</td>
                 <td>
                     <div class="dashboard__actions">
-                        <a href="#">{{ icon('eye') }}</a>
+                        {#<a href="#">{{ icon('eye') }}</a>#}
                         <a href="{{ path('admin_product_edit', {id: product.id}) }}">{{ icon('edit')}}</a>
                         <form method="POST" action="{{ path('admin_product_delete', {id: product.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
                             <input type="hidden" name="_method" value="DELETE">
@@ -57,8 +56,8 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>#}
-    {% for product in products %}
+    </table>
+    {#{% for product in products %}
     <article class="product">
         <header class="product__thumb">
             <img src="https://via.placeholder.com/150" alt="">
@@ -84,7 +83,7 @@
             </form>
         </footer>
     </article>
-    {% endfor %}
+    {% endfor %}#}
     {{ knp_pagination_render(products) }}
 </div>
 
