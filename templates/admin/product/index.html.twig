@@ -70,11 +70,11 @@
             <div class="product__emplacement">{{ product.placeIn.name }}</div>
             <div class="product__quantity">{{ product.quantity }}</div>
             <div class="product__unity">{{ product.units.name }}</div>
-            <div class="product__purchase__date">{{ product.purchaseDate | date('d F Y') }}</div>
+            <div class="product__purchase__date">Acheté le : {{ product.purchaseDate | date('d F Y') }}</div>
         </div>
         <footer class="product__footer">
-            <div class="product__createdAt">{{ product.createdAt | date('d F Y') }}</div>
-            <div class="product__updateddAt">{{ product.updatedAt | date('d F Y') }}</div>
+            <div class="product__createdAt">Enregistrer le : {{ product.createdAt | date('d F Y') }}</div>
+            <div class="product__updateddAt">Modifié le : {{ product.updatedAt | date('d F Y') }}</div>
             <a href="{{ path('admin_product_edit', {id: product.id}) }}">{{ icon('edit')}}</a>
             <form method="POST" action="{{ path('admin_product_delete', {id: product.id}) }}"
                 onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
