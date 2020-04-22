@@ -38,10 +38,11 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/{id}", name="product_show", requirements={"id": "\d+"})
-     * @IsGranted("PRODUCT", subject="product")
      */
     public function show(Product $product, ValidatorInterface $validator)
     {
+        $this->denyAccessUnlessGranted('show', $product);
+
         // pas utile ici, juste pour un exemple de validation hors formulaire
         $errors = $validator->validate($product);
         return $this->render('product/show.html.twig', [
@@ -75,10 +76,12 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="product_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
-     * @IsGranted("PRODUCT", subject="product")
      */
     public function edit(Product $product, Request $request)
     {
+
+        $this->denyAccessUnlessGranted('edit', $product);
+
         $form = $this->createForm(ProductType::class, $product, [
             'method' => 'PUT',
         ]);
@@ -98,11 +101,12 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
-     * @IsGranted("PRODUCT", subject="product")
+     * @Route("/{id}/delete", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      */
     public function delete(Product $product, Request $request)
     {
+        $this->denyAccessUnlessGranted('delete', $product);
+
         if($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))){
             $this->manager->remove($product);
             $this->manager->flush();
