@@ -14,6 +14,7 @@
         {{ form_end(form)}}
         <a href="{{ path('admin_product_new')}}" class="btn">Ajouter un produit</a>
     </div>
+    {#
     <table class="table">
         <thead>
             <tr>
@@ -56,7 +57,34 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
+    </table>#}
+    {% for product in products %}
+    <article class="product">
+        <header class="product__thumb">
+            <img src="https://via.placeholder.com/150" alt="">
+        </header>
+        <div class="product__body">
+            <div class="product__name">{{ product.name }}</div>
+            <div class="product__author">{{ product.author.email }}</div>
+            <div class="product__category">{{ product.classifiedIn.name }}</div>
+            <div class="product__emplacement">{{ product.placeIn.name }}</div>
+            <div class="product__quantity">{{ product.quantity }}</div>
+            <div class="product__unity">{{ product.units.name }}</div>
+            <div class="product__purchase__date">{{ product.purchaseDate | date('d F Y') }}</div>
+        </div>
+        <footer class="product__footer">
+            <div class="product__createdAt">{{ product.createdAt | date('d F Y') }}</div>
+            <div class="product__updateddAt">{{ product.updatedAt | date('d F Y') }}</div>
+            <a href="{{ path('admin_product_edit', {id: product.id}) }}">{{ icon('edit')}}</a>
+            <form method="POST" action="{{ path('admin_product_delete', {id: product.id}) }}"
+                onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+                <button>{{ icon('trash')}}</button>
+            </form>
+        </footer>
+    </article>
+    {% endfor %}
     {{ knp_pagination_render(products) }}
 </div>
 

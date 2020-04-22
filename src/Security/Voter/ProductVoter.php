@@ -9,15 +9,19 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class ProductVoter extends Voter
 {
+    const SHOW      = 'show';
+    const EDIT      = 'edit';
+    const DELETE    = 'delete';
+
     protected function supports($attribute, $subject)
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return $attribute === 'PRODUCT_EDIT'
+        return in_array($attribute, [self::SHOW, self::EDIT, self::DELETE])
             && $subject instanceof Product;
     }
 
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    protected function voteOnAttribute($attribute, $product, TokenInterface $token)
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
@@ -25,11 +29,23 @@ class ProductVoter extends Voter
             return false;
         }
 
-        /** @var Product $subject */
-        if($subject->getAuthor() === $user){
-            return true;
+        if(null == $product->getAuthor()){
+            return false;
         }
+
+        switch ($attribute) {
+            case self::SHOW:
+                return $product->getAuthor() === $user;
+                break;
+            case self::EDIT:
+                return $product->getAuthor() === $user;
+                break;
+            case self::DELETE:
+                return $product->getAuthor() === $user;
+                break;
+        }
+
         
-        return false;
+       
     }
 }

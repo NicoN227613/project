@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -28,8 +29,7 @@ class ProductController extends AbstractController
     */
     public function index()
     {
-        $userCurrent = $this->getUser()->getId();
-        //$products = $this->repository->findAll();
+        $userCurrent =$this->getUser()->getId();
         $products = $this->repository->findAllProductByUser($userCurrent);
         return $this->render('product/index.html.twig', [
             'products' => $products,
@@ -41,6 +41,8 @@ class ProductController extends AbstractController
      */
     public function show(Product $product, ValidatorInterface $validator)
     {
+        $this->denyAccessUnlessGranted('show', $product);
+
         // pas utile ici, juste pour un exemple de validation hors formulaire
         $errors = $validator->validate($product);
         return $this->render('product/show.html.twig', [
@@ -49,7 +51,7 @@ class ProductController extends AbstractController
     }
     
     /**
-     *@Route("/new", name="product_new")
+     * @Route("/new", name="product_new")
      */
     public function new(Request $request)
     {
@@ -73,10 +75,13 @@ class ProductController extends AbstractController
     }
 
     /**
-     *@Route("/{id}/edit", name="product_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
+     * @Route("/{id}/edit", name="product_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
     public function edit(Product $product, Request $request)
     {
+
+        $this->denyAccessUnlessGranted('edit', $product);
+
         $form = $this->createForm(ProductType::class, $product, [
             'method' => 'PUT',
         ]);
@@ -96,10 +101,12 @@ class ProductController extends AbstractController
     }
 
     /**
-     *@Route("/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
+     * @Route("/{id}/delete", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      */
     public function delete(Product $product, Request $request)
     {
+        $this->denyAccessUnlessGranted('delete', $product);
+
         if($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))){
             $this->manager->remove($product);
             $this->manager->flush();

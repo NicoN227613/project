@@ -13,9 +13,10 @@
 .dashboard__card {
     @extend %card;
     padding: 16px;
+    background: #D8E0E5;
 }
 .dashboard__card > * + * {
-        margin-top: 16px;
+    margin-top: 16px;
 }
 .dashboard__card__top {
     display: flex;
