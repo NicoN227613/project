@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UnityRepository")
@@ -18,6 +19,8 @@ class Unity
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank()
+     * @Assert\Length(min=4, max=255, minMessage="Ce champ a besoin de 4 caractères minimum ")
      */
     private $name;
 
