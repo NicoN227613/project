@@ -14,8 +14,8 @@
     {% endif %}
 
     <h1>Se connecter</h1>
-    <div class="form__group">
-        <input type="email" class="form__control" value="{{ last_username }}" name="_username" id="inputEmail" placeholder="Adresse mail" required autofocus>
+    <div class="form__group">                                                   <!-- _username -->
+        <input type="email" class="form__control" value="{{ last_username }}" name="email" id="inputEmail" placeholder="Adresse mail" required autofocus>
         <label for="inputEmail">{{ icon('email') }}</label>
     </div>
     <div class="form__group">
