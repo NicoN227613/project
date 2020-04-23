@@ -39,7 +39,7 @@ class AppLoginAuthenticator extends AbstractFormLoginAuthenticator implements Pa
 
     public function supports(Request $request)
     {
-                //app_security_login
+                
         return 'security_login' === $request->attributes->get('_route') 
             && $request->isMethod('POST');
     }
@@ -95,11 +95,11 @@ class AppLoginAuthenticator extends AbstractFormLoginAuthenticator implements Pa
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('product_index')); // app_product_index
+        return new RedirectResponse($this->urlGenerator->generate('product_index'));
     }
 
     protected function getLoginUrl()
     {
-        return $this->urlGenerator->generate('security_login'); //app_security_login
+        return $this->urlGenerator->generate('security_login'); 
     }
 }

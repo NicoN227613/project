@@ -12,15 +12,14 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('name', null, [
-            'label' => 'Nom'
-        ])
+        ->add('name', TextType::class)
         ->add('classifiedIn', EntityType::class, [
             'class' => Category::class,
             'choice_label' => 'name',

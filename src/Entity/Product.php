@@ -23,6 +23,7 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Length(min=4, max=255, minMessage="Ce champ a besoin de 4 caractères minimum")
      */
     private $name;
 
