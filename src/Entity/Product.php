@@ -29,23 +29,25 @@ class Product
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
-     * @Assert\GreaterThan(0, message="Définir une quantité au dessus de zéro")
+     * @Assert\GreaterThan(0, message="Définir une quantité")
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\LessThanOrEqual("today", message="Choisissez une date inférieur à la date d'aujourd'hui")
+     * @Assert\LessThanOrEqual("today", message="Choisissez une date inférieur ou égale à la date d'aujourd'hui")
      */
     private $purchase_date;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\GreaterThanOrEqual("today", message="Choisissez une date supérieur ou égale à la date d'aujourd'hui")
      */
     private $expiration_date;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\GreaterThanOrEqual("today", message="Choisissez une date supérieur ou égale à la date d'aujourd'hui")
      */
     private $best_before_date;
 

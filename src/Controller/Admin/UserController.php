@@ -87,14 +87,12 @@ class UserController extends BaseController
 
         if($form->isSubmitted() && $form->isValid()) {
             //$user->setUpdatedAt(new \DateTime());
-            $hash = $this->encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hash);
             $this->manager->flush();
-            $this->addFlash('success', 'L utilisateur ' . $user->getEmail() . ' a bien était modifié !');
+            $this->addFlash('success', "L'utilisateur " . $user->getEmail() . " a bien était modifié !");
             return $this->redirectToRoute('admin_user_index');
         }
         return $this->render('admin/user/edit.html.twig', [
-            'user' => $user,
+            'product' => $user,
             'form' => $form->createView(),
         ]);
     }
