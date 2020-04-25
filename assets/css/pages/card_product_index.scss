@@ -45,7 +45,7 @@
     background-color: var(--btn);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    padding: 1.5rem;
+    padding: 0.75rem 1.5rem;
 }
 
 /*------------------ CSS TABLETTE  -------------------------*/
@@ -61,12 +61,14 @@
     .card__product:nth-child(2n) {
         float: right;
     }
+
+    .card__product__body{
+        padding: 0.75rem;
+    }
 }
 
 /*------------------ CSS DESKTOP  -------------------------*/
 @media screen and (min-width: 1024px) {
-
-    
 
     .card__product{
         width: 23%;
