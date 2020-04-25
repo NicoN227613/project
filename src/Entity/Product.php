@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use App\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -35,25 +33,34 @@ class Product
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
-     * @Assert\GreaterThan(0, message="Définir une quantité")
+     * @Assert\GreaterThan(0, message="Définir une quantité !")
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\LessThanOrEqual("today", message="Choisissez une date inférieur ou égale à la date d'aujourd'hui")
+     * @Assert\LessThanOrEqual(
+     *  "today", 
+     *  message="Choisissez une date inférieur ou égale à la date d'aujourd'hui !"
+     * )
      */
     private $purchase_date;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\GreaterThanOrEqual("today", message="Choisissez une date supérieur ou égale à la date d'aujourd'hui")
+     * @Assert\GreaterThanOrEqual(
+     *  propertyPath="purchase_date", 
+     *  message="Choisissez une date supérieur ou égale à la date d'achat du produit !"
+     * )
      */
     private $expiration_date;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\GreaterThanOrEqual("today", message="Choisissez une date supérieur ou égale à la date d'aujourd'hui")
+     * @Assert\GreaterThanOrEqual(
+     *  propertyPath="purchase_date", 
+     *  message="Choisissez une date supérieur ou égale à la date d'achat du produit !"
+     * )
      */
     private $best_before_date;
 

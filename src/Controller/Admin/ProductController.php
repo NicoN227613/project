@@ -31,7 +31,7 @@ final class ProductController extends BaseController
         $products = $paginator->paginate(
             $repository->findAllProducts($search),
             $request->query->getInt('page', 1),
-            7
+           12 // Le plus petit dénominateur commun 2,3,4,5 et 6 : 60
         );
         
         return $this->render('admin/product/index.html.twig', [
@@ -55,7 +55,7 @@ final class ProductController extends BaseController
             $manager->persist($product);
             $manager->flush();
 
-            $this->addFlash('success', 'Nouveau produit créé');
+            $this->addFlash('success', 'Le produit " '. $product->getName() .' " a bien été créé !');
             return $this->redirectToRoute('admin_product_index', [
                 'id' => $product->getId(),
             ]);
@@ -71,9 +71,6 @@ final class ProductController extends BaseController
      */
     public function edit(Product $product, Request $request, EntityManagerInterface $manager)
     {
-
-        $this->denyAccessUnlessGranted('edit', $product);
-
         $form = $this->createForm(ProductType::class, $product, [
             'method' => 'PUT',
         ]);
@@ -83,7 +80,7 @@ final class ProductController extends BaseController
         if($form->isSubmitted() && $form->isValid()) {
             $product->setUpdatedAt(new \DateTime());
             $manager->flush();
-            $this->addFlash('success', 'Le produit ' . $product->getName() . ' a bien était modifié !');
+            $this->addFlash('success', 'Le produit " '. $product->getName() .' " a bien été modifié !');
             return $this->redirectToRoute('admin_product_index');
         }
         return $this->render('admin/product/edit.html.twig', [
@@ -98,13 +95,10 @@ final class ProductController extends BaseController
      */
     public function delete(Product $product, Request $request, EntityManagerInterface $manager)
     {
-
-        $this->denyAccessUnlessGranted('delete', $product);
-
         if($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))){
             $manager->remove($product);
             $manager->flush();
-            $this->addFlash('success', 'Le produit ' . $product->getName() . ' a bien était supprimé!');
+            $this->addFlash('success', 'Le produit " '. $product->getName() .' " a bien été supprimé !');
         }
         return $this->redirectToRoute('admin_product_index');
     }

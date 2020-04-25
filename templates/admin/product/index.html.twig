@@ -6,7 +6,7 @@
     Gestion des produits
 </div>
 <div class="dashboard__card">
-    <div class="dashboard__card__top">
+    <div class="dashboard__header">
         {#<form class="dashboard__search form__search">
             <input type="text" name="q" placeholder="Rechercher un produit">
         </form>#}
@@ -14,13 +14,14 @@
         {{ form_end(form)}}
         <a href="{{ path('admin_product_new')}}" class="btn">Ajouter un produit</a>
     </div>
+    {#
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Auteur</th>
-                <th>Date de création</th>
+                <th>Date de creation</th>
                 <th>Date de modification</th>
                 <th>Etat</th>
                 <th>Actions</th>
@@ -30,21 +31,18 @@
             {% for product in products %}
             <tr>
                 <td>{{ product.id }}</td>
-                <td>
-                    {{ product.name }}
-                    
-                </td>
+                <td>{{ product.name }}</td>
                 <td>{{ product.author.email }}</td>
                 <td>{{ product.createdAt | date('d F Y') }}</td>
                 <td>{{ product.updatedAt | date('d F Y H:i') }}</td>
                 <td>{% if product.expirationDate | date('d F Y') < "now" | date('d F Y') %}
-                        <span class="notification__perimer">Cet aliment est périmé</span>
+                    Périmé (DLC dépassé)
                     {% elseif product.bestBeforeDate | date('d F Y') < "now" | date('d F Y') %}
-                        <span class="notification__perimer">Cet aliment est périmé</span>
+                    Périmé (DDM dépassé)
                     {% endif %}</td>
                 <td>
                     <div class="dashboard__actions">
-                        {#<a href="#">{{ icon('eye') }}</a>#}
+                        <a href="#">{{ icon('eye') }}</a>
                         <a href="{{ path('admin_product_edit', {id: product.id}) }}">{{ icon('edit')}}</a>
                         <form method="POST" action="{{ path('admin_product_delete', {id: product.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
                             <input type="hidden" name="_method" value="DELETE">
@@ -56,34 +54,36 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>
-    {#{% for product in products %}
-    <article class="product">
-        <header class="product__thumb">
-            <img src="https://via.placeholder.com/150" alt="">
-        </header>
-        <div class="product__body">
-            <div class="product__name">{{ product.name }}</div>
-            <div class="product__author">{{ product.author.email }}</div>
-            <div class="product__category">{{ product.classifiedIn.name }}</div>
-            <div class="product__emplacement">{{ product.placeIn.name }}</div>
-            <div class="product__quantity">{{ product.quantity }}</div>
-            <div class="product__unity">{{ product.units.name }}</div>
-            <div class="product__purchase__date">Acheté le : {{ product.purchaseDate | date('d F Y') }}</div>
-        </div>
-        <footer class="product__footer">
-            <div class="product__createdAt">Enregistrer le : {{ product.createdAt | date('d F Y') }}</div>
-            <div class="product__updateddAt">Modifié le : {{ product.updatedAt | date('d F Y') }}</div>
-            <a href="{{ path('admin_product_edit', {id: product.id}) }}">{{ icon('edit')}}</a>
-            <form method="POST" action="{{ path('admin_product_delete', {id: product.id}) }}"
-                onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
-                <button>{{ icon('trash')}}</button>
-            </form>
-        </footer>
-    </article>
-    {% endfor %}#}
+    </table>#}
+    <div class="dashboard__body">
+        {% for product in products %}
+        <article class="card">
+            <header class="card__thumb">
+                <img src="https://via.placeholder.com/200" alt="">
+            </header>
+            <div class="card__body">
+                <div class="card__name">{{ product.name }}</div>
+                <div class="card__author">{{ product.author.email }}</div>
+                <div class="card__category">{{ product.classifiedIn.name }}</div>
+                <div class="card__emplacement">{{ product.placeIn.name }}</div>
+                <div class="card__quantity">{{ product.quantity }}</div>
+                <div class="card__unity">{{ product.units.name }}</div>
+                <div class="card__purchase__date">Acheté le : {{ product.purchaseDate | date('d F Y') }}</div>
+            </div>
+            <footer class="card__footer">
+                <div class="card__createdAt">Enregistrer le : {{ product.createdAt | date('d F Y') }}</div>
+                <div class="card__updateddAt">Modifié le : {{ product.updatedAt | date('d F Y') }}</div>
+                <a href="{{ path('admin_product_edit', {id: product.id}) }}">{{ icon('edit')}}</a>
+                <form method="POST" action="{{ path('admin_product_delete', {id: product.id}) }}"
+                    onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+                    <button>{{ icon('trash')}}</button>
+                </form>
+            </footer>
+        </article>
+        {% endfor %}
+    </div>
     {{ knp_pagination_render(products) }}
 </div>
 

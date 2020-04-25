@@ -11,13 +11,16 @@
     margin-right: 8px;
 }
 .dashboard__card {
-    @extend %card;
+    background: var(--background);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 20px var(--border);
+    border-radius: 4px;
     padding: 16px;
 }
 .dashboard__card > * + * {
     margin-top: 16px;
 }
-.dashboard__card__top {
+.dashboard__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -53,6 +56,11 @@
 /*.form__search input.is-invalid {
     border-color: var(--red);
 }*/
+.dashboard__body {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
 .dashboard__actions {
     width: 100%;
     display: flex;

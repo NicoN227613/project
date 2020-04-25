@@ -5,23 +5,5 @@
     {{ icon('pen') }}
     Ajout d'un utilisateur
 </div>
-{{ form_start(form, { 'attr' : { 'class' : 'form'}})}}
-{{ form_errors(form.email) }}
-<div class="form__group">
-    {{ form_widget(form.email, { 'attr' : { 'class' : 'form__control'}})}}
-    <label for="inputEmail">Email</label>
-</div>
-{{ form_errors(form.password) }}
-<div class="form__group">
-    {{ form_widget(form.password, { 'attr' : { 'class' : 'form__control'} } ) }}
-    <label for="inputPassword">Mot de passe</label>
-</div>
-{{ form_errors(form.roles) }}
-<div class="form__group">
-    {{ form_widget(form.roles, { 'attr' : { 'class' : 'form__control'} } ) }}
-    <label for="inputRoles">Rôle</label>
-</div>
-<button type="submit" class="btn__submit btn__text">Créer{{ icon('arrow_right') }}</button>
-{{ form_end(form)}}
-
+{{ include('admin/user/_form.html.twig', {form: form, action: 'Créer' }) }}
 {% endblock %}

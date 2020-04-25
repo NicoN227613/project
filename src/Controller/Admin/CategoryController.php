@@ -4,15 +4,15 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\CategorySearch;
-use App\Form\CategoryType;
 use App\Form\CategorySearchType;
+use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -50,6 +50,7 @@ final class CategoryController extends BaseController
     public function new(Request $request)
     {
         $category = new Category();
+        $category->setAuthor($this->getUser());
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
@@ -57,8 +58,8 @@ final class CategoryController extends BaseController
             $this->manager->persist($category);
             $this->manager->flush();
 
-            $this->addFlash('success', 'Nouvelle catégorie créée');
-            return $this->redirectToRoute('category_index');
+            $this->addFlash('success', 'La catégorie " '. $category->getName() .' " a bien été créée !');
+            return $this->redirectToRoute('admin_category_index');
         }
         return $this->render('admin/category/new.html.twig', [
             'form' => $form->createView(),
@@ -77,9 +78,10 @@ final class CategoryController extends BaseController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $category->setUpdatedAt(new \DateTime());
             $this->manager->flush();
-            $this->addFlash('success', 'La catégorie ' . $category->getName() . ' a bien était modifiée !');
-            return $this->redirectToRoute('category_index');
+            $this->addFlash('success', 'La catégorie " ' . $category->getName() . ' " a bien était modifiée !');
+            return $this->redirectToRoute('admin_category_index');
         }
         return $this->render('admin/category/edit.html.twig', [
             'category' => $category,
@@ -96,8 +98,8 @@ final class CategoryController extends BaseController
         if($this->isCsrfTokenValid('delete' . $category->getId(), $request->get('_token'))){
             $this->manager->remove($category);
             $this->manager->flush();
-            $this->addFlash('success', 'La catégorie ' . $category->getName() . ' a bien était supprimée !');
+            $this->addFlash('success', 'La catégorie " ' . $category->getName() . ' " a bien était supprimée !');
         }
-        return $this->redirectToRoute('category_index');
+        return $this->redirectToRoute('admin_category_index');
     }
 }

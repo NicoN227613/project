@@ -6,7 +6,7 @@
     Gestion des utilisateurs
 </div>
 <div class="dashboard__card">
-    <div class="dashboard__card__top">
+    <div class="dashboard__header">
         {#<form class="dashboard__search form__search">
             <input type="text" name="q" placeholder="Rechercher un produit">
         </form>#}
@@ -21,6 +21,8 @@
                 <th>Pseudo</th>
                 <th>Email</th>
                 <th>Rôle(s)</th>
+                <th>Date de creation</th>
+                <th>Date de modification</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -28,7 +30,7 @@
             {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
-                <td></td>
+                <td>{{ user.pseudo }}</td>
                 <td>{{ user.email }}</td>
                 <td>
                     {% for role in user.roles %}
@@ -39,6 +41,8 @@
                     {% endif %}
                     {% endfor %}
                 </td>
+                <td>{{ user.createdAt | date('d F Y') }}</td>
+                <td>{{ user.updatedAt | date('d F Y H:i') }}</td>
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_user_edit', {id: user.id}) }}">{{ icon('edit')}}</a>
