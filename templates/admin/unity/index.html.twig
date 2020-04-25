@@ -30,9 +30,9 @@
             <tr>
                 <td>{{ unity.id }}</td>
                 <td>{{ unity.name }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ unity.author.email }}</td>
+                <td>{{ unity.createdAt | date('d F Y') }}</td>
+                <td>{{ unity.updatedAt | date('d F Y H:i') }}</td>
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_unity_edit', {id: unity.id}) }}">{{ icon('edit')}}</a>

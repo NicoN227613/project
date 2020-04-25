@@ -4,16 +4,15 @@ namespace App\Controller\Admin;
 
 use App\Entity\Unity;
 use App\Entity\UnitySearch;
-use App\Form\UnityType;
 use App\Form\UnitySearchType;
+use App\Form\UnityType;
 use App\Repository\UnityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -52,6 +51,7 @@ final class UnityController extends BaseController
     public function new(Request $request)
     {
         $unity = new Unity();
+        $unity->setAuthor($this->getUser());
         $form = $this->createForm(UnityType::class, $unity);
         $form->handleRequest($request);
 
@@ -59,8 +59,8 @@ final class UnityController extends BaseController
             $this->manager->persist($unity);
             $this->manager->flush();
 
-            $this->addFlash('success', 'Nouvelle unité créée');
-            return $this->redirectToRoute('unity_index');
+            $this->addFlash('success', 'L\' unité " '. $unity->getName() .' " a bien été créée !');
+            return $this->redirectToRoute('admin_unity_index');
         }
 
         return $this->render('admin/unity/new.html.twig', [
@@ -80,11 +80,12 @@ final class UnityController extends BaseController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $unity->setUpdatedAt(new \DateTime());
             $this->manager->flush();
-            $this->addFlash('success', 'L unité ' . $unity->getName() . ' a bien était modifiée !');
-            return $this->redirectToRoute('unity_index');
+            $this->addFlash('success', 'L\' unité " '. $unity->getName() .' " a bien été modifiée !');
+            return $this->redirectToRoute('admin_unity_index');
         }
-        return $this->render('admin/category/edit.html.twig', [
+        return $this->render('admin/unity/edit.html.twig', [
             'unity' => $unity,
             'form' => $form->createView(),
         ]);
@@ -99,9 +100,9 @@ final class UnityController extends BaseController
         if($this->isCsrfTokenValid('delete' . $unity->getId(), $request->get('_token'))){
             $this->manager->remove($unity);
             $this->manager->flush();
-            $this->addFlash('success', 'L unité ' . $unity->getName() . ' a bien était supprimée !');
+            $this->addFlash('success', 'L\' unité " '. $unity->getName() .' " a bien été supprimée !');
         }
-        return $this->redirectToRoute('unity_index');
+        return $this->redirectToRoute('admin_unity_index');
     }
 
 }

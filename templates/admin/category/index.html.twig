@@ -20,7 +20,7 @@
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Auteur</th>
-                <th>Date de création</th>
+                <th>Date de creation</th>
                 <th>Date de modification</th>
                 <th>Actions</th>
             </tr>
@@ -30,9 +30,9 @@
             <tr>
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ category.author.email }}</td>
+                <td>{{ category.createdAt | date('d F Y') }}</td>
+                <td>{{ category.updatedAt | date('d F Y H:i') }}</td>
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_category_edit', {id: category.id}) }}">{{ icon('edit')}}</a>

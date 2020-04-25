@@ -14,7 +14,10 @@
     opacity: .6;
   }
   .pagination a {
-    @extend %card;
+    background: var(--background);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 20px var(--border);
+    border-radius: 4px;
     color: var(--border);
     opacity: .6;
   }
