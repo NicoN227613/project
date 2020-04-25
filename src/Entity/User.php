@@ -47,6 +47,18 @@ class User implements UserInterface
      */
     private $confirm_password;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min=4, 
+     *      max=15, 
+     *      minMessage="Ce champ a besoin de 4 caractères minimum",
+     *      maxMessage="Ce champ ne doit pas avoir plus de 15 caractères"
+     * )
+     */
+    private $username;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,7 +83,7 @@ class User implements UserInterface
      */
     public function getUsername(): ?string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**
@@ -141,6 +153,13 @@ class User implements UserInterface
     public function setConfirmPassword(string $confirm_password) : self
     {
         $this->confirm_password = $confirm_password;
+
+        return $this;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

@@ -23,30 +23,37 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
-     * @Assert\Length(min=4, max=255, minMessage="Ce champ a besoin de 4 caractères minimum")
+     * @Assert\Length(
+     *      min=4, 
+     *      max=15, 
+     *      minMessage="Ce champ a besoin de 4 caractères minimum",
+     *      maxMessage="Ce champ ne doit pas avoir plus de 15 caractères"
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
-     * @Assert\GreaterThan(0, message="Définir une quantité au dessus de zéro")
+     * @Assert\GreaterThan(0, message="Définir une quantité")
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\LessThanOrEqual("today", message="Choisissez une date inférieur à la date d'aujourd'hui")
+     * @Assert\LessThanOrEqual("today", message="Choisissez une date inférieur ou égale à la date d'aujourd'hui")
      */
     private $purchase_date;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\GreaterThanOrEqual("today", message="Choisissez une date supérieur ou égale à la date d'aujourd'hui")
      */
     private $expiration_date;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\GreaterThanOrEqual("today", message="Choisissez une date supérieur ou égale à la date d'aujourd'hui")
      */
     private $best_before_date;
 

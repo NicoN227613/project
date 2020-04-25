@@ -49,12 +49,12 @@
         height: 50px + 150px; // La valeur après le plus => (height du .product__thumb) - (height du.product:hover &)
     }
 }
-/*
+
 .product__author {
     position: absolute;
     left: 20px;
     right: 20px;
-    bottom: 170px;
+    bottom: 120px;
     margin: 0;
     padding: 0;
     opacity: 0;
@@ -67,7 +67,28 @@
         transition-delay: .1s;
         transform: translateY(0px);
     }
-}*/
+}
+.product__category {
+    @extend .product__author;
+    bottom: 100px;
+}
+.product__emplacement {
+    @extend .product__author;
+    bottom: 80px;
+}
+.product__quantity {
+    @extend .product__author;
+    bottom: 60px;
+}
+.product__unity {
+    @extend .product__author;
+    left: 40px;
+    bottom: 60px;
+}
+.product__purchase__date {
+    @extend .product__author;
+    bottom: 40px;
+}
 .product__footer {
     display: flex;
     bottom: 20px;

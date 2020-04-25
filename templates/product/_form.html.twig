@@ -1,34 +1,41 @@
 {{ form_start(form, { 'attr' : { 'class' : 'form'} })}}
+
 {{ form_errors(form.name) }}
 <div class="form__group">
     {{ form_widget(form.name, { 'attr' : { 'class' : 'form__control'}})}}
     <label for="inputName">{{'product.form.name' | trans }}</label>
 </div>
+
 {{ form_errors(form.classifiedIn) }}
 <div class="form__group">
     {{ form_widget(form.classifiedIn, { 'attr' : { 'class' : 'form__control'}})}}
     <label for="inputClassifiedIn">{{'product.form.category' | trans }}</label>
 </div>
+
 {{ form_errors(form.placeIn) }}
 <div class="form__group">
     {{ form_widget(form.placeIn, { 'attr' : { 'class' : 'form__control'}})}}
     <label for="inputPlaceIn">{{'product.form.emplacement' | trans }}</label>
 </div>
+
 {{ form_errors(form.quantity) }}
 <div class="form__group">
     {{ form_widget(form.quantity, { 'attr' : { 'class' : 'form__control'}})}}
     <label for="inputQuantity">{{'product.form.quantity' | trans }}</label>
 </div>
+
 {{ form_errors(form.units) }}
 <div class="form__group">
     {{ form_widget(form.units, { 'attr' : { 'class' : 'form__control'}})}}
     <label for="inputUnits">{{'product.form.unity' | trans }}</label>
 </div>
+
 {{ form_errors(form.purchaseDate) }}
 <div class="form__group">
     {{ form_widget(form.purchaseDate, { 'attr' : { 'class' : 'form__control'}})}}
     <label for="inputPurchaseDate">{{'product.form.purchaseDate' | trans }}</label>
 </div>
+
 <div class="form__switch">
     <label for="inputExpirationDate">DLC : Date Limite de Consommation</label>
     <label class="switch">
@@ -41,6 +48,7 @@
     {{ form_widget(form.expirationDate, { 'attr' : { 'class' : 'form__control'}})}}
     <label for="inputExpirationDate"></label>
 </div>
+
 <div class="form__switch">
     <label for="inputBestBeforeDate">DDM : Date à Durée Minimale</label>
     <label class="switch">
@@ -53,5 +61,6 @@
     {{ form_widget(form.bestBeforeDate, { 'attr' : { 'class' : 'form__control'}})}}
     <label for="inputBestBeforeDate"></label>
 </div>
+
 <button type="submit" class="btn__submit btn__text">{{ action }}{{ icon('arrow_right') }}</button>
 {{ form_end(form)}}

@@ -19,6 +19,9 @@
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
+                <th>Auteur</th>
+                <th>Date de création</th>
+                <th>Date de modification</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,6 +30,9 @@
             <tr>
                 <td>{{ emplacement.id }}</td>
                 <td>{{ emplacement.name }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_emplacement_edit', {id: emplacement.id}) }}">{{ icon('edit')}}</a>

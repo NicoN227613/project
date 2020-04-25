@@ -13,7 +13,6 @@
 .dashboard__card {
     @extend %card;
     padding: 16px;
-    background: #D8E0E5;
 }
 .dashboard__card > * + * {
     margin-top: 16px;
@@ -44,7 +43,7 @@
     padding-left: 16px;
     min-width: 240px;
     transition: .3s;
-    background: url(../../../public/input-search.svg) right 16px center / 12px 12px no-repeat;
+    //background: url(../../../public/input-search.svg) right 16px center / 12px 12px no-repeat;
 }
 .form__search input:hover,
 .form__search input:focus {

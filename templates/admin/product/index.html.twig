@@ -14,7 +14,6 @@
         {{ form_end(form)}}
         <a href="{{ path('admin_product_new')}}" class="btn">Ajouter un produit</a>
     </div>
-    {#
     <table class="table">
         <thead>
             <tr>
@@ -45,7 +44,7 @@
                     {% endif %}</td>
                 <td>
                     <div class="dashboard__actions">
-                        <a href="#">{{ icon('eye') }}</a>
+                        {#<a href="#">{{ icon('eye') }}</a>#}
                         <a href="{{ path('admin_product_edit', {id: product.id}) }}">{{ icon('edit')}}</a>
                         <form method="POST" action="{{ path('admin_product_delete', {id: product.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
                             <input type="hidden" name="_method" value="DELETE">
@@ -57,8 +56,8 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>#}
-    {% for product in products %}
+    </table>
+    {#{% for product in products %}
     <article class="product">
         <header class="product__thumb">
             <img src="https://via.placeholder.com/150" alt="">
@@ -70,11 +69,11 @@
             <div class="product__emplacement">{{ product.placeIn.name }}</div>
             <div class="product__quantity">{{ product.quantity }}</div>
             <div class="product__unity">{{ product.units.name }}</div>
-            <div class="product__purchase__date">{{ product.purchaseDate | date('d F Y') }}</div>
+            <div class="product__purchase__date">Acheté le : {{ product.purchaseDate | date('d F Y') }}</div>
         </div>
         <footer class="product__footer">
-            <div class="product__createdAt">{{ product.createdAt | date('d F Y') }}</div>
-            <div class="product__updateddAt">{{ product.updatedAt | date('d F Y') }}</div>
+            <div class="product__createdAt">Enregistrer le : {{ product.createdAt | date('d F Y') }}</div>
+            <div class="product__updateddAt">Modifié le : {{ product.updatedAt | date('d F Y') }}</div>
             <a href="{{ path('admin_product_edit', {id: product.id}) }}">{{ icon('edit')}}</a>
             <form method="POST" action="{{ path('admin_product_delete', {id: product.id}) }}"
                 onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
@@ -84,7 +83,7 @@
             </form>
         </footer>
     </article>
-    {% endfor %}
+    {% endfor %}#}
     {{ knp_pagination_render(products) }}
 </div>
 
