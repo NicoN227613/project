@@ -25,6 +25,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email()
      */
     private $email;
 
@@ -45,6 +46,18 @@ class User implements UserInterface
      * @Assert\EqualTo(propertyPath="password", message="Les 2 mots de passe sont différements")
      */
     private $confirm_password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min=4, 
+     *      max=15, 
+     *      minMessage="Ce champ a besoin de 4 caractères minimum",
+     *      maxMessage="Ce champ ne doit pas avoir plus de 15 caractères"
+     * )
+     */
+    private $username;
 
     public function getId(): ?int
     {
@@ -70,7 +83,7 @@ class User implements UserInterface
      */
     public function getUsername(): ?string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**
@@ -140,6 +153,13 @@ class User implements UserInterface
     public function setConfirmPassword(string $confirm_password) : self
     {
         $this->confirm_password = $confirm_password;
+
+        return $this;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

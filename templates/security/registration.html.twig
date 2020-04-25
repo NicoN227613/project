@@ -7,6 +7,19 @@
 
     <h1>S'inscrire</h1>
 
+    {{ form_errors(form.username) }}
+    <div class="form__group">
+        {{ 
+            form_widget(form.username, {
+                'attr' : { 
+                    'class' : 'form__control', 
+                    'placeholder': 'Entrez votre nom'
+                }
+            })
+        }}
+        <label for="inputEmail">{{ icon('user') }}</label>
+    </div>
+
     {{ form_errors(form.email) }}
     <div class="form__group">
         {{ 
