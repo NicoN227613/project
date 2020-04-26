@@ -14,5 +14,6 @@ product:
         purchaseDate: "Date d'achat"
         expirationDate: 'DLC'
         bestBeforeDate: 'DDM'
+        author: 'Auteur'
     index:
         title: 'Liste des produits'    

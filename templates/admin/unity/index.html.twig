@@ -6,7 +6,7 @@
     Gestion des unités
 </div>
 <div class="dashboard__card">
-    <div class="dashboard__card__top">
+    <div class="dashboard__header">
         {#<form class="dashboard__search form__search">
             <input type="text" name="q" placeholder="Rechercher un produit">
         </form>#}
@@ -30,9 +30,9 @@
             <tr>
                 <td>{{ unity.id }}</td>
                 <td>{{ unity.name }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ unity.author.email }}</td>
+                <td>{{ unity.createdAt | date('d F Y') }}</td>
+                <td>{{ unity.updatedAt | date('d F Y H:i') }}</td>
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_unity_edit', {id: unity.id}) }}">{{ icon('edit')}}</a>

@@ -1,24 +1,24 @@
 // Variables
 // ==================
 :root {
-    --color: #5C5C5C;
     --background: #FFF7DF;
     --contrast: #00FF00;
     --border: #5C5C5C;
-    --green: #00FF00;
     --label:  #5C5C5C;
     --btn: #23DB72;
     --btn_submit: #00FF00;
     --btn_submit_hover: #00FF00;
     --switch: #00FF00;
+    --color: #5C5C5C;
+    --green: #00FF00;
     --red: #FB4635;
-    
 }
+
 // Outils
 // ==================
+@import "tools/container";
 @import "tools/reset";
 @import "tools/typography";
-@import "tools/container";
 
 // Generic
 // ==================
@@ -32,10 +32,14 @@ body {
 
 // Modules
 // ==================
-@import "modules/nav";
-@import "modules/burger";
+@import "modules/alert";
 @import "modules/btn";
+@import "modules/burger";
+@import "modules/card";
 @import "modules/form";
+@import "modules/nav";
+@import "modules/notification_perimer";
+@import "modules/pagination";
 @import "modules/switch";
 @import "modules/table";
 @import "modules/card";
@@ -44,16 +48,8 @@ body {
 @import "modules/alert";
 @import "modules/invisible";
 
+
 // Pages
 // ==================
-@import "pages/product";
-@import "pages/dashboard";
 @import "pages/card_product_index";
-
-
-
-
-
-
-
-
+@import "pages/dashboard";

@@ -40,11 +40,11 @@ class ProductRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
-    public function findAllProductByUser(User $suserId)
+    public function findAllProductByUser(User $userId)
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.author = :val')
-            ->setParameter('val', $suserId)
+            ->setParameter('val', $userId)
             ->getQuery()
             ->getResult();
     }

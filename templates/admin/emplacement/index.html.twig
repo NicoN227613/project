@@ -6,7 +6,7 @@
     Gestion des emplacements
 </div>
 <div class="dashboard__card">
-    <div class="dashboard__card__top">
+    <div class="dashboard__header">
         {#<form class="dashboard__search form__search">
             <input type="text" name="q" placeholder="Rechercher un produit">
         </form>#}
@@ -20,7 +20,7 @@
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Auteur</th>
-                <th>Date de création</th>
+                <th>Date de creation</th>
                 <th>Date de modification</th>
                 <th>Actions</th>
             </tr>
@@ -30,9 +30,9 @@
             <tr>
                 <td>{{ emplacement.id }}</td>
                 <td>{{ emplacement.name }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ emplacement.author.email }}</td>
+                <td>{{ emplacement.createdAt | date('d F Y') }}</td>
+                <td>{{ emplacement.updatedAt | date('d F Y H:i') }}</td>
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_emplacement_edit', {id: emplacement.id}) }}">{{ icon('edit')}}</a>

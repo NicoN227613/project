@@ -3,16 +3,16 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use App\Form\UserType;
 use App\Entity\UserSearch;
 use App\Form\UserSearchType;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -55,7 +55,6 @@ class UserController extends BaseController
     public function new(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
-
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -66,8 +65,8 @@ class UserController extends BaseController
             $this->manager->persist($user);
             $this->manager->flush();
 
-            $this->addFlash('success', 'Nouveau utilisateur crée');
-            return $this->redirectToRoute('user_index');
+            $this->addFlash('success', 'L\' utilisateur " '. $user->getEmail() .' " a bien été créé !');
+            return $this->redirectToRoute('admin_user_index');
         }
         return $this->render('admin/user/new.html.twig', [
             'form' => $form->createView(),
@@ -86,9 +85,9 @@ class UserController extends BaseController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            //$user->setUpdatedAt(new \DateTime());
+            $user->setUpdatedAt(new \DateTime());
             $this->manager->flush();
-            $this->addFlash('success', "L'utilisateur " . $user->getEmail() . " a bien était modifié !");
+            $this->addFlash('success', 'L\' utilisateur " '. $user->getEmail() .' " a bien été modifié !');
             return $this->redirectToRoute('admin_user_index');
         }
         return $this->render('admin/user/edit.html.twig', [
@@ -107,8 +106,8 @@ class UserController extends BaseController
         $request->get('_token'))){
             $this->manager->remove($user);
             $this->manager->flush();
-            $this->addFlash('success', 'L utilisateur ' . $user->getEmail() . ' a bien était supprimé!');
+            $this->addFlash('success','L\' utilisateur " '. $user->getEmail() .' " a été supprimé !');
         }
-        return $this->redirectToRoute('user_index');
+        return $this->redirectToRoute('admin_user_index');
     }
 }

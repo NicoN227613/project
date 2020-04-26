@@ -33,7 +33,7 @@
         <ul class="nav__side">
             <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
             <li class="nav__account"><a
-                    href="{{ path('security_logout') }}">{{ icon('door') }}{{ app.user.username }}</a></li>
+                    href="{{ path('security_logout') }}">{{ icon('door') }}{{ app.user.pseudo }}</a></li>
         </ul>
         {% else %}
         <ul class="nav__side">
@@ -53,6 +53,7 @@
         {% else %}
         {% endif %}
     </nav>
+
     {% block body %}
     
     {#<div class="container">
@@ -64,6 +65,18 @@
         {% endif %}
     </div>#}
     {% endblock %}
+
+    <div class="container">
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <alert-message type="{{ type }}">
+                    {{ message }}
+                </alert-message>
+            {% endfor %}
+        {% endfor %}
+        {% block body %}
+        {% endblock %} 
+    </div>
     {% block javascripts %}{{ encore_entry_script_tags('app')}}{% endblock %}
 </body>
 
