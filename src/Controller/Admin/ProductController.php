@@ -72,8 +72,6 @@ final class ProductController extends BaseController
     public function edit(Product $product, Request $request, EntityManagerInterface $manager)
     {
 
-        $this->denyAccessUnlessGranted('edit', $product);
-
         $form = $this->createForm(ProductType::class, $product, [
             'method' => 'PUT',
         ]);
@@ -98,8 +96,6 @@ final class ProductController extends BaseController
      */
     public function delete(Product $product, Request $request, EntityManagerInterface $manager)
     {
-
-        $this->denyAccessUnlessGranted('delete', $product);
 
         if($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))){
             $manager->remove($product);

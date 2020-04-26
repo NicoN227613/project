@@ -37,7 +37,10 @@
         </ul>
         {% else %}
         <ul class="nav__side">
-            <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
+            <li class="nav__search">
+                <a href="#">{{ icon('search') }}</a>
+            </li>
+            
             <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a
                     href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a></li>
         </ul>
@@ -51,6 +54,7 @@
         {% endif %}
     </nav>
     {% block body %}
+    
     {#<div class="container">
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('admin_index') }}">Accéder à l'administration</a>
