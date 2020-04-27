@@ -16,5 +16,7 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "dependencies": {}
+    "dependencies": {
+        "flatpickr": "^4.6.3"
+    }
 }

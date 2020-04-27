@@ -90,7 +90,7 @@ class Product
     private $units;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;

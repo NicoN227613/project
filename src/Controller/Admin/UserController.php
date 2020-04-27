@@ -106,7 +106,7 @@ class UserController extends BaseController
         $request->get('_token'))){
             $this->manager->remove($user);
             $this->manager->flush();
-            $this->addFlash('success','L\' utilisateur " '. $user->getEmail() .' " a été supprimé !');
+            $this->addFlash('success','L\' utilisateur " '. $user->getEmail() .' "  et son ou ses produit(s) ont bien été supprimés !');
         }
         return $this->redirectToRoute('admin_user_index');
     }
