@@ -9,9 +9,9 @@
         {% endfor %}
     {% endfor %}
     <section class="container">
-        <div class="div__btn">
+        <div class="div__btn nav__search__input display">
             {# <input type="search" name="nav__search__input" id="myInput" placeholder="Recherche" class="nav__search__input display dashboard__card" onkeyup="search()"> #}
-            {{ form_start(formSearch, { 'attr' : { 'class' : 'dashboard__search form__search nav__search__input display'  } } )}}
+            {{ form_start(formSearch, { 'attr' : { 'class' : 'dashboard__search form__search '  } } )}}
             {{ form_end(formSearch)}} 
         </div>
 
@@ -19,13 +19,12 @@
         <div class="div__btn">
             <button class="btn"><a href="{{ path('product_new') }}">{{'product.action.new' | trans }}</a></button>
         </div>
-        
+
         {% if products is empty %}
             <p> Ce produit n'est pas référencé ici </p>
         {% endif %}
         
         {% for product in products %}
-
             <article class="card__product">
 
                 <header class="card__product__thumb">
@@ -49,7 +48,7 @@
                         {% endif %}
 
                     </p>
-                    <p class="card__product__author">Ajouter par : {{ product.author.username | capitalize }}</p>
+                    <p class="card__product__author">Ajouter par : {{ product.author.pseudo | capitalize }}</p>
                     <p class="card__product__expiration">Expire le : {{ product.expirationDate | date('d/m/Y') }}</p>
                 </div>
             </article>    

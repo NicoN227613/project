@@ -54,7 +54,7 @@
         {% endif %}
     </nav>
 
-    {% block body %}
+    {# {% block body %} #}
     
     {#<div class="container">
         {% if is_granted('ROLE_ADMIN') %}
@@ -64,7 +64,7 @@
             
         {% endif %}
     </div>#}
-    {% endblock %}
+    {# {% endblock %} #}
 
     <div class="container">
         {% for type, messages in app.session.flashbag.all() %}
@@ -74,6 +74,7 @@
                 </alert-message>
             {% endfor %}
         {% endfor %}
+        
         {% block body %}
         {% endblock %} 
     </div>
