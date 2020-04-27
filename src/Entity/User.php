@@ -25,6 +25,12 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 4, 
+     *      max = 15, 
+     *      minMessage = "Ce champ a besoin de minimum 4 caractères",
+     *      maxMessage = "Ce champ a besoin de minimum 15 caractères"
+     * )
      */
     private $pseudo;
 
@@ -38,7 +44,7 @@ class User implements UserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
-     * @Assert\Length(min=8, max=255, minMessage="Ce champ a besoin de minimum 8 caractères")
+     * @Assert\Length(min=8, max=255, minMessage=" Ce champ a besoin de minimum 8 caractères")
      */
     private $password;
 
