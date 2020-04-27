@@ -41,6 +41,7 @@ class ProductController extends AbstractController
         $userCurrent = $this->getUser();
         $products = $this->repository->searchProductByUser($userCurrent, $search);
 
+        
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'formSearch' => $formSearch->createView()
