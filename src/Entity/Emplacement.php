@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -40,11 +42,17 @@ class Emplacement
      */
     private $author;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="placeIn", orphanRemoval=true)
+     */
+    private $products;
+
     
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
         $this->updateAt = new \DateTimeImmutable();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,6 +104,37 @@ class Emplacement
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setPlaceIn($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            // set the owning side to null (unless already changed)
+            if ($product->getPlaceIn() === $this) {
+                $product->setPlaceIn(null);
+            }
+        }
 
         return $this;
     }
