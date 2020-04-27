@@ -75,22 +75,25 @@ class Product
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $classifiedIn;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Emplacement")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Emplacement", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $placeIn;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Unity")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Unity", inversedBy="products")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $units;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
