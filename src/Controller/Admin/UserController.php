@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -26,6 +27,25 @@ class UserController extends BaseController
         $this->repository = $repository;
         $this->manager = $manager;
         $this->encoder = $encoder;
+    }
+
+    /**
+     * @Route("/users/search/{q?}", name="user_search")
+     */
+    public function search(string $q): JSONResponse
+    {
+        /** @var UserRepository $repository */
+        $repository = $this->manager->getRepository(User::class);
+        $q = strtolower($q);
+        $users = $repository
+            ->createQueryBuilder('u')
+            ->select('u.id', 'u.pseudo', 'u.email')
+            ->where('LOWER(u.email) LIKE :email')
+            ->setParameter('email', "%$q%")
+            ->setMaxResults(25)
+            ->getQuery()
+            ->getResult();
+        return new JsonResponse($users);
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\Emplacement;
 use App\Form\Type\DateType;
+use App\Form\Type\UserChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,10 +21,7 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('author', EntityType::class, [
-            'class' => User::class,
-            'choice_label' => 'email',
-        ])
+        ->add('author', UserChoiceType::class)
         ->add('name', TextType::class)
         ->add('classifiedIn', EntityType::class, [
             'class' => Category::class,
