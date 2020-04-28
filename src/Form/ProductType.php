@@ -8,6 +8,7 @@ use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\Emplacement;
 use App\Form\Type\DateType;
+use App\Form\Type\ChoicesType;
 use App\Form\Type\UserChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
