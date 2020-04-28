@@ -40,13 +40,36 @@ class ProductRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
-    public function findAllProductByUser(int $userId)
+    public function findAllProductByUser(User $userId)
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.author = :val')
             ->setParameter('val', $userId)
             ->getQuery()
             ->getResult();
+    }
+
+    public function searchProductByUser(User $suserId, $search = null)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.author = :val')
+            ->setParameter('val', $suserId)
+        ;
+
+        if($search->getName()) { 
+            $query = $query->innerJoin('p.classifiedIn', 'c')
+                ->andWhere('p.name = :name')
+                ->orWhere('c.name = :name')
+                ->setParameter('name', $search->getName())
+                ->andWhere('p.author = :val')
+                ->setParameter('val', $suserId)
+            ;
+        }
+
+        return $query->getQuery()
+            ->getResult()
+        ;
     }
 
      /**
