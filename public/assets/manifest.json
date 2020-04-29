@@ -2,6 +2,7 @@
   "assets/app.css": "/assets/app.css",
   "assets/app.js": "/assets/app.js",
   "assets/runtime.js": "/assets/runtime.js",
+  "assets/vendors~app.css": "/assets/vendors~app.css",
   "assets/vendors~app.js": "/assets/vendors~app.js",
   "assets/images/input-search.svg": "/assets/images/input-search.54b414c5.svg",
   "assets/images/select.svg": "/assets/images/select.9f46e6d8.svg"

@@ -16,5 +16,8 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "dependencies": {}
+    "dependencies": {
+        "choices.js": "^9.0.1",
+        "flatpickr": "^4.6.3"
+    }
 }
