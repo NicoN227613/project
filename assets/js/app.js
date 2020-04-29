@@ -5,7 +5,6 @@ import './elements/Alert'
 import './elements/Burger'
 import './elements/DatePicker'
 import './elements/UserSelect'
-import './elements/ToogleSearch'
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
