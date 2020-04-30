@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Entity\UserSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -47,8 +49,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
 
         $user->setPassword($newEncodedPassword);
-        $this->_em->persist($user);
-        $this->_em->flush();
+        try {
+            $this->_em->persist($user);
+        } catch (ORMException $e) {
+        }
+        try {
+            $this->_em->flush();
+        } catch (OptimisticLockException $e) {
+        } catch (ORMException $e) {
+        }
     }
 
     // /**
@@ -79,4 +88,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+    public function findOneByEmail($email)
+    {
+
+    }
+
+    public function setResetToken(string $token)
+    {
+
+    }
+
+    public function getEmail()
+    {
+
+    }
 }

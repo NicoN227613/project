@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use http\Env\Request;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -74,6 +75,16 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="author", orphanRemoval=true)
      */
     private $products;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $activation_token;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $reset_token;
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
@@ -243,4 +254,40 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activation_token;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function setActivationToken(?string $activation_token): self
+    {
+        $this->activation_token = $activation_token;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->reset_token;
+    }
+
+    public function setResetToken(?string $reset_token): self
+    {
+        $this->reset_token = $reset_token;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function findOneBy($token)
+    {
+
+    }
+
 }

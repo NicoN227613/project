@@ -3,4 +3,28 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
+  <component name="PhpEntryPointsManager">
+    <entry_point>
+      <entry_point TYPE="phpMethod" FQNAME="\App\Form\ResetPassType buildForm" />
+      <entry_point TYPE="phpMethod" FQNAME="\App\Form\ResetPassType configureOptions" />
+      <entry_point TYPE="phpClass" FQNAME="\App\Form\ResetPassType" />
+      <entry_point TYPE="phpMethod" FQNAME="\App\Controller\SecurityController forgotPass" />
+      <entry_point TYPE="phpMethod" FQNAME="\App\Controller\SecurityController resetPassword" />
+      <entry_point TYPE="phpMethod" FQNAME="\App\Controller\SecurityController execute" />
+      <entry_point TYPE="phpMethod" FQNAME="\App\Controller\SecurityController activation" />
+      <entry_point TYPE="phpMethod" FQNAME="\App\Controller\SecurityController login" />
+      <entry_point TYPE="phpMethod" FQNAME="\App\Controller\SecurityController logout" />
+      <entry_point TYPE="phpMethod" FQNAME="\App\Controller\SecurityController registration" />
+    </entry_point>
+    <pattern value="\App\Form\ResetPassType" member="buildForm" />
+    <pattern value="\App\Form\ResetPassType" member="configureOptions" />
+    <pattern value="\App\Form\ResetPassType" />
+    <pattern value="\App\Controller\SecurityController" member="forgotPass" />
+    <pattern value="\App\Controller\SecurityController" member="resetPassword" />
+    <pattern value="\App\Controller\SecurityController" member="execute" />
+    <pattern value="\App\Controller\SecurityController" member="activation" />
+    <pattern value="\App\Controller\SecurityController" member="login" />
+    <pattern value="\App\Controller\SecurityController" member="logout" />
+    <pattern value="\App\Controller\SecurityController" member="registration" />
+  </component>
 </project>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -11,8 +11,8 @@
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
 </head>
 
-<body>
-    <nav class="nav">
+<nav>
+    <ul class="nav">
         {% if app.user %}
         <ul class="nav__menu">
             <li class="nav__home {{ app.request.get('_route') == 'home' ? 'active' }}">
@@ -40,19 +40,26 @@
             <li class="nav__search">
                 <a href="#">{{ icon('search') }}</a>
             </li>
-            
             <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a
-                    href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a></li>
+                    href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a>
+            </li>
+            <li class="nav__account {{ app.request.password('_route') == 'app_forgotten_password' ? 'active' }}"><a
+                        href="{{ path('security_login') }}">{{ icon('password') }} Mot de passe oublié?</a>
+            </li>
+
         </ul>
         {% endif %}
-        </ul>
+    </ul>
+ </nav>
+
+
         {% if app.user %}
         <button class="nav__burger">
             <span></span>
         </button>
         {% else %}
         {% endif %}
-    </nav>
+    
 
     {# {% block body %} #}
     
