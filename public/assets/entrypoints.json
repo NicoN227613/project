@@ -10,6 +10,12 @@
         "/assets/vendors~app.css",
         "/assets/app.css"
       ]
+    },
+    "toogleSearch": {
+      "js": [
+        "/assets/runtime.js",
+        "/assets/toogleSearch.js"
+      ]
     }
   }
 }
