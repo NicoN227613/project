@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{# 
+    Choisir l'intitulé du message
+
+    Textaera pour écrire son message
+    
+#}
+
+{% block body %}
+
+    {% if not formContact.vars.valid %}
+        <div class='alert alert-danger'>
+            Le formulaire contient une erreur !
+        </div>
+    {% endif %}
+
+{{ form_start(formContact) }}
+    <div>
+        <p> {{ form_row(formContact.pseudo) }} </p>
+        <p> {{ form_row(formContact.email) }} </p>
+    </div>
+
+    <div>
+        <p> {{ form_row(formContact.subject) }} </p>
+        <p> {{ form_row(formContact.message) }} </p>
+    </div>
+
+    {{ form_rest(formContact) }}
+
+    <button> Envoyer </button>
+
+{{ form_end(formContact) }}
+
+{% endblock %}
