@@ -30,7 +30,7 @@ class ContactNotification {
             ->setFrom($contact->getEmail())
             ->setTo('admin@gmail.com')
             //->setReplayTo($contact->getEmail())
-            ->setBody($this->renderer->render('email/contact.html.twig', [
+            ->setBody($this->renderer->render('contact/email/contact.html.twig', [
                 'contact' => $contact
             ]), 'text/html')
         ;

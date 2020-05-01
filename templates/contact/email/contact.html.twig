@@ -1,0 +1,15 @@
+<body>
+
+    <ul>
+        <li> Vous Avez reçu un mail de Mr/Mme : {{ contact.pseudo | capitalize }}</li>
+        <li> 
+            Emial : {{ contact.email }} 
+        </li>
+
+        <li>
+            Sujet : <strong> {{ contact.subject }} </strong> <br>
+            {{ contact.message }}
+        </li>
+    </ul>
+
+</body>

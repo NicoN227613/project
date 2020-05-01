@@ -1,12 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{# 
-    Choisir l'intitulé du message
-
-    Textaera pour écrire son message
-    
-#}
-
 {% block body %}
 
     {% if not formContact.vars.valid %}
@@ -15,21 +8,33 @@
         </div>
     {% endif %}
 
-{{ form_start(formContact) }}
-    <div>
-        <p> {{ form_row(formContact.pseudo) }} </p>
-        <p> {{ form_row(formContact.email) }} </p>
-    </div>
+    {{ form_start(formContact, { 'attr' : { 'class' : 'form' }} ) }}
+        
+        {{ form_errors(formContact.pseudo) }}
+        <div class="form__group">
+            {{ form_widget(formContact.pseudo, { 'attr' : { 'class' : 'form__control'}}) }}
+            <label for="inputName">Pseudo</label>
+        </div>
 
-    <div>
-        <p> {{ form_row(formContact.subject) }} </p>
-        <p> {{ form_row(formContact.message) }} </p>
-    </div>
+        <div class="form__group">
+            {{ form_widget(formContact.email, { 'attr' : { 'class' : 'form__control'}}) }}
+             <label for="inputName">Email</label>
+        </div>
 
-    {{ form_rest(formContact) }}
+        <div class="form__group">
+            {{ form_widget(formContact.subject, { 'attr' : { 'class' : 'form__control'}}) }}
+            <label for="inputName">Sujet</label>
+        </div>
 
-    <button> Envoyer </button>
+        <div class="form__group">
+            {{ form_widget(formContact.message, { 'attr' : { 'class' : 'form__control'}}) }}
+            <label for="inputName">Message</label>
+        </div>
 
-{{ form_end(formContact) }}
+        {{ form_rest(formContact) }}
+
+        <button class="btn__submit btn__text"> Envoyer </button>
+
+    {{ form_end(formContact) }}
 
 {% endblock %}
