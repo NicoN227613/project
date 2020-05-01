@@ -25,7 +25,6 @@ class HomeController extends AbstractController
      */
     public function contact(Request $request, ContactNotification $notification)
     {
-        //dd($this->getUser());
         $contact = new Contact();
         $contact->setPseudo($this->getUser()->getPseudo());
         $contact->setEmail($this->getUser()->getEmail());
@@ -39,9 +38,8 @@ class HomeController extends AbstractController
             $notification->notify($contact);
 
             $this->addFlash('success', 'Votre Email a bien été envoyer !');
-            // return $this->redirectToRoute('contact');
+            return $this->redirectToRoute('contact');
         }
-
 
         return $this->render('contact/contact.html.twig', [
             'formContact' => $form->createView()

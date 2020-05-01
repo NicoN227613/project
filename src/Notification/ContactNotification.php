@@ -20,7 +20,7 @@ class ContactNotification {
 
     public function __construct(\Swift_Mailer $mailer, Environment $renderer)
     {
-        $this->mailer = $mailer;
+        $this->mailer   = $mailer;
         $this->renderer = $renderer;
     }
 
@@ -29,7 +29,6 @@ class ContactNotification {
         $message = (new \Swift_Message('sujet : ' . $contact->getSubject()))
             ->setFrom($contact->getEmail())
             ->setTo('admin@gmail.com')
-            //->setReplayTo($contact->getEmail())
             ->setBody($this->renderer->render('contact/email/contact.html.twig', [
                 'contact' => $contact
             ]), 'text/html')

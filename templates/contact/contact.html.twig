@@ -8,6 +8,8 @@
         </div>
     {% endif %}
 
+    <h2>Contactez-nous</h2>
+
     {{ form_start(formContact, { 'attr' : { 'class' : 'form' }} ) }}
         
         {{ form_errors(formContact.pseudo) }}
@@ -16,16 +18,19 @@
             <label for="inputName">Pseudo</label>
         </div>
 
+        {{ form_errors(formContact.email) }}
         <div class="form__group">
             {{ form_widget(formContact.email, { 'attr' : { 'class' : 'form__control'}}) }}
              <label for="inputName">Email</label>
         </div>
 
+        {{ form_errors(formContact.subject) }}
         <div class="form__group">
             {{ form_widget(formContact.subject, { 'attr' : { 'class' : 'form__control'}}) }}
             <label for="inputName">Sujet</label>
         </div>
 
+        {{ form_errors(formContact.message) }}
         <div class="form__group">
             {{ form_widget(formContact.message, { 'attr' : { 'class' : 'form__control'}}) }}
             <label for="inputName">Message</label>
