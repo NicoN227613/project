@@ -1,0 +1,12 @@
+<body>
+
+    <h1>Fresh Food Mail</h1>
+
+    <h2> Vous Avez reçu un mail de Mr/Mme : {{ contact.pseudo | capitalize }} <br> </h2>
+    
+    <p> Email : <strong> {{ contact.email }} </strong> <br> </p>
+
+    <h3> Sujet : {{ contact.subject | capitalize }} <br> </h3>
+
+    <p> {{ contact.message }}</p>
+</body>
