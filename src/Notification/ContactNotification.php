@@ -29,7 +29,7 @@ class ContactNotification {
         $message = (new \Swift_Message('sujet : ' . $contact->getSubject()))
             ->setFrom($contact->getEmail())
             ->setTo('admin@gmail.com')
-            ->setBody($this->renderer->render('contact/email/contact.html.twig', [
+            ->setBody($this->renderer->render('email/contact.html.twig', [
                 'contact' => $contact
             ]), 'text/html')
         ;
