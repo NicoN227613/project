@@ -29,7 +29,7 @@
             <li class="{{ app.request.get('_route') == 'product_index' ? 'active' }}">
                 <a href="{{ path('product_index')}}">{{ icon('bags') }} Mes produits</a>
             </li>
-            <li><a href="#">{{ icon('contact') }} Contact</a></li>
+            <li><a href="{{ path('contact') }}">{{ icon('contact') }} Contact</a></li>
         </ul>
         {% else %}
         {% endif %}
