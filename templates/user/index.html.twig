@@ -22,7 +22,7 @@
                     <td> {{ user.updatedAt | date('d F Y') }} </td>
                 {% endif %}
                 <td>  
-                    <div class="dashboard__actions">
+                    <div class="dashboard__actions ">
                        {# <a href="{{ path('user_user_edit', {id: user.id}) }}">{{ icon('edit')}}</a> #}
                        <a href="{{ path('user_user_edit') }}">{{ icon('edit')}}</a>
                        
@@ -35,6 +35,35 @@
                 </td>
             </tbody>
         </table>
+
+        <article class='user_card'>
+            <header class='user_card_header'>
+                <div class='user_card_header_div'>
+                <img src="/assets/images/user/default/user.png" alt="image" class='user_card_header_img'>
+                    {# <img src="https://via.placeholder.com/200" alt="image" class='user_card_header_img'> #}
+                </div>
+            </header>
+            <div>
+                <h2 class="space"> {{ user.pseudo }} </h2>
+                <p class="space"> {{ user.email }} </p>
+                <p class="space"> {{ user.createdAt | date('d F Y') }} </p>
+                {% if user.updatedAt is not null %}
+                    <p> {{ user.updatedAt | date('d F Y') }} </p>
+                {% endif %}
+                <div class="mod_sup">  
+                    <div class="dashboard__actions ">
+                       {# <a href="{{ path('user_user_edit', {id: user.id}) }}">{{ icon('edit')}}</a> #}
+                       <a href="{{ path('user_user_edit') }}" class="middle"> {{ icon('edit') }} Modifier </a>
+                       
+                        <form method="POST" action="{{ path('user_user_delete') }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer votre compte ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                            <button> {{ icon('trash') }} Supprimer </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
 
     </section>
 {% endblock %}

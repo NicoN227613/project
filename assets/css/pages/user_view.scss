@@ -1,0 +1,52 @@
+.user_card{
+    background-color: white; 
+    height: 370px;
+    //width: 100%;
+    margin: 1rem auto;
+    text-align: center;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+}
+
+.user_card_header{
+    padding: 35px 0 0;
+    height: 170px;
+    background: linear-gradient(to bottom right, green 50%, white 50%);
+}
+
+.user_card_header_div{
+    height: 100px;
+    width: 100px;
+    margin: 0px auto 0;
+    //border: 1px black solid;
+    //border-radius: 50%;
+}
+
+.user_card_header_img{
+    height: 100px;
+    width: 100px;
+    //margin: 0px auto 0;
+    //border: 1px black solid;
+    border-radius: 50%;
+}
+
+.space{
+    margin: 20px 0;
+}
+
+.mod_sup{
+    width: 80%;
+    //padding: 10px;
+    margin: 1px auto;
+}
+
+.middle{
+    margin: auto;
+}
+
+/*------------------ CSS TABLETTE  -------------------------*/
+@media screen and (min-width: 500px) {
+
+    .user_card{
+        width: 45%;
+    }
+}
