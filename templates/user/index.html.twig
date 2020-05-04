@@ -10,38 +10,13 @@
     {% endfor %}
 
     <section class="container">
-        {# <table>
-            <thead>
-                <th colspan="4"> {{ user.pseudo }} </th>
-            </thead>
-    
-            <tbody>
-                <td> {{ user.email }} </td>
-                <td> {{ user.createdAt | date('d F Y') }} </td>
-                {% if user.updatedAt is not null %}
-                    <td> {{ user.updatedAt | date('d F Y') }} </td>
-                {% endif %}
-                <td>  
-                    <div class="dashboard__actions ">
-                       {# <a href="{{ path('user_user_edit', {id: user.id}) }}">{{ icon('edit')}}</a> #}
-                      {#<a href="{{ path('user_user_edit') }}">{{ icon('edit')}}</a>
-                       
-                        <form method="POST" action="{{ path('user_user_delete') }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer votre compte ?')">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
-                            <button>{{ icon('trash')}}</button>
-                        </form>
-                    </div>
-                </td>
-            </tbody>
-        </table> #}
 
         <article class='user_card'>
             <header class='user_card_header'>
                 <div class='user_card_header_div'>
                 
                     {% if user.image is null %}
-                        <img src="/assets/images/user/default/user.png" alt="image" class='user_card_header_img'>
+                        <img src="/images/user/default/user.png" alt="image" class='user_card_header_img'>
                     {% else %}
                         <img src="{{ asset(user.image.webPath) }}" alt="{{ user.image.alt }}" class='user_card_header_img'>
                     {% endif %}

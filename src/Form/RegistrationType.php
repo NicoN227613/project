@@ -20,7 +20,7 @@ class RegistrationType extends AbstractType
             ->add('email', EmailType::class, ['attr' => ['placeholder' => 'Entrer votre email']])
             ->add('password', PasswordType::class, ['attr' => ['placeholder' => 'Entrer votre mot de passe']])
             ->add('confirm_password', PasswordType::class, ['attr' => ['placeholder' => 'Confirmer votre mot de passe']])
-            ->add('image', ImageType::class)
+            ->add('image', ImageType::class, [ 'required' => false ])
         ;
     }
 

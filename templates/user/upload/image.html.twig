@@ -2,14 +2,24 @@
 
 {% block body %}
 
+    <div class="taille_img">
+        <p>Votre photo de profile actuelle</p>
+        {% if app.user.image is null %}
+            <img src="/images/user/default/user.png" alt="image" >
+        {% else %}
+            <img src="{{ asset(app.user.image.webPath) }}" alt="{{ app.user.image.alt }}">
+        {% endif %}
+    </div>
+
     {{ form_start(formImage, { 'attr' : { 'class' : 'form' }} ) }}
 
     {{ form_errors(formImage.image.file) }}
-    <div class="form__group">
+    <div class="">
+        <label for="inputImage">Télécharger une autre image</label>
         {{ form_widget(formImage.image.file, { 'attr' : { 'class' : 'form__control'} } ) }}
     </div>
 
-    <button> Envoyer </button>
+    <button  type="submit" class="btn__submit btn__text" > Envoyer </button>
     {{ form_end(formImage) }}
 
 {% endblock body %}

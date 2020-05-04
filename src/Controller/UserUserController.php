@@ -40,44 +40,21 @@ class UserUserController extends AbstractController
      */
     public function uploadImage(Request $request)
     {
-        // $img = new Image();
-        // $form = $this->createForm(ImageType::class, $img, [
-        //     'method' => 'PUT'
-        // ]);
-
-        // $form->handleRequest($request);
-
-        // if($form->isSubmitted() && $form->isValid()) {
-            
-        //     $file = $img->getName();
-        //     $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-        //     $file->move($this->getParameter('image_redirect_to'), $fileName);
-        //     $img->setName($fileName);
-
-        //     $this->addFlash('success', "Votre image est bien enregistré !");
-
-        //     return $this->redirectToRoute('user_user_index');
-        // }
-
         $user = $this->getUser();
-        //dd($user);
          $form = $this->createForm(UserImageType::class, $user, [
              'method' => 'POST'
          ]);
 
-         //dd($user);
          $form->handleRequest($request);
 
          if($form->isSubmitted() && $form->isValid()) {
 
-            //dd($user);
             $this->manager->persist($user);
             $this->manager->flush();
-            
 
-             $this->addFlash('success', "Votre image est bien enregistré !");
+            $this->addFlash('success', "Votre image est bien enregistré !");
 
-             return $this->redirectToRoute('user_user_index');
+            return $this->redirectToRoute('user_user_index');
          }
 
         return $this->render('user/upload/image.html.twig', [

@@ -24,11 +24,11 @@
     <label for="inputPassword">Confirme mdp</label>
 </div>
 
-{# {{ form_errors(form.roles) }}
-<div class="form__group">
-    {{ form_widget(form.roles, { 'attr' : { 'class' : 'form__control'} } ) }}
-    <label for="inputRoles">Rôle(s)</label>
-</div> #}
+{{ form_errors(form.image.file) }}
+<div class="">
+<label for="inputImage">Télécharger une image</label>
+    {{ form_widget(form.image.file, { 'attr' : { 'class' : 'form__control'} } ) }}
+</div> 
 
 <button type="submit" class="btn__submit btn__text">Modifier{{ icon('arrow_right') }}</button>
 {{ form_end(form)}}

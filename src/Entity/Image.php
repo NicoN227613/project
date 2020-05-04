@@ -133,7 +133,7 @@ class Image implements \Serializable
      */
     public function getUploadDir()
     {
-        return 'assets/images/user';
+        return 'images/user/';
     }
 
     /**
