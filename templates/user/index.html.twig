@@ -10,7 +10,7 @@
     {% endfor %}
 
     <section class="container">
-        <table>
+        {# <table>
             <thead>
                 <th colspan="4"> {{ user.pseudo }} </th>
             </thead>
@@ -24,7 +24,7 @@
                 <td>  
                     <div class="dashboard__actions ">
                        {# <a href="{{ path('user_user_edit', {id: user.id}) }}">{{ icon('edit')}}</a> #}
-                       <a href="{{ path('user_user_edit') }}">{{ icon('edit')}}</a>
+                      {#<a href="{{ path('user_user_edit') }}">{{ icon('edit')}}</a>
                        
                         <form method="POST" action="{{ path('user_user_delete') }}" onsubmit="return confirm('Etes-vous sur de vouloir supprimer votre compte ?')">
                             <input type="hidden" name="_method" value="DELETE">
@@ -34,22 +34,30 @@
                     </div>
                 </td>
             </tbody>
-        </table>
+        </table> #}
 
         <article class='user_card'>
             <header class='user_card_header'>
                 <div class='user_card_header_div'>
-                <img src="/assets/images/user/default/user.png" alt="image" class='user_card_header_img'>
+                
+                    {% if user.image is null %}
+                        <img src="/assets/images/user/default/user.png" alt="image" class='user_card_header_img'>
+                    {% else %}
+                        <img src="{{ asset(user.image.webPath) }}" alt="{{ user.image.alt }}" class='user_card_header_img'>
+                    {% endif %}
+                    <a href=" {{ path('user_image') }}">{{ icon('user') }} </a>
                     {# <img src="https://via.placeholder.com/200" alt="image" class='user_card_header_img'> #}
                 </div>
             </header>
-            <div>
+            <div class="user_card_body">
                 <h2 class="space"> {{ user.pseudo }} </h2>
                 <p class="space"> {{ user.email }} </p>
-                <p class="space"> {{ user.createdAt | date('d F Y') }} </p>
+                <p class="space">Créer le : {{ user.createdAt | date('d F Y') }} </p>
+                
                 {% if user.updatedAt is not null %}
-                    <p> {{ user.updatedAt | date('d F Y') }} </p>
+                    <p>Modifier le : {{ user.updatedAt | date('d F Y') }} </p>
                 {% endif %}
+
                 <div class="mod_sup">  
                     <div class="dashboard__actions ">
                        {# <a href="{{ path('user_user_edit', {id: user.id}) }}">{{ icon('edit')}}</a> #}
@@ -64,6 +72,5 @@
                 </div>
             </div>
         </article>
-
     </section>
 {% endblock %}

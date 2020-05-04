@@ -1,6 +1,6 @@
 .user_card{
     background-color: white; 
-    height: 370px;
+    //height: 450px;
     //width: 100%;
     margin: 1rem auto;
     text-align: center;
@@ -29,6 +29,10 @@
     border-radius: 50%;
 }
 
+.user_card_body{
+    padding: 10px;
+}
+
 .space{
     margin: 20px 0;
 }
@@ -36,7 +40,7 @@
 .mod_sup{
     width: 80%;
     //padding: 10px;
-    margin: 1px auto;
+    margin: 20px auto;
 }
 
 .middle{
@@ -48,5 +52,21 @@
 
     .user_card{
         width: 45%;
+    }
+
+    .user_card_header_div{
+        height: 120px;
+        width: 120px;
+        margin: 0px auto 0;
+        //border: 1px black solid;
+        //border-radius: 50%;
+    }
+    
+    .user_card_header_img{
+        height: 120px;
+        width: 120px;
+        //margin: 0px auto 0;
+        //border: 1px black solid;
+        border-radius: 50%;
     }
 }

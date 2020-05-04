@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(formImage, { 'attr' : { 'class' : 'form' }} ) }}
+
+    {{ form_errors(formImage.image.file) }}
+    <div class="form__group">
+        {{ form_widget(formImage.image.file, { 'attr' : { 'class' : 'form__control'} } ) }}
+    </div>
+
+    <button> Envoyer </button>
+    {{ form_end(formImage) }}
+
+{% endblock body %}

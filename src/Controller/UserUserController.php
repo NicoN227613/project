@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
-use App\Form\UserUserType;
+use App\Form\ImageType;
+use App\Entity\Image;
+use App\Entity\User;
+use App\Form\UserImageType;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +36,57 @@ class UserUserController extends AbstractController
     }
 
     /**
-     * @Route("/edit", name="user_user_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"}))
+     * @Route("/upload/image", name="user_image", methods={"GET", "POST"})
+     */
+    public function uploadImage(Request $request)
+    {
+        // $img = new Image();
+        // $form = $this->createForm(ImageType::class, $img, [
+        //     'method' => 'PUT'
+        // ]);
+
+        // $form->handleRequest($request);
+
+        // if($form->isSubmitted() && $form->isValid()) {
+            
+        //     $file = $img->getName();
+        //     $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+        //     $file->move($this->getParameter('image_redirect_to'), $fileName);
+        //     $img->setName($fileName);
+
+        //     $this->addFlash('success', "Votre image est bien enregistré !");
+
+        //     return $this->redirectToRoute('user_user_index');
+        // }
+
+        $user = $this->getUser();
+        //dd($user);
+         $form = $this->createForm(UserImageType::class, $user, [
+             'method' => 'POST'
+         ]);
+
+         //dd($user);
+         $form->handleRequest($request);
+
+         if($form->isSubmitted() && $form->isValid()) {
+
+            //dd($user);
+            $this->manager->persist($user);
+            $this->manager->flush();
+            
+
+             $this->addFlash('success', "Votre image est bien enregistré !");
+
+             return $this->redirectToRoute('user_user_index');
+         }
+
+        return $this->render('user/upload/image.html.twig', [
+            'formImage' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/edit", name="user_user_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
     public function edit (Request $request, UserPasswordEncoderInterface $encoder)
     {
