@@ -1,6 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+
 {{ form_start(form, { 'attr' : { 'class' : 'form' }} ) }}
 <h1>S'inscrire</h1>
 {{ form_errors(form.pseudo) }}
@@ -8,22 +9,33 @@
     {{ form_widget(form.pseudo, {'attr' : { 'class' : 'form__control' }})}}
     <label for="inputPseudo">{{ icon('user') }}</label>
 </div>
+
 {{ form_errors(form.email) }}
 <div class="form__group">
     {{ form_widget(form.email, {'attr' : { 'class' : 'form__control' }})}}
     <label for="inputEmail">{{ icon('email') }}</label>
 </div>
+
 {{ form_errors(form.password) }}
 <div class="form__group">
     {{ form_widget(form.password, { 'attr' : { 'class' : 'form__control' } }) }}
     <label for="inputPassword">{{ icon('password') }}</label>
 </div>
+
 {{ form_errors(form.confirm_password) }}
 <div class="form__group">
     {{ form_widget(form.confirm_password, { 'attr' : {'class' : 'form__control'} })}}
     <label for="inputPassword">{{ icon('password') }}</label>
 </div>
+
+{{ form_errors(form.image.file) }}
+<div class="">
+<label for="inputImage">Télécharger une image</label>
+    {{ form_widget(form.image.file, { 'attr' : { 'class' : 'form__control'} } ) }}
+</div>
+
 {{ form_rest(form) }}
+
 <a href="{{ path('security_login')}}">Vous avez un compte ? Connectez-vous</a>
 <button type="submit" class="btn__submit btn__text">S'incrire{{ icon('arrow_right') }}</button>
 {{ form_end(form) }}
