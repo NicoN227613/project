@@ -3,6 +3,9 @@
 {% block body %}
 
 {{ form_start(form, { 'attr' : { 'class' : 'form' }} ) }}
+
+<h1>S'incrire</h1>
+
 <div class="form__group">
     <label for="inputPseudo">Nom d'utilisateur</label>
     {{ form_widget(form.pseudo, {'attr' : { 'class' : 'form__control' }})}}
