@@ -6,8 +6,9 @@ use App\Form\UserUserType;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -27,7 +28,7 @@ class UserUserController extends AbstractController
     /**
      * @Route("/view", name="user_user_index", methods="GET")
      */
-    public function index(): string
+    public function index(): Response
     {
         $user = $this->getUser();
         return $this->render('user/index.html.twig', [
@@ -38,7 +39,7 @@ class UserUserController extends AbstractController
     /**
      * @Route("/edit", name="user_user_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"}))
      */
-    public function edit (Request $request, UserPasswordEncoderInterface $encoder)
+    public function edit (Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = $this->getUser();
 
@@ -69,7 +70,7 @@ class UserUserController extends AbstractController
     /**
      * @Route("/detlete", name="user_user_delete", methods="DELETE")
      */
-    public function delete(Request $request)
+    public function delete(Request $request): Response
     {
         $user = $this->getUser();
 

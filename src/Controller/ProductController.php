@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/product")
@@ -34,7 +35,7 @@ class ProductController extends AbstractController
     * 
     * @Route("", name="product_index", methods="GET")
     */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         //$userCurrent = $this->getUser();
         //$products = $this->repository->findAllProductByUser($userCurrent);
@@ -51,13 +52,14 @@ class ProductController extends AbstractController
         $userCurrent = $this->getUser();
         $products = $this->repository->searchProduct($userCurrent, $search, $data);
         
-        // Convertion d'une réponse JSON en HTML pour filtrer les produits
+        // Convertion d'une requête JSON en HTML pour filtrer les produits en renvoyant des pages HTML
         // $request->get('ajax') = si il a 'ajax' dans l'url, lorsque l'on souhaite revenir en arrière, évite un retour d'une page en JSON
         if($request->get('ajax')) {
             return new JsonResponse([
                 'products' => $this->renderView('product/_products.html.twig', ['products' => $products]),
-                'pagination' => $this->renderView('product/_pagination.html.twig', ['products' => $products])
-            ]);
+                'pagination' => $this->renderView('product/_pagination.html.twig', ['products' => $products]),
+                'pages' => ceil($products->getTotalItemCount() / $products->getItemNumberPerPage()) // Récupération du nombre(s) de page(s) selon le(s) filtre(s) sélectionné(s)
+                ]);
         }
 
         return $this->render('product/index.html.twig', [
@@ -70,7 +72,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}", name="product_show", requirements={"id": "\d+"})
      */
-    public function show(Product $product, ValidatorInterface $validator): string
+    public function show(Product $product, ValidatorInterface $validator)
     {
         $this->denyAccessUnlessGranted('show', $product);
 
@@ -84,7 +86,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/new", name="product_new")
      */
-    public function new(Request $request): string
+    public function new(Request $request): Response
     {
         $product = new Product();
         $product->setAuthor($this->getUser());
@@ -108,7 +110,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}/edit", name="product_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
-    public function edit(Product $product, Request $request): string
+    public function edit(Product $product, Request $request): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $product);
@@ -134,7 +136,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}/delete", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      */
-    public function delete(Product $product, Request $request): string
+    public function delete(Product $product, Request $request): Response
     {
         $this->denyAccessUnlessGranted('delete', $product);
 

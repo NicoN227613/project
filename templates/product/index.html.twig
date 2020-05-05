@@ -2,7 +2,7 @@
 
 {% block body %}
 <div class="js-filter">
-    <aside class="sidebar ">
+    <aside class="sidebar">
         <a class="btn" href="{{ path('product_new') }}">{{'product.action.new' | trans }}</a>
         {% include 'product/_filter.html.twig' with {form: form} %}
         {#<div class="div__btn nav__search__input display">

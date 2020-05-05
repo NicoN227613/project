@@ -3,16 +3,17 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Unity;
+use App\Form\UnityType;
 use App\Entity\UnitySearch;
 use App\Form\UnitySearchType;
-use App\Form\UnityType;
 use App\Repository\UnityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -31,7 +32,7 @@ final class UnityController extends BaseController
     /**
      * @Route("/units", name="unity_index", methods="GET")
      */
-    public function index(PaginatorInterface $paginator, Request $request): string
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new UnitySearch();
         $form = $this->createForm(UnitySearchType::class, $search);
@@ -51,7 +52,7 @@ final class UnityController extends BaseController
     /**
      * @Route("unity/new", name="unity_new", methods={"GET","POST"})
      */
-    public function new(Request $request): string
+    public function new(Request $request): Response
     {
         $unity = new Unity();
         $unity->setAuthor($this->getUser());
@@ -74,7 +75,7 @@ final class UnityController extends BaseController
     /**
      * @Route("/unity/{id}/edit", requirements={"id": "\d+"}, name="unity_edit", methods={"GET", "PUT"})
      */
-    public function edit(Unity $unity, Request $request): string
+    public function edit(Unity $unity, Request $request): Response
     {
         $form = $this->createForm(UnityType::class, $unity, [
             'method' => 'PUT',
@@ -98,7 +99,7 @@ final class UnityController extends BaseController
      * @Route("/unity/{id}", name="unity_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("unity", options={"id" = "id"})
      */
-    public function delete(Unity $unity, Request $request): string
+    public function delete(Unity $unity, Request $request): Response
     {
         if($this->isCsrfTokenValid('delete' . $unity->getId(), $request->get('_token'))){
             $this->manager->remove($unity);

@@ -3,16 +3,17 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use App\Form\CategoryType;
 use App\Entity\CategorySearch;
 use App\Form\CategorySearchType;
-use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -30,7 +31,7 @@ final class CategoryController extends BaseController
     /**
      * @Route("/categories", name="category_index", methods="GET")
      */
-    public function index(PaginatorInterface $paginator, Request  $request): string
+    public function index(PaginatorInterface $paginator, Request  $request): Response
     {
         $search = new CategorySearch();
         $form = $this->createForm(CategorySearchType::class, $search);
@@ -50,7 +51,7 @@ final class CategoryController extends BaseController
     /**
      * @Route("category/new", name="category_new", methods={"GET","POST"})
      */
-    public function new(Request $request): string
+    public function new(Request $request): Response
     {
         $category = new Category();
         $category->setAuthor($this->getUser());
@@ -72,7 +73,7 @@ final class CategoryController extends BaseController
     /**
      * @Route("/category/{id}/edit", requirements={"id": "\d+"}, name="category_edit", methods={"GET", "PUT"})
      */
-    public function edit(Category $category, Request $request): string
+    public function edit(Category $category, Request $request): Response
     {
         $form = $this->createForm(CategoryType::class, $category, [
             'method' => 'PUT',
@@ -96,7 +97,7 @@ final class CategoryController extends BaseController
      * @Route("/category/{id}", name="category_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("category", options={"id" = "id"})
      */
-    public function delete(Category $category, Request $request): string
+    public function delete(Category $category, Request $request): Response
     {
         if($this->isCsrfTokenValid('delete' . $category->getId(), $request->get('_token'))){
             $this->manager->remove($category);

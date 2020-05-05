@@ -29,11 +29,6 @@ body {
     background: var(--background);
 }
 
-.is-loading .spinner-border {
-    color: green;
-    background-color: lightcoral;
-}
-
 // Modules
 // ==================
 @import "modules/alert";
@@ -41,14 +36,15 @@ body {
 @import "modules/burger";
 @import "modules/card";
 @import "modules/choices";
+@import "modules/date";
 @import "modules/form";
+@import "modules/invisible";
+@import "modules/loader";
 @import "modules/nav";
 @import "modules/notification_perimer";
 @import "modules/pagination";
 @import "modules/switch";
 @import "modules/table";
-@import "modules/invisible";
-
 
 // Pages
 // ==================
