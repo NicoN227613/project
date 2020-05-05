@@ -5,13 +5,12 @@
     --contrast: #00FF00;
     --border: #5C5C5C;
     --label:  #5C5C5C;
-    --btn: #23DB72;
-    --btn_submit: #00FF00;
-    --btn_submit_hover: #00FF00;
+    --btn: #00FF00;
     --switch: #00FF00;
     --color: #5C5C5C;
     --green: #00FF00;
     --red: #FB4635;
+    --white: #F9F9F9;
 }
 
 // Outils
@@ -37,16 +36,18 @@ body {
 @import "modules/burger";
 @import "modules/card";
 @import "modules/choices";
+@import "modules/date";
 @import "modules/form";
+@import "modules/invisible";
+@import "modules/loader";
 @import "modules/nav";
 @import "modules/notification_perimer";
 @import "modules/pagination";
 @import "modules/switch";
 @import "modules/table";
-@import "modules/invisible";
-
 
 // Pages
 // ==================
-@import "pages/card_product_index";
+//@import "pages/card_product_index";
 @import "pages/dashboard";
+@import "pages/product";

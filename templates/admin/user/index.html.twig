@@ -29,9 +29,9 @@
         <tbody>
             {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.pseudo }}</td>
-                <td>{{ user.email }}</td>
+                <td><a href="{{ path('admin_user_edit', {id: user.id}) }}">{{ user.id }}</a></td>
+                <td><a href="{{ path('admin_user_edit', {id: user.id}) }}">{{ user.pseudo }}</a></td>
+                <td><a href="{{ path('admin_user_edit', {id: user.id}) }}">{{ user.email }}</a></td>
                 <td>
                     {% for role in user.roles %}
                     {% if role == "ROLE_ADMIN" %}

@@ -23,7 +23,7 @@ class ProductVoter extends Voter
 
     protected function voteOnAttribute($attribute, $product, TokenInterface $token)
     {
-        $user = $token->getUser();
+        return $user = $token->getUser();
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;

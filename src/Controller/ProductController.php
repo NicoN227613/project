@@ -3,22 +3,28 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Entity\ProductSearch;
 use App\Form\ProductType;
+use App\Entity\ProductSearch;
 use App\Form\ProductSearchType;
+use App\Form\SearchProductType;
+use App\Entity\SearchProductData;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/product")
  */
 class ProductController extends AbstractController
 {
+    private $repository;
+    private $manager;
+
     public function __construct(ProductRepository $repository, EntityManagerInterface $manager)
     {
         $this->repository = $repository;
@@ -29,21 +35,36 @@ class ProductController extends AbstractController
     * 
     * @Route("", name="product_index", methods="GET")
     */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
-        // $userCurrent = $this->getUser();
+        //$userCurrent = $this->getUser();
         //$products = $this->repository->findAllProductByUser($userCurrent);
+       
+        $data = new SearchProductData();
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchProductType::class, $data);
+        $form->handleRequest($request);
 
         $search = new ProductSearch();
         $formSearch = $this->createForm(ProductSearchType::class, $search);
         $formSearch->handleRequest($request);
 
         $userCurrent = $this->getUser();
-        $products = $this->repository->searchProductByUser($userCurrent, $search);
-
+        $products = $this->repository->searchProduct($userCurrent, $search, $data);
         
+        // Convertion d'une requête JSON en HTML pour filtrer les produits en renvoyant des pages HTML
+        // $request->get('ajax') = si il a 'ajax' dans l'url, lorsque l'on souhaite revenir en arrière, évite un retour d'une page en JSON
+        if($request->get('ajax')) {
+            return new JsonResponse([
+                'products' => $this->renderView('product/_products.html.twig', ['products' => $products]),
+                'pagination' => $this->renderView('product/_pagination.html.twig', ['products' => $products]),
+                'pages' => ceil($products->getTotalItemCount() / $products->getItemNumberPerPage()) // Récupération du nombre(s) de page(s) selon le(s) filtre(s) sélectionné(s)
+                ]);
+        }
+
         return $this->render('product/index.html.twig', [
             'products' => $products,
+            'form' => $form->createView(),
             'formSearch' => $formSearch->createView()
         ]);
     }
@@ -65,7 +86,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/new", name="product_new")
      */
-    public function new(Request $request)
+    public function new(Request $request): Response
     {
         $product = new Product();
         $product->setAuthor($this->getUser());
@@ -89,7 +110,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}/edit", name="product_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
-    public function edit(Product $product, Request $request)
+    public function edit(Product $product, Request $request): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $product);
@@ -115,7 +136,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}/delete", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      */
-    public function delete(Product $product, Request $request)
+    public function delete(Product $product, Request $request): Response
     {
         $this->denyAccessUnlessGranted('delete', $product);
 
