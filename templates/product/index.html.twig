@@ -17,10 +17,11 @@
         <p>Aucun résultat</p>
         {% endif %}
     </div>
+    <div class="js-filter-pagination">
+        {% include 'product/_pagination.html.twig' %}
+    </div>
 </div>
-<div class="js-filter-pagination">
-    {% include 'product/_pagination.html.twig' %}
-</div>
+
 <footer class="footer">
     Footer
 </footer>
