@@ -20,8 +20,7 @@
                     {% else %}
                         <img src="{{ asset(user.image.webPath) }}" alt="{{ user.image.alt }}" class='user_card_header_img'>
                     {% endif %}
-                    <a href=" {{ path('user_image') }}">{{ icon('user') }} <i class="fas fa-camera-retro"></i> </a>
-                    {# <img src="https://via.placeholder.com/200" alt="image" class='user_card_header_img'> #}
+                    <a href=" {{ path('user_image') }}"> <i class="fas fa-camera-retro"></i> </a>
                 </div>
             </header>
             <div class="user_card_body">
@@ -35,7 +34,6 @@
 
                 <div class="mod_sup">  
                     <div class="dashboard__actions ">
-                       {# <a href="{{ path('user_user_edit', {id: user.id}) }}">{{ icon('edit')}}</a> #}
                        <a href="{{ path('user_user_edit') }}" class="middle"> {{ icon('edit') }} Modifier </a>
                        
                         <form method="POST" action="{{ path('user_user_delete') }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer votre compte ?')">

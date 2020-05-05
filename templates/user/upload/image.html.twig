@@ -4,20 +4,23 @@
 
     <div class="taille_img">
         <p>Votre photo de profile actuelle</p>
-        {% if app.user.image is null %}
-            <img src="/images/user/default/user.png" alt="image" >
-        {% else %}
-            <img src="{{ asset(app.user.image.webPath) }}" alt="{{ app.user.image.alt }}">
-        {% endif %}
 
-        {{ dump(app.user.image) }}
-        <div class="dashboard__actions ">
-            <form method="POST" action="{{ path('user_image_delete', { id : app.user.image.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette image ?')">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.image.id) }}">
-                <button> {{ icon('trash') }} Supprimer cette image </button>
-            </form>
-        </div>
+        {% if app.user.image is null %}
+
+            <img src="/images/user/default/user.png" alt="image" >
+
+        {% else %}
+        
+            <img src="{{ asset(app.user.image.webPath) }}" alt="{{ app.user.image.alt }}">
+
+            <div class="dashboard__actions ">
+                <form method="POST" action="{{ path('user_image_delete', { id : app.user.image.id }) }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer cette image ?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.image.id) }}">
+                    <button> {{ icon('trash') }} Supprimer cette image </button>
+                </form>
+            </div>
+        {% endif %}
     </div>
 
     {{ form_start(formImage, { 'attr' : { 'class' : 'form' }} ) }}

@@ -122,8 +122,9 @@ class UserUserController extends AbstractController
     {
         $user = $this->getUser();
         if($this->isCsrfTokenValid('delete' . $image->getId(), $request->get('_token'))){
-
+            
             $this->manager->remove($image);
+            $user->setImage(null); //dissocier Image.php a User.php
             $this->manager->flush();
             $this->addFlash('success',"Votre image a été supprimé !");
         }

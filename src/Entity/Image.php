@@ -32,7 +32,7 @@ class Image
     private $alt;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="image", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="image", orphanRemoval=false)
      */
     private $user;
 
