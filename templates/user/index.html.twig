@@ -20,7 +20,7 @@
                     {% else %}
                         <img src="{{ asset(user.image.webPath) }}" alt="{{ user.image.alt }}" class='user_card_header_img'>
                     {% endif %}
-                    <a href=" {{ path('user_image') }}">{{ icon('user') }} </a>
+                    <a href=" {{ path('user_image') }}">{{ icon('user') }} <i class="fas fa-camera-retro"></i> </a>
                     {# <img src="https://via.placeholder.com/200" alt="image" class='user_card_header_img'> #}
                 </div>
             </header>

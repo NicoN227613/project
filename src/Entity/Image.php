@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Image implements \Serializable
+class Image
 {
 
 
@@ -133,7 +133,7 @@ class Image implements \Serializable
      */
     public function getUploadDir()
     {
-        return 'images/user/';
+        return 'images/user';
     }
 
     /**
@@ -226,18 +226,6 @@ class Image implements \Serializable
         }
 
         return $this;
-    }
-
-
-
-    public function serialize()
-    {
-        return serialize($this->id);
-    }
-
-    public function unserialize($serialized)
-    {
-        $this->id = unserialize($serialized);
     }
 
 

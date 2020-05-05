@@ -113,4 +113,20 @@ class UserUserController extends AbstractController
         }
         return $this->redirectToRoute('security_login');
     }
+
+
+    /**
+     * @Route("/delete/image/{id}", name="user_image_delete", methods="DELETE")
+     */
+    public function deleteImage(Image $image, Request $request)
+    {
+        $user = $this->getUser();
+        if($this->isCsrfTokenValid('delete' . $image->getId(), $request->get('_token'))){
+
+            $this->manager->remove($image);
+            $this->manager->flush();
+            $this->addFlash('success',"Votre image a été supprimé !");
+        }
+        return $this->redirectToRoute('user_image');
+    }
 }
