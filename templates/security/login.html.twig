@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %} 
 
-{% block title %}Se connecter{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
 <form action="{{ path('security_login')}}" class="form" method="post">
@@ -12,15 +12,13 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('security_logout') }}">Logout</a>
         </div>
     {% endif %}
-
-    <h1>Se connecter</h1>
-    <div class="form__group">                                                   <!-- _username -->
-        <input type="email" class="form__control" value="{{ last_username }}" name="email" id="inputEmail" placeholder="Adresse mail" required autofocus>
-        <label for="inputEmail">{{ icon('email') }}</label>
+    <div class="form__group">
+        <label for="inputEmail">Adresse mail</label>
+        <input type="email" class="form__control" value="{{ last_username }}" name="email" id="inputEmail" required autofocus>
     </div>
     <div class="form__group">
-        <input type="password" class="form__control" name="_password" id="inputPassword" placeholder="Mot de passe" required>
-        <label for="inputPassword">{{ icon('password') }}</label>
+        <label for="inputPassword">Mot de passe</label>
+        <input type="password" class="form__control" name="_password" id="inputPassword" required>
     </div>
     <a href="{{ path('security_registration')}}">Pas de compte ? Incrivez-vous</a>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"> 
@@ -33,6 +31,6 @@
     </div>
     #}
 
-    <button type="submit" class="btn__submit btn__text">Connexion{{ icon('arrow_right') }}</button>
+    <button type="submit" class="btn__submit">Connexion</button>
 </form>
 {% endblock %} 

@@ -15,6 +15,14 @@
     vertical-align: middle;
     padding: 8px 16px 8px 0;
 }
+.table td a {
+    color: var(--border);
+    transition: color .3s;
+
+    &:hover {
+        color: var(--green);
+    }
+}
 .table td:last-child {
     padding-right: 0!important;
 }

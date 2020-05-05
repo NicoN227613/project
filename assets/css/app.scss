@@ -5,13 +5,12 @@
     --contrast: #00FF00;
     --border: #5C5C5C;
     --label:  #5C5C5C;
-    --btn: #23DB72;
-    --btn_submit: #00FF00;
-    --btn_submit_hover: #00FF00;
+    --btn: #00FF00;
     --switch: #00FF00;
     --color: #5C5C5C;
     --green: #00FF00;
     --red: #FB4635;
+    --white: #F9F9F9;
 }
 
 // Outils
@@ -28,6 +27,11 @@ body {
     line-height: 1.4;
     color: var(--color);
     background: var(--background);
+}
+
+.is-loading .spinner-border {
+    color: green;
+    background-color: lightcoral;
 }
 
 // Modules
@@ -48,5 +52,6 @@ body {
 
 // Pages
 // ==================
-@import "pages/card_product_index";
+//@import "pages/card_product_index";
 @import "pages/dashboard";
+@import "pages/product";

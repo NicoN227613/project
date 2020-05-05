@@ -23,7 +23,7 @@ class UserSearch {
      */ 
     public function setEmail(string $email): UserSearch
     {
-        $this->name = $email;
+        $this->email = $email;
 
         return $this;
     }

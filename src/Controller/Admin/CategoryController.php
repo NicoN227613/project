@@ -19,6 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class CategoryController extends BaseController
 {
+    private $repository;
+    private $manager;
+
     public function __construct(CategoryRepository $repository, EntityManagerInterface $manager)
     {
         $this->repository = $repository;
@@ -27,7 +30,7 @@ final class CategoryController extends BaseController
     /**
      * @Route("/categories", name="category_index", methods="GET")
      */
-    public function index(PaginatorInterface $paginator, Request  $request)
+    public function index(PaginatorInterface $paginator, Request  $request): string
     {
         $search = new CategorySearch();
         $form = $this->createForm(CategorySearchType::class, $search);
@@ -47,7 +50,7 @@ final class CategoryController extends BaseController
     /**
      * @Route("category/new", name="category_new", methods={"GET","POST"})
      */
-    public function new(Request $request)
+    public function new(Request $request): string
     {
         $category = new Category();
         $category->setAuthor($this->getUser());
@@ -69,7 +72,7 @@ final class CategoryController extends BaseController
     /**
      * @Route("/category/{id}/edit", requirements={"id": "\d+"}, name="category_edit", methods={"GET", "PUT"})
      */
-    public function edit(Category $category, Request $request)
+    public function edit(Category $category, Request $request): string
     {
         $form = $this->createForm(CategoryType::class, $category, [
             'method' => 'PUT',
@@ -93,12 +96,12 @@ final class CategoryController extends BaseController
      * @Route("/category/{id}", name="category_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("category", options={"id" = "id"})
      */
-    public function delete(Category $category, Request $request)
+    public function delete(Category $category, Request $request): string
     {
         if($this->isCsrfTokenValid('delete' . $category->getId(), $request->get('_token'))){
             $this->manager->remove($category);
             $this->manager->flush();
-            $this->addFlash('success', 'La catégorie " ' . $category->getName() . ' " a bien était supprimée !');
+            $this->addFlash('success', 'La catégorie " ' . $category->getName() . ' "et son ou ses produit(s) associé(s) à cette catégorie ont bien était supprimé(s) !');
         }
         return $this->redirectToRoute('admin_category_index');
     }

@@ -13,17 +13,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RegistrationType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('pseudo', TextType::class, ['attr' => ['placeholder' => 'Entrer votre pseudo']])
-            ->add('email', EmailType::class, ['attr' => ['placeholder' => 'Entrer votre email']])
-            ->add('password', PasswordType::class, ['attr' => ['placeholder' => 'Entrer votre mot de passe']])
-            ->add('confirm_password', PasswordType::class, ['attr' => ['placeholder' => 'Confirmer votre mot de passe']])
+            ->add('pseudo', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('password', PasswordType::class)
+            ->add('confirm_password', PasswordType::class)
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,

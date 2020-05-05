@@ -19,6 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class EmplacementController extends BaseController
 {
+    private $repository;
+    private $manager;
+
     public function __construct(EmplacementRepository $repository, EntityManagerInterface $manager)
     {
         $this->repository = $repository;
@@ -28,7 +31,7 @@ final class EmplacementController extends BaseController
     /**
      * @Route("/emplacements", name="emplacement_index", methods="GET")
      */
-    public function index(PaginatorInterface $paginator, Request $request)
+    public function index(PaginatorInterface $paginator, Request $request): string
     {
         $search = new EmplacementSearch();
         $form = $this->createForm(EmplacementSearchType::class, $search);
@@ -48,7 +51,7 @@ final class EmplacementController extends BaseController
     /**
      * @Route("emplacement/new", name="emplacement_new", methods={"GET","POST"})
      */
-    public function new(Request $request)
+    public function new(Request $request): string
     {
         $emplacement = new Emplacement();
         $emplacement->setAuthor($this->getUser());
@@ -71,7 +74,7 @@ final class EmplacementController extends BaseController
     /**
      * @Route("/emplacement/{id}/edit", requirements={"id": "\d+"}, name="emplacement_edit", methods={"GET", "PUT"})
      */
-    public function edit(Emplacement $emplacement, Request $request)
+    public function edit(Emplacement $emplacement, Request $request): string
     {
         $form = $this->createForm(EmplacementType::class, $emplacement, [
             'method' => 'PUT',
@@ -95,12 +98,12 @@ final class EmplacementController extends BaseController
      * @Route("/emplacement/{id}", name="emplacement_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("category", options={"id" = "id"})
      */
-    public function delete(Emplacement $emplacement, Request $request)
+    public function delete(Emplacement $emplacement, Request $request): string
     {
         if($this->isCsrfTokenValid('delete' . $emplacement->getId(), $request->get('_token'))){
             $this->manager->remove($emplacement);
             $this->manager->flush();
-            $this->addFlash('success', 'L\' emplacement " '. $emplacement->getName() .' " a bien été supprimé !');
+            $this->addFlash('success', 'L\' emplacement " '. $emplacement->getName() .' " et son ou ses produit(s) associé(s) à cet emplacement ont bien était supprimé(s) !');
         }
         return $this->redirectToRoute('admin_emplacement_index');
     }

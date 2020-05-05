@@ -15,6 +15,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserUserController extends AbstractController
 {
+    private $manager;
+    protected $encoder;
+
     public function __construct( EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $this->manager = $manager;
@@ -24,7 +27,7 @@ class UserUserController extends AbstractController
     /**
      * @Route("/view", name="user_user_index", methods="GET")
      */
-    public function index()
+    public function index(): string
     {
         $user = $this->getUser();
         return $this->render('user/index.html.twig', [

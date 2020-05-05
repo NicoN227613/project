@@ -15,7 +15,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/{id}")
      */
-    public function show(Category $category, ProductRepository $productRepository) 
+    public function show(Category $category, ProductRepository $productRepository): string
     {
         $products = $productRepository->findByClassifiedInOne($category);
 

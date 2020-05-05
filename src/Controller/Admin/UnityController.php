@@ -19,6 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 final class UnityController extends BaseController 
 {
+    private $repository;
+    private $manager;
+
     public function __construct(UnityRepository $repository, EntityManagerInterface $manager)
     {
         $this->repository = $repository;
@@ -28,7 +31,7 @@ final class UnityController extends BaseController
     /**
      * @Route("/units", name="unity_index", methods="GET")
      */
-    public function index(PaginatorInterface $paginator, Request $request)
+    public function index(PaginatorInterface $paginator, Request $request): string
     {
         $search = new UnitySearch();
         $form = $this->createForm(UnitySearchType::class, $search);
@@ -48,7 +51,7 @@ final class UnityController extends BaseController
     /**
      * @Route("unity/new", name="unity_new", methods={"GET","POST"})
      */
-    public function new(Request $request)
+    public function new(Request $request): string
     {
         $unity = new Unity();
         $unity->setAuthor($this->getUser());
@@ -71,7 +74,7 @@ final class UnityController extends BaseController
     /**
      * @Route("/unity/{id}/edit", requirements={"id": "\d+"}, name="unity_edit", methods={"GET", "PUT"})
      */
-    public function edit(Unity $unity, Request $request)
+    public function edit(Unity $unity, Request $request): string
     {
         $form = $this->createForm(UnityType::class, $unity, [
             'method' => 'PUT',
@@ -95,12 +98,12 @@ final class UnityController extends BaseController
      * @Route("/unity/{id}", name="unity_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("unity", options={"id" = "id"})
      */
-    public function delete(Unity $unity, Request $request)
+    public function delete(Unity $unity, Request $request): string
     {
         if($this->isCsrfTokenValid('delete' . $unity->getId(), $request->get('_token'))){
             $this->manager->remove($unity);
             $this->manager->flush();
-            $this->addFlash('success', 'L\' unité " '. $unity->getName() .' " a bien été supprimée !');
+            $this->addFlash('success', 'L\' unité " '. $unity->getName() .' " et son ou ses produit(s) associé(s) à cette unité ont bien était supprimé(s) !');
         }
         return $this->redirectToRoute('admin_unity_index');
     }

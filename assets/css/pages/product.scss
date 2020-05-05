@@ -1,0 +1,32 @@
+.sidebar {
+    float: left;
+    width: 300px;
+    //display: flex;
+    //align-items: center;
+    //justify-content: space-between;
+    border: 1px solid var(--border);
+    //padding: 16px;
+}
+#categories {
+    display: flex;
+    flex-wrap: wrap;
+}
+#categories input[type="checkbox"i] {
+    display: flex;
+    flex-direction: column;
+}
+#categories label {
+    border: 1px solid #000;
+}
+.main {
+    float: right;
+    width: calc(100% - 300px);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    border: 1px solid var(--border);
+    padding: 16px;
+}
+.footer {
+    clear: both;
+}

@@ -6,7 +6,10 @@ import './elements/Burger'
 import './elements/DatePicker'
 import './elements/UserSelect'
 import './elements/ToogleSearch'
+import Filter from './modules/filter'
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+
+new Filter(document.querySelector('.js-filter'))

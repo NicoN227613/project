@@ -21,6 +21,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserController extends BaseController
 {
+    private $repository;
+    private $manager;
+    protected $encoder;
 
     public function __construct(UserRepository $repository, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
@@ -51,7 +54,7 @@ class UserController extends BaseController
     /**
     * @Route("/users", name="user_index", methods="GET")
     */
-    public function index(PaginatorInterface $paginator, Request $request)
+    public function index(PaginatorInterface $paginator, Request $request): string
     {
         $search = new UserSearch();
         $form = $this->createForm(UserSearchType::class, $search);
@@ -72,7 +75,7 @@ class UserController extends BaseController
     /**
      * @Route("user/new", name="user_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, UserPasswordEncoderInterface $encoder)
+    public function new(Request $request, UserPasswordEncoderInterface $encoder): string
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -96,7 +99,7 @@ class UserController extends BaseController
     /**
      * @Route("/user/{id}/edit", name="user_edit", methods={"GET", "PUT"})
      */
-    public function edit(User $user, Request $request)
+    public function edit(User $user, Request $request): string
     {
         $form = $this->createForm(UserType::class, $user, [
             'method' => 'PUT',
@@ -120,7 +123,7 @@ class UserController extends BaseController
      * @Route("/user/{id}", name="user_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("user", options={"id" = "id"})
      */
-    public function delete(User $user, Request $request)
+    public function delete(User $user, Request $request): string
     {
         if($this->isCsrfTokenValid('delete' . $user->getId(),
         $request->get('_token'))){
