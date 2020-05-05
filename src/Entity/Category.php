@@ -2,13 +2,19 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     errorPath="name",
+ *     message="Cette catégorie existe déja !"
+ * )
  */
 class Category
 {
@@ -49,7 +55,7 @@ class Category
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
-        $this->updateAt = new \DateTimeImmutable();
+        //$this->updateAt = new \DateTimeImmutable();
         $this->products = new ArrayCollection();
     }
 
@@ -135,5 +141,10 @@ class Category
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

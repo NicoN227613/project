@@ -25,8 +25,8 @@ class Product
      * @Assert\Length(
      *      min=4, 
      *      max=15, 
-     *      minMessage="Ce champ a besoin de 4 caractères minimum",
-     *      maxMessage="Ce champ ne doit pas avoir plus de 15 caractères"
+     *      minMessage="Le nom du produit doit avoir au minimum 4 caractères",
+     *      maxMessage="Le nom du produit doit avoir au maximum 15 caractères"
      * )
      */
     private $name;
@@ -34,7 +34,7 @@ class Product
     /**
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
-     * @Assert\GreaterThan(0, message="Définir une quantité !")
+     * @Assert\GreaterThan(0, message="Définissez une quantité ")
      */
     private $quantity;
 
@@ -51,7 +51,7 @@ class Product
      * @ORM\Column(type="datetime", nullable=true)
      * @Assert\GreaterThanOrEqual(
      *  propertyPath="purchase_date", 
-     *  message="Choisissez une date supérieur ou égale à la date d'achat du produit !"
+     *  message="Choisissez une date supérieur ou égale à la date d'achat du produit "
      * )
      */
     private $expiration_date;
@@ -60,7 +60,7 @@ class Product
      * @ORM\Column(type="datetime", nullable=true)
      * @Assert\GreaterThanOrEqual(
      *  propertyPath="purchase_date", 
-     *  message="Choisissez une date supérieur ou égale à la date d'achat du produit !"
+     *  message="Choisissez une date supérieur ou égale à la date d'achat du produit "
      * )
      */
     private $best_before_date;
@@ -101,7 +101,7 @@ class Product
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
-        $this->updateAt = new \DateTimeImmutable();
+        //$this->updateAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

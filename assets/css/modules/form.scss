@@ -4,72 +4,8 @@
     width: 40%;
     margin: 0 auto;  
 }
-.form__group {
-    position: relative;
-    height: 60px;
-    display: flex;
-    align-items: stretch;
-    border-radius: 8px;
-    svg {
-        width: 25px;
-        height: 25px;
-    }
-    & label {
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-        white-space: nowrap;
-        color: var(--label);
-        min-width: 120px;
-        padding-left: 16px;
-        order: -1;
-        transition: color .3s;
-    }
-    & label::after {
-        content: '';
-        z-index: -1;
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background-color: #F9F9F9;
-        border-radius: 8px;
-    }
-}
-.form__control {
-    cursor: pointer;
-    width: 100%;
-    outline: none;
-    font-size: 16px;
-    background-color: transparent;
-    border: none;
-}
-select.form__control {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-}
-select.form__control + label::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: 16px;
-    background: url(../../../public/select.svg);
-    width: 16px;
-    height: 9px;
-    margin-top: -4px;
-}.form__group .form__control:hover + label {
-    color: #00FF00;
-}
-.form__group .form__control:focus + label {
-    color: #00FF00;
-}
-.form__group .form__control:focus + label::after {
-    background: #FFFFFF;
-    border: 2px solid #00FF00;
-    box-shadow: 0px 1px 3px rgba(238, 238, 238, 0.85);
-    border-radius: 8px;
+.stack > * + * {
+    margin-top: 16px;
 }
 .row {
     display: grid;
@@ -81,6 +17,47 @@ select.form__control + label::before {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
 }
-.stack > * + * {
-    margin-top: 16px;
+.form__group svg {
+    width: 25px;
+    height: 25px;
 }
+.form__group label {
+    display: block;
+    text-transform: uppercase;
+    font-size: .85em;
+    padding-left: .25rem;
+    margin-bottom: 0.5rem;
+    transition: color .3s;
+}
+.form__group ul li {
+    color: var(--red);
+    font-size: .8em;
+    margin-top: .5em;
+    line-height: 1.2;
+    padding-left: 4px;
+  
+    * > * {
+      margin-top: .5em;
+    }
+}
+.form__control {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    cursor: pointer;
+    outline: none;
+    padding: .75em ;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border .3s;
+}
+.form__control:hover,
+.form__control:focus {
+    border: 1px solid var(--green);
+    box-shadow: 0px 0px 3px var(--green);
+}
+//.form__group input.is-invalid,
+//.form__group select.is-invalid {
+//    border-color: var(--red);
+//}

@@ -28,8 +28,8 @@
         <tbody>
             {% for unity in units %}
             <tr>
-                <td>{{ unity.id }}</td>
-                <td>{{ unity.name }}</td>
+                <td><a href="{{ path('admin_unity_edit', {id: unity.id}) }}">{{ unity.id }}</a></td>
+                <td><a href="{{ path('admin_unity_edit', {id: unity.id}) }}">{{ unity.name }}</a></td>
                 <td>{{ unity.author.email }}</td>
                 <td>{{ unity.createdAt | date('d F Y') }}</td>
                 <td>{{ unity.updatedAt | date('d F Y H:i') }}</td>

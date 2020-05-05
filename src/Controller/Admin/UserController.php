@@ -3,17 +3,18 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\UserType;
 use App\Entity\UserSearch;
 use App\Form\UserSearchType;
-use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -21,6 +22,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserController extends BaseController
 {
+    private $repository;
+    private $manager;
+    protected $encoder;
 
     public function __construct(UserRepository $repository, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
@@ -51,7 +55,7 @@ class UserController extends BaseController
     /**
     * @Route("/users", name="user_index", methods="GET")
     */
-    public function index(PaginatorInterface $paginator, Request $request)
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new UserSearch();
         $form = $this->createForm(UserSearchType::class, $search);
@@ -72,7 +76,7 @@ class UserController extends BaseController
     /**
      * @Route("user/new", name="user_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, UserPasswordEncoderInterface $encoder)
+    public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -96,7 +100,7 @@ class UserController extends BaseController
     /**
      * @Route("/user/{id}/edit", name="user_edit", methods={"GET", "PUT"})
      */
-    public function edit(User $user, Request $request)
+    public function edit(User $user, Request $request): Response
     {
         $form = $this->createForm(UserType::class, $user, [
             'method' => 'PUT',
@@ -120,7 +124,7 @@ class UserController extends BaseController
      * @Route("/user/{id}", name="user_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("user", options={"id" = "id"})
      */
-    public function delete(User $user, Request $request)
+    public function delete(User $user, Request $request): Response
     {
         if($this->isCsrfTokenValid('delete' . $user->getId(),
         $request->get('_token'))){

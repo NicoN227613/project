@@ -82,7 +82,7 @@ class User implements UserInterface, \Serializable
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
-        $this->updateAt = new \DateTimeImmutable();
+        //$this->updateAt = new \DateTimeImmutable();
         $this->products = new ArrayCollection();
     }
 

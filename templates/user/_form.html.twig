@@ -1,5 +1,7 @@
 {{ form_start(form, { 'attr' : { 'class' : 'form' }} ) }}
 
+<h1>S'inscrire</h1>
+
 {{ form_errors(form.pseudo) }}
 <div class="form__group">
     {{ form_widget(form.pseudo, { 'attr' : { 'class' : 'form__control'}})}}
@@ -30,5 +32,5 @@
     {{ form_widget(form.image.file, { 'attr' : { 'class' : 'form__control'} } ) }}
 </div> 
 
-<button type="submit" class="btn__submit btn__text">Modifier{{ icon('arrow_right') }}</button>
+<button type="submit" class="btn__submit">{{ action }}</button>
 {{ form_end(form)}}

@@ -1,23 +1,24 @@
 {{ form_start(form, { 'attr' : { 'class' : 'form'}})}}
-{{ form_errors(form.pseudo) }}
 <div class="form__group">
-    {{ form_widget(form.pseudo, { 'attr' : { 'class' : 'form__control'}})}}
     <label for="inputEmail">Pseudo</label>
+    {{ form_widget(form.pseudo, { 'attr' : { 'class' : 'form__control'}})}}
+    {{ form_errors(form.pseudo) }}
 </div>
-{{ form_errors(form.email) }}
 <div class="form__group">
-    {{ form_widget(form.email, { 'attr' : { 'class' : 'form__control'}})}}
     <label for="inputEmail">Email</label>
+    {{ form_widget(form.email, { 'attr' : { 'class' : 'form__control'}})}}
+    {{ form_errors(form.email) }}
+    
 </div>
-{{ form_errors(form.password) }}
 <div class="form__group">
-    {{ form_widget(form.password, { 'attr' : { 'class' : 'form__control'} } ) }}
     <label for="inputPassword">Mot de passe</label>
+    {{ form_widget(form.password, { 'attr' : { 'class' : 'form__control'} } ) }}
+    {{ form_errors(form.password) }}
 </div>
-{{ form_errors(form.roles) }}
 <div class="form__group">
-    {{ form_widget(form.roles, { 'attr' : { 'class' : 'form__control'} } ) }}
     <label for="inputRoles">Rôle(s)</label>
+    {{ form_widget(form.roles, { 'attr' : { 'class' : 'form__control'} } ) }}
+    {{ form_errors(form.roles) }}
 </div>
-<button type="submit" class="btn__submit btn__text">Créer{{ icon('arrow_right') }}</button>
+<button type="submit" class="btn__submit">{{ action }}</button>
 {{ form_end(form)}}

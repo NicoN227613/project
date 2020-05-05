@@ -3,29 +3,31 @@
 {% block body %}
 
 {{ form_start(form, { 'attr' : { 'class' : 'form' }} ) }}
-<h1>S'inscrire</h1>
-{{ form_errors(form.pseudo) }}
 <div class="form__group">
+    <label for="inputPseudo">Nom d'utilisateur</label>
     {{ form_widget(form.pseudo, {'attr' : { 'class' : 'form__control' }})}}
-    <label for="inputPseudo">{{ icon('user') }}</label>
+    {{ form_errors(form.pseudo) }}
 </div>
 
 {{ form_errors(form.email) }}
 <div class="form__group">
+    <label for="inputEmail">Adresse mail</label>
     {{ form_widget(form.email, {'attr' : { 'class' : 'form__control' }})}}
-    <label for="inputEmail">{{ icon('email') }}</label>
+    {{ form_errors(form.email) }}
 </div>
 
 {{ form_errors(form.password) }}
 <div class="form__group">
+    <label for="inputPassword">Mot de passe</label>
     {{ form_widget(form.password, { 'attr' : { 'class' : 'form__control' } }) }}
-    <label for="inputPassword">{{ icon('password') }}</label>
+    {{ form_errors(form.password) }}
 </div>
 
 {{ form_errors(form.confirm_password) }}
 <div class="form__group">
+    <label for="inputPassword">Confimer mot de passe</label>
     {{ form_widget(form.confirm_password, { 'attr' : {'class' : 'form__control'} })}}
-    <label for="inputPassword">{{ icon('password') }}</label>
+    {{ form_errors(form.confirm_password) }}
 </div>
 
 {{ form_errors(form.image.file) }}
@@ -37,6 +39,6 @@
 {{ form_rest(form) }}
 
 <a href="{{ path('security_login')}}">Vous avez un compte ? Connectez-vous</a>
-<button type="submit" class="btn__submit btn__text">S'incrire{{ icon('arrow_right') }}</button>
+<button type="submit" class="btn__submit">S'incrire</button>
 {{ form_end(form) }}
 {% endblock body %}

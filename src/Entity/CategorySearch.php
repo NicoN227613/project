@@ -9,7 +9,7 @@ class CategorySearch {
     private $name;
 
     /**
-     * @param  string|null
+     * @param string|null
      */ 
     public function getName(): ?string
     {
