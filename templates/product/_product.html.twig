@@ -5,6 +5,10 @@
             <span class="card__expiration">Expiré</span>
             {% elseif product.bestBeforeDate | date('d F Y') < "now" | date('d F Y') %}
             <span class="card__expiration">Expiré</span>
+            {% elseif product.expirationDate | date('d F Y') == "now" | date('d F Y') %}
+            <span class="card__expiration__now">Expire aujourd'hui</span>
+            {% elseif product.bestBeforeDate | date('d F Y') == "now" | date('d F Y') %}
+            <span class="card__expiration__now">Expire aujourd'hui</span>
             {% else %}
             <span class="card__not__expiration">Expire le {{ product.expirationDate | date('d F Y') }}</span>
             {% endif %}

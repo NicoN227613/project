@@ -11,6 +11,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+// faire cette commande pour les envoyers en base de donnée
+// php bin/console doctrine:fixtures:load
+
 class AppFixtures extends Fixture
 {
 
