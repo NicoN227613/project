@@ -62,26 +62,26 @@ class AppFixtures extends Fixture
         ;
         $manager->persist($category3);
 
-        $category = new Category();
-        $category->setName('aliments transformé')
+        $category4 = new Category();
+        $category4->setName('aliments transformé')
             ->setCreatedAt($faker->dateTimeBetween($minimun))
             ->setAuthor($userAdmin)
         ;
-        $manager->persist($category);
+        $manager->persist($category4);
 
-        $category = new Category();
-        $category->setName('viandes')
+        $category5 = new Category();
+        $category5->setName('viandes')
             ->setCreatedAt($faker->dateTimeBetween($minimun))
             ->setAuthor($userAdmin)
         ;
-        $manager->persist($category);
+        $manager->persist($category5);
 
-        $category = new Category();
-        $category->setName('féculents')
+        $category6 = new Category();
+        $category6->setName('féculents')
             ->setCreatedAt($faker->dateTimeBetween($minimun))
             ->setAuthor($userAdmin)
         ;
-        $manager->persist($category);
+        $manager->persist($category6);
 
         $category = new Category();
         $category->setName('conserve')
@@ -112,12 +112,12 @@ class AppFixtures extends Fixture
         ;
         $manager->persist($unity3);
 
-        $unity = new Unity();
-        $unity->setName('boite')
+        $unity4 = new Unity();
+        $unity4->setName('boite')
             ->setCreatedAt($faker->dateTimeBetween($minimun))
             ->setAuthor($userAdmin)
         ;
-        $manager->persist($unity);
+        $manager->persist($unity4);
 
         $unity = new Unity();
         $unity->setName('sachet')
@@ -148,12 +148,12 @@ class AppFixtures extends Fixture
         ;
         $manager->persist($emplacement3);
 
-        $emplacement = new Emplacement();
-        $emplacement->setName('congélateur')
+        $emplacement4 = new Emplacement();
+        $emplacement4->setName('congélateur')
             ->setCreatedAt($faker->dateTimeBetween($minimun))
             ->setAuthor($userAdmin)
         ;
-        $manager->persist($emplacement);
+        $manager->persist($emplacement4);
 
         $emplacement = new Emplacement();
         $emplacement->setName('panier')
@@ -192,6 +192,66 @@ class AppFixtures extends Fixture
                 ->setClassifiedIn($category)
                 ->setPlaceIn($emplacement)
                 ->setUnits($unity)
+                ->setQuantity($faker->randomDigit())
+                ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
+            ;
+
+            $daysProduct = $unityDays->diff($product->getCreatedAt())->days;
+            $minimunProduct = '-' . $daysProduct . ' days';
+
+            $productDays = $faker->dateTimeBetween($minimunProduct);
+            //$expirationDays = $faker->dateTimeBetween($minimunProduct);
+
+            $daysExpiration = $productDays->diff($product->getPurchaseDate())->days;
+            $minimunExpiration = '-' . $daysExpiration . ' days';
+
+            $expirationDays = $faker->dateTimeBetween($minimunExpiration, $maxDays);
+
+            $product->setExpirationDate($expirationDays);
+
+            $manager->persist($product);
+        }
+
+        //-------- P R O D U C T    A D M I N   2 ----------//
+        for($a = 1; $a <= 10; $a++){
+
+            $product = new Product();
+            $product->setName($faker->word())
+                ->setCreatedAt($emplacementDays)
+                ->setAuthor($userAdmin)
+                ->setClassifiedIn($category2)
+                ->setPlaceIn($emplacement2)
+                ->setUnits($unity2)
+                ->setQuantity($faker->randomDigit())
+                ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
+            ;
+
+            $daysProduct = $unityDays->diff($product->getCreatedAt())->days;
+            $minimunProduct = '-' . $daysProduct . ' days';
+
+            $productDays = $faker->dateTimeBetween($minimunProduct);
+            //$expirationDays = $faker->dateTimeBetween($minimunProduct);
+
+            $daysExpiration = $productDays->diff($product->getPurchaseDate())->days;
+            $minimunExpiration = '-' . $daysExpiration . ' days';
+
+            $expirationDays = $faker->dateTimeBetween($minimunExpiration, $maxDays);
+
+            $product->setExpirationDate($expirationDays);
+
+            $manager->persist($product);
+        }
+
+        //-------- P R O D U C T    A D M I N   3 ----------//
+        for($a = 1; $a <= 10; $a++){
+
+            $product = new Product();
+            $product->setName($faker->word())
+                ->setCreatedAt($emplacementDays)
+                ->setAuthor($userAdmin)
+                ->setClassifiedIn($category3)
+                ->setPlaceIn($emplacement3)
+                ->setUnits($unity3)
                 ->setQuantity($faker->randomDigit())
                 ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
             ;
