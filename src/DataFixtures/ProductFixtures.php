@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -17,12 +18,14 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = \Faker\Factory::create('fr_FR');
         
+        $user           = $this->getReference(UserFixtures::USER_REFERENCE);
         $userAdmin      = $this->getReference(UserFixtures::ADMIN_REFERENCE);
         $category       = $this->getReference(CategoryFixtures::CATEGORY);
         $unity          = $this->getReference(UnityFixtures::UNITY);
         $emplacement    = $this->getReference(EmplacementFixtures::EMPLACEMENT);
 
         $now = new \DateTime();
+        $maxDays = new \DateTime('15 days');
 
         $daysAdmin = $now->diff($userAdmin->getCreatedAt())->days;
         $minimunAdmin = '-' . $daysAdmin . ' days';
@@ -54,21 +57,48 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
                 ->setPlaceIn($emplacement)
                 ->setUnits($unity)
                 ->setQuantity($faker->randomDigit())
-                ->setPurchaseDate($now)
+                ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
             ;
 
-            //$productDays = $faker->dateTimeBetween($minimunEmplacement);
-
-            $daysProduct = $emplacementDays->diff($product->getCreatedAt())->days;
+            $daysProduct = $unityDays->diff($product->getCreatedAt())->days;
             $minimunProduct = '-' . $daysProduct . ' days';
 
             $productDays = $faker->dateTimeBetween($minimunProduct);
             //$expirationDays = $faker->dateTimeBetween($minimunProduct);
 
-            $daysExpiration = $now->diff($product->getPurchaseDate())->days;
-            $minimunExpiration = '+' . $daysExpiration . ' days';
+            $daysExpiration = $productDays->diff($product->getPurchaseDate())->days;
+            $minimunExpiration = '-' . $daysExpiration . ' days';
 
-            $expirationDays = $faker->dateTimeBetween($minimunExpiration);
+            $expirationDays = $faker->dateTimeBetween($minimunExpiration, $maxDays);
+
+            $product->setExpirationDate($expirationDays);
+
+            $manager->persist($product);
+        }
+
+        for($i = 1; $i <= 10; $i++){
+
+            $product = new Product();
+            $product->setName($faker->word())
+                ->setCreatedAt($emplacementDays)
+                ->setAuthor($user)
+                ->setClassifiedIn($category)
+                ->setPlaceIn($emplacement)
+                ->setUnits($unity)
+                ->setQuantity($faker->randomDigit())
+                ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
+            ;
+
+            $daysProduct = $unityDays->diff($product->getCreatedAt())->days;
+            $minimunProduct = '-' . $daysProduct . ' days';
+
+            $productDays = $faker->dateTimeBetween($minimunProduct);
+            //$expirationDays = $faker->dateTimeBetween($minimunProduct);
+
+            $daysExpiration = $productDays->diff($product->getPurchaseDate())->days;
+            $minimunExpiration = '-' . $daysExpiration . ' days';
+
+            $expirationDays = $faker->dateTimeBetween($minimunExpiration, $maxDays);
 
             $product->setExpirationDate($expirationDays);
 
