@@ -43,6 +43,10 @@
     @extend .card__expiration;
     background-color: var(--green);
 }
+.card__expiration__now {
+    @extend .card__expiration;
+    background-color: rgb(236, 142, 0);
+}
 .card__name {
     font-size: 16px;
 
