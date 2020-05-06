@@ -3,13 +3,7 @@
 {% block body %}
 <div class="js-filter">
     <aside class="sidebar">
-        <a class="btn" href="{{ path('product_new') }}">{{'product.action.new' | trans }}</a>
         {% include 'product/_filter.html.twig' with {form: form} %}
-        {#<div class="div__btn nav__search__input display">
-        {# <input type="search" name="nav__search__input" id="myInput" placeholder="Recherche" class="nav__search__input display dashboard__card" onkeyup="search()"> #}
-        {#{{ form_start(formSearch, { 'attr' : { 'class' : 'dashboard__search form__search '  } } )}}
-        {{ form_end(formSearch)}}
-    </div>#}
     </aside>
     <div class="main js-filter-products">
         {% include 'product/_products.html.twig' %}

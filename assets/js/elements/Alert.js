@@ -15,9 +15,16 @@ export class Alert extends HTMLElement {
           this.type = 'danger'
         }
         this.message = message
+        this.close = this.close.bind(this)
       }
 
       connectedCallback () {
+        const duration = this.getAttribute('duration')
+        let progressBar = '';
+        if (duration !== null) {
+          progressBar = `<div class="alert__progress" style="animation-duration: ${duration}">`
+          window.setTimeout(this.close, duration * 1000)
+        }
         this.innerHTML = `<div class="alert alert-${this.type}">
             <svg class="icon icon-{$name}">
               <use xlink:href="/sprite.svg#${this.icon}"></use>
@@ -28,6 +35,7 @@ export class Alert extends HTMLElement {
                 <use xlink:href="/sprite.svg#cross"></use>
               </svg>
             </button>
+            ${progressBar}
           </div>`
         this.querySelector('.alert-close').addEventListener('click', (e) => {
           e.preventDefault()
@@ -41,6 +49,7 @@ export class Alert extends HTMLElement {
         window.setTimeout(async () => {
           await slideToTop(element)
           this.parentElement.removeChild(this)
+          this.dispatchEvent(new CustomEvent('close'))
         }, 500)
       }
 
