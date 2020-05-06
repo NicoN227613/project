@@ -45,9 +45,8 @@ class Image
     private $webPath;
 
 
-    /** A faire
-     * A arrangé car lorsqu'un utilisateur va envoyer une image,
-     * ça ne va pas affiché l'image
+    /** 
+     * chemin de l'image
      */
     public function getWebPath()
     {
