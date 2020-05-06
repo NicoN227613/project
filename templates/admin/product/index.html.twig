@@ -14,7 +14,7 @@
         {{ form_end(form)}}
         <a href="{{ path('admin_product_new')}}" class="btn">Ajouter un produit</a>
     </div>
-    {#
+    {##
     <table class="table">
         <thead>
             <tr>
@@ -54,7 +54,7 @@
             </tr>
             {% endfor %}
         </tbody>
-    </table>#}
+    </table>##}
     <div class="dashboard__body">
         {% for product in products %}
         {% include 'admin/product/_product.html.twig' with {product: product} only %}
