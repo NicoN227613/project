@@ -49,7 +49,7 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
-     *  Recherche un produit par son nom entier appartenant à l'utilisateur connecté
+     * Recherche un produit par son nom entier appartenant à l'utilisateur connecté
      * @return PaginationInterface
      */
     public function searchProduct(User $suserId, $search = null, SearchProductData $productData): PaginationInterface
@@ -63,7 +63,7 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('val', $suserId)
         ;
 
-        if($search->getName()) { 
+        if ($search->getName()) { 
             $query = $query->innerJoin('p.classifiedIn', 'c')
                 ->andWhere('p.name = :name')
                 ->orWhere('c.name = :name')
@@ -94,7 +94,7 @@ class ProductRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query,
             $productData->page,
-            9
+            8
         );
     }
 
