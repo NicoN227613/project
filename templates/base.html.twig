@@ -40,7 +40,7 @@
         {% if app.user %}
         <ul class="nav__side">
             <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
-            <li class="nav__account"><a href="{{ path('security_logout') }}">{{ icon('door') }}{{ app.user.pseudo }}</a>
+            <li class="nav__account"><a href="{{ path('security_logout') }}">{{ icon('door') }}{{ app.user.pseudo | truncate }}</a>
             </li>
         </ul>
         {% else %}

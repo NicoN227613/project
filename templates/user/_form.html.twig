@@ -14,23 +14,13 @@
     {{ form_widget(form.email, { 'attr' : { 'class' : 'form__control'}})}}
 </div>
 
-{{ form_errors(form.password) }}
-<div class="form__group">
-    <label for="inputPassword">Mot de passe</label>
-    {{ form_widget(form.password, { 'attr' : { 'class' : 'form__control'} } ) }}
-</div>
-
-{{ form_errors(form.confirm_password) }}
-<div class="form__group">
-    <label for="inputPassword">Confirmez votre mot de passe</label>
-    {{ form_widget(form.confirm_password, { 'attr' : { 'class' : 'form__control'} } ) }}
-</div>
-
 {{ form_errors(form.image.file) }}
 <div class="">
-<label for="inputImage">Télécharger une image</label>
+    <label for="inputImage">Télécharger une image</label>
     {{ form_widget(form.image.file, { 'attr' : { 'class' : 'form__control'} } ) }}
 </div> 
+
+<a href=" {{ path('user_user_password') }} ">Cliquez ici pour changer de mot de passe</a>
 
 <button type="submit" class="btn__submit">{{ action }}</button>
 {{ form_end(form)}}

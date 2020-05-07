@@ -7,6 +7,8 @@
         "http://localhost:8080/assets/app.js"
       ],
       "css": [
+        "/assets/vendors~app.css",
+        "/assets/app.css"
         "http://localhost:8080/assets/vendors~app.css",
         "http://localhost:8080/assets/app.css"
       ]
