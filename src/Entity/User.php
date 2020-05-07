@@ -29,9 +29,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      *      min = 4, 
-     *      max = 15, 
      *      minMessage = "Ce champ a besoin de minimum 4 caractères",
-     *      maxMessage = "Ce champ a besoin de minimum 15 caractères"
      * )
      */
     private $pseudo;

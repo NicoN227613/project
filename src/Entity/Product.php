@@ -24,9 +24,7 @@ class Product
      * @Assert\NotBlank()
      * @Assert\Length(
      *      min=4, 
-     *      max=15, 
      *      minMessage="Le nom du produit doit avoir au minimum 4 caractères",
-     *      maxMessage="Le nom du produit doit avoir au maximum 15 caractères"
      * )
      */
     private $name;
