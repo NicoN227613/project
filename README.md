@@ -15,17 +15,16 @@ Lancer le serveur `Symfony` :
 > symfony serve
 
 Installer et lancer yarn pour le css et le js
-``''
 > yarn install
 > yarn run dev-server
-``''
 
 Installer et lancer maildev pour l'envoie de mail
-``''
+
 > npm install -g maildev
 > maildev
-Ce rendre dans l'url `localhost:1080` dans une nouvelle fenêtre de votre navigateur, puis écrire `MAILER_URL=smtp://localhost:1025` dans le fichier `.env`
-``''
+
+Ce rendre dans l'url `localhost:1080` dans une nouvelle fenêtre de votre navigateur, 
+puis écrire `MAILER_URL=smtp://localhost:1025` dans le fichier `.env`
 
 ## Scénario  ##
     
