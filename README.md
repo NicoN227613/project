@@ -16,11 +16,13 @@ Lancer le serveur `Symfony` :
 
 Installer et lancer yarn pour le css et le js
 > yarn install
+
 > yarn run dev-server
 
 Installer et lancer maildev pour l'envoie de mail
 
 > npm install -g maildev
+
 > maildev
 
 Ce rendre dans l'url `localhost:1080` dans une nouvelle fenêtre de votre navigateur, 
