@@ -54,7 +54,7 @@
     <div class="container">
         {% for type, messages in app.session.flashbag.all() %}
             {% for message in messages %}
-                <alert-message type="{{ type }}">
+                <alert-message type="{{ type }}" duration="6">
                     {{ message }}
                 </alert-message>
             {% endfor %}
