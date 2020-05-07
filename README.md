@@ -14,12 +14,12 @@ Prendre le projet sur `Github` :
 Lancer le serveur `Symfony` :
 > symfony serve
 
-Installer et lancer yarn pour le css et le js
+Installer et lancer `yarn` pour le css et le js
 > yarn install
 
 > yarn run dev-server
 
-Installer et lancer maildev pour l'envoie de mail
+Installer et lancer `maildev` pour l'envoie de mail
 
 > npm install -g maildev
 
