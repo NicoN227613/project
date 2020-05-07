@@ -6,7 +6,8 @@ use App\Form\ImageType;
 use App\Entity\Image;
 use App\Entity\User;
 use App\Form\UserImageType;
-use App\Form\RegistrationType;
+use App\Form\UserAccountType;
+use App\Form\UserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,20 +68,52 @@ class UserUserController extends AbstractController
     }
 
     /**
-     * @Route("/edit", name="user_user_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
+     * @Route("/edit/password", name="user_user_password", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
-    public function edit (Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function editPassword (Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = $this->getUser();
 
-        $form = $this->createForm(RegistrationType::class, $user, [
+        $form = $this->createForm(UserPasswordType::class, $user, [
             'method' => 'PUT',
         ]);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            
+            $hash = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hash);
+            
+            $user->setUpdatedAt(new \DateTime());
+            $this->manager->flush();
 
+            $this->addFlash('success', "Votre compte avec ce mail : a bien été modifié !");
+
+            return $this->redirectToRoute('user_user_index');
+        
+        }
+        return $this->render('user/password/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/edit", name="user_user_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
+     */
+    public function edit (Request $request, UserPasswordEncoderInterface $encoder): Response
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(UserAccountType::class, $user, [
+            'method' => 'PUT',
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
 
@@ -90,6 +123,7 @@ class UserUserController extends AbstractController
             $this->addFlash('success', "Votre compte avec ce mail : {$user->getEmail()} a bien été modifié !");
 
             return $this->redirectToRoute('user_user_index');
+        
         }
         return $this->render('user/edit.html.twig', [
             'user' => $user,

@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+{{ form_start(form, { 'attr' : { 'class' : 'form' }} ) }}
+
+<h1>Changer de mot de passe</h1>
+
+{{ form_errors(form.password) }}
+<div class="form__group">
+    <label for="inputPassword">Mot de passe</label>
+    {{ form_widget(form.password, { 'attr' : { 'class' : 'form__control'} } ) }}
+</div>
+
+{{ form_errors(form.confirm_password) }}
+<div class="form__group">
+    <label for="inputPassword">Confirmez votre mot de passe</label>
+    {{ form_widget(form.confirm_password, { 'attr' : { 'class' : 'form__control'} } ) }}
+</div>
+
+<button type="submit" class="btn__submit">Modifier le mot de passe</button>
+{{ form_end(form)}}
+{% endblock body %}

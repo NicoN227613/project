@@ -10,7 +10,8 @@
 ###< symfony/framework-bundle ###
 
 ###> symfony/webpack-encore-bundle ###
-/node_modules/
+### faut ignoré le node_modules
+/node_modules/ 
 /public/build/
 npm-debug.log
 yarn-error.log
