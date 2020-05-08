@@ -3,22 +3,26 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Emplacement;
+use App\Form\EmplacementType;
 use App\Entity\EmplacementSearch;
 use App\Form\EmplacementSearchType;
-use App\Form\EmplacementType;
-use App\Repository\EmplacementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\EmplacementRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @IsGranted("ROLE_ADMIN")
  */
 final class EmplacementController extends BaseController
 {
+    private $repository;
+    private $manager;
+
     public function __construct(EmplacementRepository $repository, EntityManagerInterface $manager)
     {
         $this->repository = $repository;
@@ -28,7 +32,7 @@ final class EmplacementController extends BaseController
     /**
      * @Route("/emplacements", name="emplacement_index", methods="GET")
      */
-    public function index(PaginatorInterface $paginator, Request $request)
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new EmplacementSearch();
         $form = $this->createForm(EmplacementSearchType::class, $search);
@@ -48,7 +52,7 @@ final class EmplacementController extends BaseController
     /**
      * @Route("emplacement/new", name="emplacement_new", methods={"GET","POST"})
      */
-    public function new(Request $request)
+    public function new(Request $request): Response
     {
         $emplacement = new Emplacement();
         $emplacement->setAuthor($this->getUser());
@@ -71,7 +75,7 @@ final class EmplacementController extends BaseController
     /**
      * @Route("/emplacement/{id}/edit", requirements={"id": "\d+"}, name="emplacement_edit", methods={"GET", "PUT"})
      */
-    public function edit(Emplacement $emplacement, Request $request)
+    public function edit(Emplacement $emplacement, Request $request): Response
     {
         $form = $this->createForm(EmplacementType::class, $emplacement, [
             'method' => 'PUT',
@@ -95,12 +99,12 @@ final class EmplacementController extends BaseController
      * @Route("/emplacement/{id}", name="emplacement_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("category", options={"id" = "id"})
      */
-    public function delete(Emplacement $emplacement, Request $request)
+    public function delete(Emplacement $emplacement, Request $request): Response
     {
         if($this->isCsrfTokenValid('delete' . $emplacement->getId(), $request->get('_token'))){
             $this->manager->remove($emplacement);
             $this->manager->flush();
-            $this->addFlash('success', 'L\' emplacement " '. $emplacement->getName() .' " a bien été supprimé !');
+            $this->addFlash('success', 'L\' emplacement " '. $emplacement->getName() .' " et son ou ses produit(s) associé(s) à cet emplacement ont bien était supprimé(s) !');
         }
         return $this->redirectToRoute('admin_emplacement_index');
     }

@@ -8,6 +8,8 @@
     <title>{% block title %}Fresh Food{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400&display=swap"
         rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
 </head>
 
@@ -18,10 +20,10 @@
             <li class="nav__home {{ app.request.get('_route') == 'home' ? 'active' }}">
                 <a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a>
             </li>
-            <li >
+            <li>
                 {# <a href="{{ path('user_user_index', {id: app.user.id})}}">{{ icon('user') }} Mon compte </a> #}
                 <a href="{{ path('user_user_index')}}">{{ icon('user') }} Mon compte </a>
-            </li>            
+            </li>
             {% if is_granted('ROLE_ADMIN') %}
             <li><a href="{{ path('admin_home') }}">{{ icon('admin') }} Admin</a></li>
             {% endif %}
@@ -29,24 +31,23 @@
             <li class="{{ app.request.get('_route') == 'product_index' ? 'active' }}">
                 <a href="{{ path('product_index')}}">{{ icon('bags') }} Mes produits</a>
             </li>
-            <li><a href="{{ path('contact') }}">{{ icon('contact') }} Contact</a></li>
+            <li class="{{ app.request.get('_route') == 'contact' ? 'active' }}">
+                <a href="{{ path('contact') }}">{{ icon('contact') }} Contact</a>
+            </li>
         </ul>
         {% else %}
         {% endif %}
         {% if app.user %}
         <ul class="nav__side">
             <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
-            <li class="nav__account"><a
-                    href="{{ path('security_logout') }}">{{ icon('door') }}{{ app.user.pseudo }}</a></li>
+            <li class="nav__account"><a href="{{ path('security_logout') }}">{{ icon('door') }}{{ app.user.pseudo }}</a>
+            </li>
         </ul>
         {% else %}
         <ul class="nav__side">
-            <li class="nav__search">
-                <a href="#">{{ icon('search') }}</a>
-            </li>
-            
+            <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
             <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a
-                    href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a></li>
+                    href="{{ path('security_login') }}">{{ icon('user') }} Connexion</a></li>
         </ul>
         {% endif %}
         </ul>
@@ -57,30 +58,17 @@
         {% else %}
         {% endif %}
     </nav>
-
-    {# {% block body %} #}
-    
-    {#<div class="container">
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('admin_index') }}">Accéder à l'administration</a>
-        {% endif %}
-        {% if is_granted('ROLE_USER') %}
-            
-        {% endif %}
-    </div>#}
-    {# {% endblock %} #}
-
     <div class="container">
         {% for type, messages in app.session.flashbag.all() %}
-            {% for message in messages %}
-                <alert-message type="{{ type }}">
-                    {{ message }}
-                </alert-message>
-            {% endfor %}
+        {% for message in messages %}
+        <alert-message type="{{ type }}" duration="6">
+            {{ message }}
+        </alert-message>
         {% endfor %}
-        
+        {% endfor %}
+
         {% block body %}
-        {% endblock %} 
+        {% endblock %}
     </div>
     {% block javascripts %}{{ encore_entry_script_tags('app')}}{% endblock %}
 </body>

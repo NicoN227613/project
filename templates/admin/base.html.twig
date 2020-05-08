@@ -39,10 +39,12 @@
         </ul>
         <ul class="nav__side">
             {% if app.user %}
+            <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
             <li class="nav__account"><a href="{{ path('security_logout') }}" title="Se déconnecter">{{ icon('door') }}{{ app.user.pseudo }}</a></li>
             {% else %}
+            <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
             <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a
-                    href="{{ path('security_login') }}">{{ icon('user') }} Se connecter</a></li>
+                    href="{{ path('security_login') }}">{{ icon('user') }} Connexion</a></li>
             {% endif %}
         </ul>
         <button class="nav__burger">
@@ -52,7 +54,7 @@
     <div class="container">
         {% for type, messages in app.session.flashbag.all() %}
             {% for message in messages %}
-                <alert-message type="{{ type }}">
+                <alert-message type="{{ type }}" duration="6">
                     {{ message }}
                 </alert-message>
             {% endfor %}

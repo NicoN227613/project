@@ -3,13 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
-use App\Form\ProductType;
 use App\Entity\ProductSearch;
+use App\Form\AdminProductType;
 use App\Form\ProductSearchType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -22,7 +23,7 @@ final class ProductController extends BaseController
     /**
     * @Route("/products", name="product_index", methods="GET")
     */
-    public function index(ProductRepository $repository, PaginatorInterface $paginator, Request $request)
+    public function index(ProductRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $search = new ProductSearch();
         $form = $this->createForm(ProductSearchType::class, $search);
@@ -43,12 +44,12 @@ final class ProductController extends BaseController
     /**
      * @Route("product/new", name="product_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $manager)
+    public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $product = new Product();
         $product->setAuthor($this->getUser());
 
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -69,9 +70,9 @@ final class ProductController extends BaseController
     /**
      * @Route("/product/{id}/edit", name="product_edit", methods={"GET", "PUT"})
      */
-    public function edit(Product $product, Request $request, EntityManagerInterface $manager)
+    public function edit(Product $product, Request $request, EntityManagerInterface $manager): Response
     {
-        $form = $this->createForm(ProductType::class, $product, [
+        $form = $this->createForm(AdminProductType::class, $product, [
             'method' => 'PUT',
         ]);
 
@@ -93,7 +94,7 @@ final class ProductController extends BaseController
      * @Route("/product/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("product", options={"id" = "id"})
      */
-    public function delete(Product $product, Request $request, EntityManagerInterface $manager)
+    public function delete(Product $product, Request $request, EntityManagerInterface $manager): Response
     {
         if($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))){
             $manager->remove($product);
