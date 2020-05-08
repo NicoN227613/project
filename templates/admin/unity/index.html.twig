@@ -32,7 +32,11 @@
                 <td><a href="{{ path('admin_unity_edit', {id: unity.id}) }}">{{ unity.name }}</a></td>
                 <td>{{ unity.author.email }}</td>
                 <td>{{ unity.createdAt | date('d F Y') }}</td>
-                <td>{{ unity.updatedAt | date('d F Y H:i') }}</td>
+                {% if unity.updatedAt is not null %}
+                    <td>{{ unity.updatedAt | date('d F Y H:i') }}</td>
+                    {% else %}
+                    <td>Aucune</td>
+                {% endif %}
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_unity_edit', {id: unity.id}) }}">{{ icon('edit')}}</a>

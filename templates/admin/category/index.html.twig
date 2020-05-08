@@ -32,11 +32,16 @@
                 <td><a href="{{ path('admin_category_edit', {id: category.id}) }}">{{ category.name }}</a></td>
                 <td>{{ category.author.email }}</td>
                 <td>{{ category.createdAt | date('d F Y') }}</td>
-                <td>{{ category.updatedAt | date('d F Y H:i') }}</td>
+                {% if category.updatedAt is not null %}
+                    <td>{{ category.updatedAt | date('d F Y H:i') }}</td>
+                    {% else %}
+                    <td>Aucune</td>
+                {% endif %}
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_category_edit', {id: category.id}) }}">{{ icon('edit')}}</a>
-                        <form method="POST" action="{{ path('admin_category_delete', {id: category.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer cette catégorie ?')">
+                        <form method="POST" action="{{ path('admin_category_delete', {id: category.id}) }}"
+                            onsubmit="return confirm('Etes-vous sur de supprimer cette catégorie ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
                             <button>{{ icon('trash')}}</button>

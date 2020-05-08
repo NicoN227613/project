@@ -35,14 +35,18 @@
                 <td>
                     {% for role in user.roles %}
                     {% if role == "ROLE_ADMIN" %}
-                    Administrateur
+                    Administrateur -
                     {% elseif role == "ROLE_USER" %}
                     Utilisateur
                     {% endif %}
                     {% endfor %}
                 </td>
                 <td>{{ user.createdAt | date('d F Y') }}</td>
-                <td>{{ user.updatedAt | date('d F Y H:i') }}</td>
+                {% if user.updatedAt is not null %}
+                    <td>{{ user.updatedAt | date('d F Y H:i') }}</td>
+                    {% else %}
+                    <td>Aucune</td>
+                {% endif %}
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_user_edit', {id: user.id}) }}">{{ icon('edit')}}</a>
