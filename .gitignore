@@ -1,3 +1,4 @@
+.gitignore
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -10,7 +11,6 @@
 ###< symfony/framework-bundle ###
 
 ###> symfony/webpack-encore-bundle ###
-### faut ignoré le node_modules
 /node_modules/ 
 /public/build/
 npm-debug.log

@@ -10,7 +10,6 @@
         Le formulaire contient une erreur !
     </div>
     {% endif %}
-    {{ form_start(formContact, { 'attr' : { 'class' : 'auth__form' }} ) }}
     <h1>Contactez-nous</h1>
     {{ form_errors(formContact.pseudo) }}
     <div class="form__group">
@@ -40,6 +39,3 @@
 
     <button class="btn__submit btn__text"> Envoyer </button>
 
-    {{ form_end(formContact) }}
-</div>
-{% endblock %}
