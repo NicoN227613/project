@@ -24,7 +24,6 @@
         </div>
         <footer class="card__footer">
             <div class="card__createdAt">Ajouté le : {{ product.createdAt | date('d F Y') }}</div>
-            <div class="card__updateddAt">Modifié le : {{ product.updatedAt | date('d F Y') }}</div>
             <form method="POST" action="{{ path('product_delete', {id: product.id}) }}"
                 onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
                 <input type="hidden" name="_method" value="DELETE">

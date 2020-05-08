@@ -24,9 +24,7 @@ class Product
      * @Assert\NotBlank()
      * @Assert\Length(
      *      min=4, 
-     *      max=15, 
      *      minMessage="Le nom du produit doit avoir au minimum 4 caractères",
-     *      maxMessage="Le nom du produit doit avoir au maximum 15 caractères"
      * )
      */
     private $name;
@@ -51,7 +49,7 @@ class Product
      * @ORM\Column(type="datetime", nullable=true)
      * @Assert\GreaterThanOrEqual(
      *  propertyPath="purchase_date", 
-     *  message="Choisissez une date supérieur ou égale à la date d'achat du produit "
+     *  message="La Date Limite de Consomation doit être supérieur ou égale à la date d'achat du produit"
      * )
      */
     private $expiration_date;
@@ -60,7 +58,7 @@ class Product
      * @ORM\Column(type="datetime", nullable=true)
      * @Assert\GreaterThanOrEqual(
      *  propertyPath="purchase_date", 
-     *  message="Choisissez une date supérieur ou égale à la date d'achat du produit "
+     *  message="La Date à Durée Minimale supérieur ou égale à la date d'achat du produit "
      * )
      */
     private $best_before_date;

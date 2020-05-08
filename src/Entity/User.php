@@ -28,8 +28,8 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
-     *      min = 4,
-     *      minMessage = "Ce champ a besoin de minimum 4 caractères"
+     *  min = 4, 
+     *  minMessage = "Votre pseudo doit comporter au minimum 4 caractères",
      * )
      */
     private $pseudo;
@@ -44,12 +44,17 @@ class User implements UserInterface, \Serializable
      * @var string The hashed password
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
-     * @Assert\Length(min=8, max=255, minMessage=" Ce champ a besoin de minimum 8 caractères")
+     * @Assert\Length(
+     *  min=8, 
+     *  max=25, 
+     *  minMessage="Votre mot de passe doit comporter au minimum 8 caractères",
+     *  maxMessage="Votre mot de passe doit comporter au maximum 25 caractères"
+     * )
      */
     private $password;
 
     /**
-     * @Assert\EqualTo(propertyPath="password", message="Les 2 mots de passe sont différements")
+     * @Assert\EqualTo(propertyPath="password", message="Les 2 mots de passe doîvent être identiques")
      */
     private $confirm_password;
 

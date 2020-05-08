@@ -27,7 +27,7 @@
             {% if is_granted('ROLE_ADMIN') %}
             <li><a href="{{ path('admin_home') }}">{{ icon('admin') }} Admin</a></li>
             {% endif %}
-            <li><a href="#">{{ icon('shopping-cart') }} Mes Achats</a></li>
+            {#<li><a href="#">{{ icon('shopping-cart') }} Mes Achats</a></li>#}
             <li class="{{ app.request.get('_route') == 'product_index' ? 'active' }}">
                 <a href="{{ path('product_index')}}">{{ icon('bags') }} Mes produits</a>
             </li>

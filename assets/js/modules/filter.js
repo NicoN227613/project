@@ -1,11 +1,11 @@
-import {Flipper,spring} from 'flip-toolkit' // https://github.com/aholachek/react-flip-toolkit
+import {Flipper,
+    spring
+} from 'flip-toolkit' // https://github.com/aholachek/react-flip-toolkit
 
 /**
  * @property {HTMLFormElement} form
  * @property {HTMLElement} products
  * @property {HTMLElement} pagination
- * @property {number} page
- * @property {boolean} moreNav
  */
 export default class Filter {
 
@@ -18,8 +18,6 @@ export default class Filter {
         this.form = element.querySelector('.js-filter-form')
         this.products = element.querySelector('.js-filter-products')
         this.pagination = element.querySelector('.js-filter-pagination')
-        this.page = parseInt(new URLSearchParams(window.location.search).get('page') || 1)
-        this.moreNav = this.page === 1
         this.bindEvents()
     }
 
@@ -31,10 +29,6 @@ export default class Filter {
         this.form.querySelectorAll('input').forEach(input => {
             input.addEventListener('change', this.loadForm.bind(this))
         })
-        if (this.moreNav) {
-            this.pagination.innerHTML = '<button class="btn">Voir plus de produits</button>'
-            this.pagination.querySelector('button').addEventListener('click', this.loadMore.bind(this))
-        } else {
            this.pagination.addEventListener('click', e => {
             if (e.target.tagName === 'A') {
                 e.preventDefault()
@@ -42,21 +36,8 @@ export default class Filter {
             }
         }) 
         }
-    }
 
-    async loadMore () {
-        const button = this.pagination.querySelector('button')
-        button.setAttribute('disabled', 'disabled')
-        this.page++ // Incrémentation de pages
-        const url = new URL(window.location.href)
-        const params = new URLSearchParams(url.search)
-        params.set('page', this.page) // Ajout du mot 'page' dans l'url
-        await this.loadUrl(url.pathname + '?' + params.toString(), true)
-        button.removeAttribute('disabled')
-    }
-
-    async loadForm() {
-        this.page = 1
+      async loadForm() {
         const data = new FormData(this.form)
         const url = new URL(this.form.getAttribute('action') || window.location.href)
         const params = new URLSearchParams()
@@ -79,13 +60,7 @@ export default class Filter {
         if (response.status >= 200 && response.status < 300) {
             const data = await response.json()
             this.flipProducts(data.products, append) // Chargement de la fonction qui anime le placement des produits
-            if (!this.moreNav) {
                 this.pagination.innerHTML = data.pagination
-            } else if (this.page === data.pages) {
-                this.pagination.style.display = 'none' // Supprime le bouton lorsque la page contient le(s) dernier(s) produit(s)
-            } else {
-                this.pagination.style.display = null // Affichage du bouton si la page ne contient pas le(s) dernier(s) produit(s)
-            }
             params.delete('ajax') // Supprimer le mot 'ajax' de l'url
             history.replaceState({}, '', url.split('?')[0] + '?' + params.toString()) // Remplace l'élément courant dans l'historique de l'utilisateur et changera l'url afichée dans la barre de d'adresse
         } else {

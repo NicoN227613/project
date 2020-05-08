@@ -32,7 +32,11 @@
                 <td><a href="{{ path('admin_emplacement_edit', {id: emplacement.id}) }}">{{ emplacement.name }}</a></td>
                 <td>{{ emplacement.author.email }}</td>
                 <td>{{ emplacement.createdAt | date('d F Y') }}</td>
-                <td>{{ emplacement.updatedAt | date('d F Y H:i') }}</td>
+                {% if emplacement.updatedAt is not null %}
+                    <td>{{ emplacement.updatedAt | date('d F Y H:i') }}</td>
+                    {% else %}
+                    <td>Aucune</td>
+                {% endif %}
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_emplacement_edit', {id: emplacement.id}) }}">{{ icon('edit')}}</a>
