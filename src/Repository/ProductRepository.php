@@ -4,12 +4,15 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Entity\Product;
+use Doctrine\ORM\Query;
 use App\Entity\Category;
 use App\Entity\ProductSearch;
+use App\Entity\SearchProductData;
 use Doctrine\ORM\Query\Expr\Join;
+use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,12 +22,17 @@ use Doctrine\ORM\Query;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    protected $paginator;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Product::class);
+        $this->paginator = $paginator;
     }
     
     /**
+     * Affiche tous les produits de tous les utilisateurs en admin
+     * Recherche un produit par son nom complet
      * @return Query
      */
     public function findAllProducts(ProductSearch $search): Query
@@ -40,24 +48,22 @@ class ProductRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
-    public function findAllProductByUser(User $userId)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.author = :val')
-            ->setParameter('val', $userId)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function searchProductByUser(User $suserId, $search = null)
+    /**
+     * Recherche un produit par son nom entier appartenant à l'utilisateur connecté
+     * @return PaginationInterface
+     */
+    public function searchProduct(User $suserId, $search = null, SearchProductData $productData): PaginationInterface
     {
         $query = $this->createQueryBuilder('p')
-            ->select('p')
+            ->select('c', 'e', 'p')
+            ->join('p.classifiedIn', 'c')
+            ->join('p.placeIn', 'e')
             ->where('p.author = :val')
+            ->orderBy('p.id', 'DESC')
             ->setParameter('val', $suserId)
         ;
 
-        if($search->getName()) { 
+        if ($search->getName()) { 
             $query = $query->innerJoin('p.classifiedIn', 'c')
                 ->andWhere('p.name = :name')
                 ->orWhere('c.name = :name')
@@ -66,10 +72,30 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('val', $suserId)
             ;
         }
+        if (!empty($productData->q)) {
+            $query = $query
+            ->andWhere('p.name LIKE :q')
+            ->setParameter('q', "%{$productData->q}%");
+        }
 
-        return $query->getQuery()
-            ->getResult()
-        ;
+        if(!empty($productData->categories)) {
+            $query = $query
+            ->andWhere('c.id IN (:categories)')
+            ->setParameter('categories', $productData->categories);
+        }
+
+        if(!empty($productData->emplacements)) {
+            $query = $query
+            ->andWhere('e.id IN (:emplacements)')
+            ->setParameter('emplacements', $productData->emplacements);
+        }
+
+        $query = $query->getQuery();
+        return $this->paginator->paginate(
+            $query,
+            $productData->page,
+            8
+        );
     }
 
      /**
@@ -90,7 +116,7 @@ class ProductRepository extends ServiceEntityRepository
      */
     public function findWithCategoriesBis()
     {
-        $this->getEntityManager()->createQuery(
+        return $this->getEntityManager()->createQuery(
             'SELECT b, c FROM '.Product::class.' b '.
             'LEFT JOIN b.classifiedIn c '.
             'ORDER BY b.purchase_date DESC'

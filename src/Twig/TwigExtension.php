@@ -3,6 +3,7 @@
 namespace App\Twig;
 
 use Twig\TwigFunction;
+use Twig\TwigFilter;
 use Twig\Extension\AbstractExtension;
 
 class TwigExtension extends AbstractExtension
@@ -11,6 +12,13 @@ class TwigExtension extends AbstractExtension
     {
         return [
             new TwigFunction('icon', [$this, 'svgIcon'], ['is_safe' => ['html']]),
+        ];
+    }
+
+    public function getFilters()
+    {
+        return [
+            new TwigFilter('truncate', [$this, 'truncateTwig']),
         ];
     }
 
@@ -24,5 +32,15 @@ class TwigExtension extends AbstractExtension
           <use xlink:href="/sprite.svg#{$name}"></use>
         </svg>
         HTML;
+    }
+
+    
+
+    public function truncateTwig(string $element)
+    {
+        if(strlen($element) >= 30){
+            return substr($element, 0, 30) . '...';
+        }
+        return $element;
     }
 }

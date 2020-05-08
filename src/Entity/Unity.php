@@ -6,9 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UnityRepository")
+ * @UniqueEntity(
+ *     fields={"name"},
+ *     errorPath="name",
+ *     message="Cette unité existe déja !"
+ * )
  */
 class Unity
 {
@@ -50,7 +56,7 @@ class Unity
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
-        $this->updateAt = new \DateTimeImmutable();
+        //$this->updateAt = new \DateTimeImmutable();
         $this->products = new ArrayCollection();
     }
 

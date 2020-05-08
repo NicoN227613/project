@@ -1,38 +1,23 @@
-.btn {
+.btn,
+%btn {
     font-family: $f-r;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: .85rem;
+    line-height: 1.2;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
     cursor: pointer;
-    padding: 14px 24px;
-    background: var(--btn);
-    border: 2px solid var(--btn);
-    border-radius: 8px; 
+    padding: 1rem 1.5rem;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) var(--btn);
+    border-radius: 4px;
+    transition: background .3s;
+
+    &:hover {
+        background: var(--btn);
+    }
 }
 .btn__submit {
-    @extend .btn;
-    color: var(--btn_submit);
-    background: transparent;
-}
-.btn__submit svg {
-    display: none;
-}
-.btn__submit:hover svg {
-    display: flex;
-}
-.btn__text {
-    color: #FFFFFF;
-    background: var(--btn_submit);
-    border: 2px solid var(--btn_submit);
-    border-radius: 8px;
-    transition: .5s;
-}
-.btn__text:hover {
-    color: var(--btn_submit_hover);
-    background: #FFFFFF;
-    border: 2px solid var(--btn_submit_hover);
+    @extend %btn;
+    border-radius: 24px;
 }

@@ -7,7 +7,6 @@ use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\Emplacement;
 use App\Form\Type\DateType;
-use App\Form\Type\UserChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,24 +16,23 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class ProductType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('author', UserChoiceType::class)
         ->add('name', TextType::class)
         ->add('classifiedIn', EntityType::class, [
             'class' => Category::class,
             'choice_label' => 'name',
             'multiple' => false,
             'label' => 'Catégorie',
-            'required' => false,
+            'required' => true,
         ])
         ->add('placeIn', EntityType::class, [
             'class' => Emplacement::class,
             'choice_label' => 'name',
             'multiple' => false,
             'label' => 'Emplacement',
-            'required' => false,
+            'required' => true,
         ])
         ->add('quantity', IntegerType::class, [
             'label' => 'Quantité',
@@ -47,14 +45,14 @@ class ProductType extends AbstractType
             'choice_label' => 'name',
             'multiple' => false,
             'label' => 'Unité',
-            'required' => false,
+            'required' => true,
         ])
         ->add('purchaseDate', DateType::class)
         ->add('expirationDate', DateType::class)
         ->add('bestBeforeDate', DateType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Product::class,

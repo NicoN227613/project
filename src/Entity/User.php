@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *  message="L'email que vous avez indiqué est déjà utilisé !"
  * )
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -28,10 +28,8 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
-     *      min = 4, 
-     *      max = 15, 
-     *      minMessage = "Ce champ a besoin de minimum 4 caractères",
-     *      maxMessage = "Ce champ a besoin de minimum 15 caractères"
+     *      min = 4,
+     *      minMessage = "Ce champ a besoin de minimum 4 caractères"
      * )
      */
     private $pseudo;
@@ -75,9 +73,14 @@ class User implements UserInterface
      */
     private $products;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $image;
+
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
-        $this->updateAt = new \DateTimeImmutable();
+        //$this->updateAt = new \DateTimeImmutable();
         $this->products = new ArrayCollection();
     }
 
@@ -243,4 +246,61 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        $this->image = $image;
+
+        if($image){
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+    
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize([ 
+            $this->id, 
+            $this->updatedAt,
+            $this->pseudo,
+            $this->email,
+            $this->password
+        ] );
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list( 
+            $this->id, 
+            $this->updatedAt,
+            $this->pseudo,
+            $this->email,
+            $this->password
+        ) = unserialize($serialized);
+    }
+
+    // public function setImage(?Image $image): self
+    // {
+    //     $this->image = $image;
+
+    //     // set (or unset) the owning side of the relation if necessary
+    //     $newUser = null === $image ? null : $this;
+    //     if ($image->getUser() !== $newUser) {
+    //         $image->setUser($newUser);
+    //     }
+
+    //     return $this;
+    // }
 }

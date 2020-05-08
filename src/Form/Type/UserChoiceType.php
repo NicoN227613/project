@@ -9,7 +9,11 @@ use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class UserChoiceType extends AbstractType implements DataTransformerInterface{
+class UserChoiceType extends AbstractType implements DataTransformerInterface 
+{
+
+    protected $em;
+    protected $url;
 
     public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $url)
     {
@@ -29,7 +33,7 @@ class UserChoiceType extends AbstractType implements DataTransformerInterface{
         /** @var ?User $user */
         $user = $form->getData();
         if ($user instanceof User) {
-            $choices = [new ChoiceView($user, $user->getId(), $user->getUsername())];
+            $choices = [new ChoiceView($user, (string)$user->getId(), $user->getUsername())];
         }
         $view->vars['choice_translation_domain'] = false;
         $view->vars['expanded'] = false;
@@ -58,7 +62,7 @@ class UserChoiceType extends AbstractType implements DataTransformerInterface{
     }
 
     /**
-     * @param User $user
+     * @param ?User $user
      */
     public function transform($user): string
     {
@@ -69,6 +73,6 @@ class UserChoiceType extends AbstractType implements DataTransformerInterface{
      * @param int $userId
      */
     public function reverseTransform($userId): User {
-        return $this->em->getReference(User::class, $userId);
+        return $this->em->getRepository(User::class)->find($userId);
     }
 }

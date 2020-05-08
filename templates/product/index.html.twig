@@ -1,58 +1,21 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-    <section class="container">
-        <div class="div__btn nav__search__input display">
-            {# <input type="search" name="nav__search__input" id="myInput" placeholder="Recherche" class="nav__search__input display dashboard__card" onkeyup="search()"> #}
-            {{ form_start(formSearch, { 'attr' : { 'class' : 'dashboard__search form__search '  } } )}}
-            {{ form_end(formSearch)}} 
-        </div>
-
-        <h1>{{'product.index.title' | trans }}</h1>
-        <div class="div__btn">
-            <button class="btn"><a href="{{ path('product_new') }}">{{'product.action.new' | trans }}</a></button>
-        </div>
-
+<div class="js-filter">
+    <aside class="sidebar">
+        {% include 'product/_filter.html.twig' with {form: form} %}
+    </aside>
+    <div class="main js-filter-products">
+        {% include 'product/_products.html.twig' %}
         {% if products is empty %}
-            <p> Ce produit n'est pas référencé ici </p>
+        <p>Aucun résultat</p>
         {% endif %}
-        
-        {% for product in products %}
-            <article class="card__product">
-
-                <header class="card__product__thumb">
-                    <a href="{{ path('product_show', { id: product.id }) }}">
-                        <img src="https://via.placeholder.com/300">
-                    </a>
-                </header>
-
-                <div class="card__product__body">
-                    <p class="card__product__category">Catégory : {{ product.classifiedIn.name | capitalize }}</p>
-                    <p class="card__product__title">
-                        Titre : 
-                        <a href="{{ path('product_show', { id: product.id }) }}">
-                            {{ product.name | capitalize }}
-                        </a>
-
-                        {% if product.expirationDate | date('d F Y') < "now" | date('d F Y') %}
-                            <span class="notification__perimer">Périmé</span>
-                        {% elseif product.bestBeforeDate | date('d F Y') < "now" | date('d F Y') %}
-                            <span class="notification__perimer">Périmé</span>
-                        {% endif %}
-
-                    </p>
-                    <p class="card__product__author">Ajouter par : {{ product.author.pseudo | capitalize }}</p>
-                    <p class="card__product__expiration">Expire le : {{ product.expirationDate | date('d/m/Y') }}</p>
-                </div>
-            </article>    
-        {% endfor %}
-        {% block javascripts %}{{ encore_entry_script_tags('toogleSearch')}}{% endblock %}
-    </section>
+    </div>
+    <div class="js-filter-pagination">
+        {% include 'product/_pagination.html.twig' %}
+    </div>
+</div>
+<footer class="footer">
+    Footer
+</footer>
 {% endblock body %}
