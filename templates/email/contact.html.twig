@@ -2,11 +2,11 @@
 
     <h1>Fresh Food Mail</h1>
 
-    <h2> Vous Avez reçu un mail de Mr/Mme : {{ contact.pseudo | capitalize }} <br> </h2>
+    <h2> {% trans %}Vous Avez reçu un mail de Mr/Mme {% endtrans %}: {{ contact.pseudo | capitalize }} <br> </h2>
     
-    <p> Email : <strong> {{ contact.email }} </strong> <br> </p>
+    <p> {% trans %}Email{% endtrans %} : <strong> {{ contact.email }} </strong> <br> </p>
 
-    <h3> Sujet : {{ contact.subject | capitalize }} <br> </h3>
+    <h3> {% trans %}Sujet {% endtrans %}: {{ contact.subject | capitalize }} <br> </h3>
 
     <p> {{ contact.message }}</p>
 </body>

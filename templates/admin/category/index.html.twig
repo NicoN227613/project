@@ -3,7 +3,7 @@
 {% block body %}
 <div class="dashboard__title">
     {{ icon('category') }}
-    Gestion des categories
+    {% trans %}Gestion des categories{% endtrans %}
 </div>
 <div class="dashboard__card">
     <div class="dashboard__header">
@@ -12,17 +12,17 @@
         </form>#}
         {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
         {{ form_end(form)}}
-        <a href="{{ path('admin_category_new') }}" class="btn">Ajouter une categorie</a>
+        <a href="{{ path('admin_category_new') }}" class="btn">{% trans %}Ajouter une categorie{% endtrans %}</a>
     </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Auteur</th>
-                <th>Date de creation</th>
-                <th>Date de modification</th>
-                <th>Actions</th>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Nom{% endtrans %}</th>
+                <th>{% trans %}Auteur{% endtrans %}</th>
+                <th>{% trans %}Date de creation{% endtrans %}</th>
+                <th>{% trans %}Date de modification{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_category_edit', {id: category.id}) }}">{{ icon('edit')}}</a>
-                        <form method="POST" action="{{ path('admin_category_delete', {id: category.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer cette catégorie ?')">
+                        <form method="POST" action="{{ path('admin_category_delete', {id: category.id}) }}" onsubmit="return confirm({% trans %}'Etes-vous sur de supprimer cette catégorie ?'{% endtrans %})">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
                             <button>{{ icon('trash')}}</button>

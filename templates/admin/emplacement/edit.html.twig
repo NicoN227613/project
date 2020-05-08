@@ -3,7 +3,7 @@
 {% block body %}
 <div class="dashboard__title">
     {{ icon('pen') }}
-    Edition d'une categorie
+    {% trans %}Edition d'une categorie{% endtrans %}
 </div>
-{{ include('admin/emplacement/_form.html.twig', {form: form, action: 'Modifier' }) }}
+{{ include('admin/emplacement/_form.html.twig', {form: form, action: 'Modifier'|trans }) }}
 {% endblock %}

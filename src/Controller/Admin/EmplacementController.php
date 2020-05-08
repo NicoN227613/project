@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -52,18 +53,21 @@ final class EmplacementController extends BaseController
     /**
      * @Route("emplacement/new", name="emplacement_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, TranslatorInterface $translator): Response
     {
         $emplacement = new Emplacement();
         $emplacement->setAuthor($this->getUser());
         $form = $this->createForm(EmplacementType::class, $emplacement);
         $form->handleRequest($request);
+        $message=$translator->trans('L\' emplacement a bien été crée !');
 
         if($form->isSubmitted() && $form->isValid()) {
             $this->manager->persist($emplacement);
             $this->manager->flush();
 
             $this->addFlash('success', 'L\' emplacement " '. $emplacement->getName() .' " a bien été créé !');
+            $this->addFlash('message', $message);
+
             return $this->redirectToRoute('admin_emplacement_index');
         }
 
@@ -75,18 +79,21 @@ final class EmplacementController extends BaseController
     /**
      * @Route("/emplacement/{id}/edit", requirements={"id": "\d+"}, name="emplacement_edit", methods={"GET", "PUT"})
      */
-    public function edit(Emplacement $emplacement, Request $request): Response
+    public function edit(Emplacement $emplacement, Request $request, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(EmplacementType::class, $emplacement, [
             'method' => 'PUT',
         ]);
 
         $form->handleRequest($request);
+        $message=$translator->trans('L\' emplacement a bien été modifié !');
 
         if($form->isSubmitted() && $form->isValid()) {
             $emplacement->setUpdatedAt(new \DateTime());
             $this->manager->flush();
             $this->addFlash('success', 'L\' emplacement " '. $emplacement->getName() .' " a bien été modifié !');
+            $this->addFlash('message',$message);
+
             return $this->redirectToRoute('admin_emplacement_index');
         }
         return $this->render('admin/emplacement/edit.html.twig', [
@@ -99,12 +106,15 @@ final class EmplacementController extends BaseController
      * @Route("/emplacement/{id}", name="emplacement_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("category", options={"id" = "id"})
      */
-    public function delete(Emplacement $emplacement, Request $request): Response
+    public function delete(Emplacement $emplacement, Request $request, TranslatorInterface $translator): Response
     {
+            $message=$translator->trans('L\' emplacement et le(s) produit(s) associé(s) à cet emplacement ont bien été supprimé(s) !');
+
         if($this->isCsrfTokenValid('delete' . $emplacement->getId(), $request->get('_token'))){
             $this->manager->remove($emplacement);
             $this->manager->flush();
-            $this->addFlash('success', 'L\' emplacement " '. $emplacement->getName() .' " et son ou ses produit(s) associé(s) à cet emplacement ont bien était supprimé(s) !');
+            $this->addFlash('success', 'L\' emplacement " '. $emplacement->getName() .' " et le(s) produit(s) associé(s) à cet emplacement ont bien été supprimé(s) !');
+            $this->addFlash('message', $message);
         }
         return $this->redirectToRoute('admin_emplacement_index');
     }

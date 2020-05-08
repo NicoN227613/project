@@ -1,35 +1,35 @@
 {{ form_start(form, { 'attr' : { 'class' : 'form' }} ) }}
 
-<h1>Modifier</h1>
+<h1>{% trans %}Modifier{% endtrans %}</h1>
 
 {{ form_errors(form.pseudo) }}
 <div class="form__group">
-    <label for="inputEmail">Pseudo</label>
+    <label for="inputEmail">{% trans %}Pseudo{% endtrans %}</label>
     {{ form_widget(form.pseudo, { 'attr' : { 'class' : 'form__control'}})}}
 </div>
 
 {{ form_errors(form.email) }}
 <div class="form__group">
-    <label for="inputEmail">Email</label>
+    <label for="inputEmail">{% trans %}Email{% endtrans %}</label>
     {{ form_widget(form.email, { 'attr' : { 'class' : 'form__control'}})}}
 </div>
 
 {{ form_errors(form.password) }}
 <div class="form__group">
-    <label for="inputPassword">Mot de passe</label>
+    <label for="inputPassword">{% trans %}Mot de passe{% endtrans %}</label>
     {{ form_widget(form.password, { 'attr' : { 'class' : 'form__control'} } ) }}
 </div>
 
 {{ form_errors(form.confirm_password) }}
 <div class="form__group">
-    <label for="inputPassword">Confirmez votre mot de passe</label>
+    <label for="inputPassword">{% trans %}Confirmez votre mot de passe{% endtrans %}</label>
     {{ form_widget(form.confirm_password, { 'attr' : { 'class' : 'form__control'} } ) }}
 </div>
 
 {{ form_errors(form.image.file) }}
 <div class="">
-<label for="inputImage">Télécharger une image</label>
-    {{ form_widget(form.image.file, { 'attr' : { 'class' : 'form__control'} } ) }}
+<label for="inputImage">{% trans %}Télécharger une image{% endtrans %}</label>
+{{ form_widget(form.image.file, { 'attr' : { 'class' : 'form__control', } } ) }}
 </div> 
 
 <button type="submit" class="btn__submit">{{ action }}</button>

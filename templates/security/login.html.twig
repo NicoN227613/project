@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %} 
 
-{% block title %}Connexion{% endblock %}
+{% block title %}{% trans %}Connexion{% endtrans %}{% endblock %}
 
 {% block body %}
 <form action="{{ path('security_login')}}" class="form" method="post">
@@ -13,14 +13,14 @@
         </div>
     {% endif %}
     <div class="form__group">
-        <label for="inputEmail">Adresse mail</label>
+        <label for="inputEmail">{% trans %}Adresse mail{% endtrans %}</label>
         <input type="email" class="form__control" value="{{ last_username }}" name="email" id="inputEmail" required autofocus>
     </div>
     <div class="form__group">
-        <label for="inputPassword">Mot de passe</label>
+        <label for="inputPassword">{% trans %}Mot de passe{% endtrans %}</label>
         <input type="password" class="form__control" name="_password" id="inputPassword" required>
     </div>
-    <a href="{{ path('security_registration')}}">Pas de compte ? Incrivez-vous</a>
+    <a href="{{ path('security_registration')}}">{% trans %}Pas de compte ? Incrivez-vous{% endtrans %}</a>
     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"> 
     
     {# Uncomment this section and add a remember_me option below your firewall to activate remember me functionality. See https://symfony.com/doc/current/security/remember_me.html
@@ -31,6 +31,6 @@
     </div>
     #}
 
-    <button type="submit" class="btn__submit">Connexion</button>
+    <button type="submit" class="btn__submit">{% trans %}Connexion{% endtrans %}</button>
 </form>
 {% endblock %} 

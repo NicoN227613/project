@@ -3,7 +3,7 @@
 {% block body %}
 <div class="dashboard__title">
     {{ icon('location') }}
-    Gestion des emplacements
+    {% trans %}Gestion des emplacements{% endtrans %}
 </div>
 <div class="dashboard__card">
     <div class="dashboard__header">
@@ -12,17 +12,17 @@
         </form>#}
         {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
         {{ form_end(form)}}
-        <a href="{{ path('admin_emplacement_new') }}" class="btn">Ajouter un emplacement</a>
+        <a href="{{ path('admin_emplacement_new') }}" class="btn">{% trans %}Ajouter un emplacement{% endtrans %}</a>
     </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Auteur</th>
-                <th>Date de creation</th>
-                <th>Date de modification</th>
-                <th>Actions</th>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Nom{% endtrans %}</th>
+                <th>{% trans %}Auteur{% endtrans %}</th>
+                <th>{% trans %}Date de creation{% endtrans %}</th>
+                <th>{% trans %}Date de modification{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_emplacement_edit', {id: emplacement.id}) }}">{{ icon('edit')}}</a>
-                        <form method="POST" action="{{ path('admin_emplacement_delete', {id: emplacement.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer cette emplacement ?')">
+                        <form method="POST" action="{{ path('admin_emplacement_delete', {id: emplacement.id}) }}" onsubmit="return confirm({% trans %}'Etes-vous sur de supprimer cette emplacement ?'{% endtrans %})">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ emplacement.id) }}">
                             <button>{{ icon('trash')}}</button>

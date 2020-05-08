@@ -3,7 +3,7 @@
 {% block body %}
 <div class="dashboard__title">
     {{ icon('user') }}
-    Gestion des utilisateurs
+    {% trans %}Gestion des utilisateurs{% endtrans %}
 </div>
 <div class="dashboard__card">
     <div class="dashboard__header">
@@ -12,18 +12,18 @@
         </form>#}
         {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
         {{ form_end(form)}}
-        <a href="{{ path('admin_user_new')}}" class="btn">Ajouter un utilisateur</a>
+        <a href="{{ path('admin_user_new')}}" class="btn">{% trans %}Ajouter un utilisateur{% endtrans %}</a>
     </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Pseudo</th>
-                <th>Email</th>
-                <th>Rôle(s)</th>
-                <th>Date de creation</th>
-                <th>Date de modification</th>
-                <th>Actions</th>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Pseudo{% endtrans %}</th>
+                <th>{% trans %}Email{% endtrans %}</th>
+                <th>{% trans %}Rôle(s){% endtrans %}</th>
+                <th>{% trans %}Date de creation{% endtrans %}</th>
+                <th>{% trans %}Date de modification{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -46,7 +46,7 @@
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_user_edit', {id: user.id}) }}">{{ icon('edit')}}</a>
-                        <form method="POST" action="{{ path('admin_user_delete', {id: user.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce compte ?')">
+                        <form method="POST" action="{{ path('admin_user_delete', {id: user.id}) }}" onsubmit="return confirm({% trans %}'Etes-vous sur de supprimer ce compte ?'{% endtrans %})">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
                             <button>{{ icon('trash')}}</button>

@@ -3,7 +3,7 @@
 {% block body %}
 <div class="dashboard__title">
     {{ icon('pen') }}
-    Ajout d'une unité
+    {% trans %}Ajout d'une unité{% endtrans %}
 </div>
-{{ include('admin/unity/_form.html.twig', {form: form, action: 'Modifier' }) }}
+{{ include('admin/unity/_form.html.twig', {form: form, action: 'Modifier'|trans }) }}
 {% endblock %}

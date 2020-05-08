@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/user")
@@ -42,7 +43,7 @@ class UserUserController extends AbstractController
     /**
      * @Route("/upload/image", name="user_image", methods={"GET", "POST"})
      */
-    public function uploadImage(Request $request)
+    public function uploadImage(Request $request, TranslatorInterface $translator)
     {
         $user = $this->getUser();
          $form = $this->createForm(UserImageType::class, $user, [
@@ -50,6 +51,7 @@ class UserUserController extends AbstractController
          ]);
 
          $form->handleRequest($request);
+         $message=$translator->trans('Votre image est bien enregistré !');
 
          if($form->isSubmitted() && $form->isValid()) {
 
@@ -57,6 +59,7 @@ class UserUserController extends AbstractController
             $this->manager->flush();
 
             $this->addFlash('success', "Votre image est bien enregistré !");
+            $this->addFlash('message', $message);
 
             return $this->redirectToRoute('user_user_index');
          }
@@ -69,7 +72,7 @@ class UserUserController extends AbstractController
     /**
      * @Route("/edit", name="user_user_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
-    public function edit (Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function edit (Request $request, UserPasswordEncoderInterface $encoder, TranslatorInterface $translator): Response
     {
         $user = $this->getUser();
 
@@ -78,6 +81,7 @@ class UserUserController extends AbstractController
         ]);
 
         $form->handleRequest($request);
+        $message=$translator->trans('Votre compte avec ce mail a bien été modifié !');
 
         if($form->isSubmitted() && $form->isValid()) {
 
@@ -88,6 +92,7 @@ class UserUserController extends AbstractController
             $this->manager->flush();
 
             $this->addFlash('success', "Votre compte avec ce mail : {$user->getEmail()} a bien été modifié !");
+            $this->addFlash('message', $message);
 
             return $this->redirectToRoute('user_user_index');
         }
@@ -100,9 +105,11 @@ class UserUserController extends AbstractController
     /**
      * @Route("/detlete", name="user_user_delete", methods="DELETE")
      */
-    public function delete(Request $request): Response
+    public function delete(Request $request, TranslatorInterface $translator): Response
     {
         $user = $this->getUser();
+
+            $message=$translator->trans('Votre compte a été supprimé !');
 
         if($this->isCsrfTokenValid('delete', $request->get('_token'))){
 
@@ -114,6 +121,7 @@ class UserUserController extends AbstractController
             $this->get('session')->invalidate();
 
             $this->addFlash('success',"Votre compte a été supprimé !");
+            $this->addFlash('message', $message);
         }
         return $this->redirectToRoute('security_login');
     }
@@ -122,15 +130,19 @@ class UserUserController extends AbstractController
     /**
      * @Route("/delete/image/{id}", name="user_image_delete", methods="DELETE")
      */
-    public function deleteImage(Image $image, Request $request)
+    public function deleteImage(Image $image, Request $request, TranslatorInterface $translator)
     {
         $user = $this->getUser();
+
+            $message=$translator->trans('Votre image a été supprimé !');
+
         if($this->isCsrfTokenValid('delete' . $image->getId(), $request->get('_token'))){
             
             $this->manager->remove($image);
             $user->setImage(null); //dissocier Image.php a User.php
             $this->manager->flush();
             $this->addFlash('success',"Votre image a été supprimé !");
+            $this->addFlash('message', $message);
         }
         return $this->redirectToRoute('user_image');
     }

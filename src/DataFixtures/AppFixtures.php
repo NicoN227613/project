@@ -10,6 +10,7 @@ use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 // faire cette commande pour les envoyers en base de donnée
 // php bin/console doctrine:fixtures:load
@@ -21,8 +22,10 @@ class AppFixtures extends Fixture
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
+
         $this->passwordEncoder = $passwordEncoder;
     }
+
 
 
     public function load(ObjectManager $manager)
@@ -50,6 +53,7 @@ class AppFixtures extends Fixture
             ->setAuthor($userAdmin)
         ;
         $manager->persist($category1);
+
 
         $category2 = new Category();
         $category2->setName('fruits de mer')

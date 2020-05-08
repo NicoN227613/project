@@ -8,7 +8,7 @@
     <div class="main js-filter-products">
         {% include 'product/_products.html.twig' %}
         {% if products is empty %}
-        <p>Aucun résultat</p>
+        <p>{% trans %}Aucun résultat{% endtrans %}</p>
         {% endif %}
     </div>
     <div class="js-filter-pagination">

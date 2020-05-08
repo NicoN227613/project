@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -52,18 +53,21 @@ final class UnityController extends BaseController
     /**
      * @Route("unity/new", name="unity_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, TranslatorInterface $translator): Response
     {
         $unity = new Unity();
         $unity->setAuthor($this->getUser());
         $form = $this->createForm(UnityType::class, $unity);
         $form->handleRequest($request);
+        $message=$translator->trans('L\' unité a bien été créée !');
 
         if($form->isSubmitted() && $form->isValid()) {
             $this->manager->persist($unity);
             $this->manager->flush();
 
             $this->addFlash('success', 'L\' unité " '. $unity->getName() .' " a bien été créée !');
+            $this->addFlash('message',$message);
+
             return $this->redirectToRoute('admin_unity_index');
         }
 
@@ -75,18 +79,21 @@ final class UnityController extends BaseController
     /**
      * @Route("/unity/{id}/edit", requirements={"id": "\d+"}, name="unity_edit", methods={"GET", "PUT"})
      */
-    public function edit(Unity $unity, Request $request): Response
+    public function edit(Unity $unity, Request $request, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(UnityType::class, $unity, [
             'method' => 'PUT',
         ]);
 
         $form->handleRequest($request);
+        $message=$translator->trans('L\' unité a bien été modifiée !');
 
         if($form->isSubmitted() && $form->isValid()) {
             $unity->setUpdatedAt(new \DateTime());
             $this->manager->flush();
             $this->addFlash('success', 'L\' unité " '. $unity->getName() .' " a bien été modifiée !');
+            $this->addFlash('message', $message);
+
             return $this->redirectToRoute('admin_unity_index');
         }
         return $this->render('admin/unity/edit.html.twig', [
@@ -99,12 +106,15 @@ final class UnityController extends BaseController
      * @Route("/unity/{id}", name="unity_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("unity", options={"id" = "id"})
      */
-    public function delete(Unity $unity, Request $request): Response
+    public function delete(Unity $unity, Request $request, TranslatorInterface $translator): Response
     {
+            $message=$translator->trans('L\' unité et le(s) produit(s) associé(s) à cette unité ont bien été supprimé(s) !');
+
         if($this->isCsrfTokenValid('delete' . $unity->getId(), $request->get('_token'))){
             $this->manager->remove($unity);
             $this->manager->flush();
-            $this->addFlash('success', 'L\' unité " '. $unity->getName() .' " et son ou ses produit(s) associé(s) à cette unité ont bien était supprimé(s) !');
+            $this->addFlash('success', 'L\' unité " '. $unity->getName() .' " et le(s) produit(s) associé(s) à cette unité ont bien été supprimé(s) !');
+            $this->addFlash('message', $message);
         }
         return $this->redirectToRoute('admin_unity_index');
     }

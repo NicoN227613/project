@@ -469,6 +469,12 @@
     "twig/twig": {
         "version": "v3.0.3"
     },
+    "webmgine/auto-loader": {
+        "version": "1.0.0"
+    },
+    "webmgine/object-manager": {
+        "version": "1.0.5"
+    },
     "zendframework/zend-code": {
         "version": "3.4.1"
     },

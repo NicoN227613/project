@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -44,19 +45,22 @@ final class ProductController extends BaseController
     /**
      * @Route("product/new", name="product_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $manager): Response
+    public function new(Request $request, EntityManagerInterface $manager, TranslatorInterface $translator): Response
     {
         $product = new Product();
         $product->setAuthor($this->getUser());
 
         $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
+        $message=$translator->trans('Le produit a bien été crée !');
 
         if($form->isSubmitted() && $form->isValid()) {
             $manager->persist($product);
             $manager->flush();
 
             $this->addFlash('success', 'Le produit " '. $product->getName() .' " a bien été créé !');
+            $this->addFlash('message',$message);
+
             return $this->redirectToRoute('admin_product_index', [
                 'id' => $product->getId(),
             ]);
@@ -70,18 +74,21 @@ final class ProductController extends BaseController
     /**
      * @Route("/product/{id}/edit", name="product_edit", methods={"GET", "PUT"})
      */
-    public function edit(Product $product, Request $request, EntityManagerInterface $manager): Response
+    public function edit(Product $product, Request $request, EntityManagerInterface $manager, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(AdminProductType::class, $product, [
             'method' => 'PUT',
         ]);
 
         $form->handleRequest($request);
+        $message=$translator->trans('Le produit a bien été modifié !');
 
         if($form->isSubmitted() && $form->isValid()) {
             $product->setUpdatedAt(new \DateTime());
             $manager->flush();
             $this->addFlash('success', 'Le produit " '. $product->getName() .' " a bien été modifié !');
+            $this->addFlash('message',$message);
+
             return $this->redirectToRoute('admin_product_index');
         }
         return $this->render('admin/product/edit.html.twig', [
@@ -94,12 +101,15 @@ final class ProductController extends BaseController
      * @Route("/product/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("product", options={"id" = "id"})
      */
-    public function delete(Product $product, Request $request, EntityManagerInterface $manager): Response
+    public function delete(Product $product, Request $request, EntityManagerInterface $manager, TranslatorInterface $translator): Response
     {
+            $message=$translator->trans('Le produit a bien été supprimé !');
+
         if($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))){
             $manager->remove($product);
             $manager->flush();
             $this->addFlash('success', 'Le produit " '. $product->getName() .' " a bien été supprimé !');
+            $this->addFlash('message', $message);
         }
         return $this->redirectToRoute('admin_product_index');
     }

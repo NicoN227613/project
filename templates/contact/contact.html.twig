@@ -1,46 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contactez-nous{% endblock %}
+{% block title %}{% trans %}Contactez-nous{% endtrans %}{% endblock %}
 
 {% block body %}
 
     {% if not formContact.vars.valid %}
         <div class='alert alert-danger' duration="6">
-            Le formulaire contient une erreur !
+            {% trans %}Le formulaire contient une erreur !{% endtrans %}
         </div>
     {% endif %}
 
-    <h1>Contactez-nous</h1>
+    <h1>{% trans %}Contactez-nous{% endtrans %}</h1>
 
     {{ form_start(formContact, { 'attr' : { 'class' : 'form' }} ) }}
         
         {{ form_errors(formContact.pseudo) }}
         <div class="form__group">
-            <label for="inputName">Pseudo</label>
+            <label for="inputName">{% trans %}Pseudo{% endtrans %}</label>
             {{ form_widget(formContact.pseudo, { 'attr' : { 'class' : 'form__control'}}) }}
         </div>
 
         {{ form_errors(formContact.email) }}
         <div class="form__group">
-             <label for="inputName">Email</label>
+             <label for="inputName">{% trans %}Email{% endtrans %}</label>
             {{ form_widget(formContact.email, { 'attr' : { 'class' : 'form__control'}}) }}
         </div>
 
         {{ form_errors(formContact.subject) }}
         <div class="form__group">
-            <label for="inputName">Sujet</label>
+            <label for="inputName">{% trans %}Sujet{% endtrans %}</label>
             {{ form_widget(formContact.subject, { 'attr' : { 'class' : 'form__control'}}) }}
         </div>
 
         {{ form_errors(formContact.message) }}
         <div class="form__group">
-            <label for="inputName">Message</label>
+            <label for="inputName">{% trans %}Message{% endtrans %}</label>
             {{ form_widget(formContact.message, { 'attr' : { 'class' : 'form__control'}}) }}
         </div>
 
         {{ form_rest(formContact) }}
 
-        <button class="btn__submit btn__text"> Envoyer </button>
+        <button class="btn__submit btn__text"> {% trans %}Envoyer {% endtrans %}</button>
 
     {{ form_end(formContact) }}
 

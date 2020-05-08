@@ -8,6 +8,7 @@ use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ContactController extends AbstractController
 {
@@ -15,7 +16,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="contact", methods={"GET", "POST"})
      */
-    public function contact(Request $request, ContactNotification $notification)
+    public function contact(Request $request, ContactNotification $notification, TranslatorInterface $translator)
     {
         $contact = new Contact();
         $contact->setPseudo($this->getUser()->getPseudo());
@@ -24,12 +25,15 @@ class ContactController extends AbstractController
         $form = $this->createForm(ContactType::class, $contact); 
 
         $form->handleRequest($request);
+        $message=$translator->trans('Votre Email a bien été envoyer !');
 
         if($form->isSubmitted() && $form->isValid()) {
 
             $notification->notify($contact);
 
             $this->addFlash('success', 'Votre Email a bien été envoyer !');
+            $this->addFlash('message', $message);
+
             return $this->redirectToRoute('contact');
         }
 

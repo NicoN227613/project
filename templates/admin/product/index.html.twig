@@ -3,7 +3,7 @@
 {% block body %}
 <div class="dashboard__title">
     {{ icon('bags') }}
-    Gestion des produits
+    {% trans %}Gestion des produits{% endtrans %}
 </div>
 <div class="dashboard__card">
     <div class="dashboard__header">
@@ -12,8 +12,9 @@
         </form>#}
         {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
         {{ form_end(form)}}
-        <a href="{{ path('admin_product_new')}}" class="btn">Ajouter un produit</a>
+        <a href="{{ path('admin_product_new')}}" class="btn">{% trans %}Ajouter un produit{% endtrans %}</a>
     </div>
+</div>
     {##
     <table class="table">
         <thead>

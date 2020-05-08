@@ -16,22 +16,22 @@
         <ul class="nav__menu">
             {% if app.user %}
             <li class="nav__home {{ app.request.get('_route') == 'admin_home' ? 'active' }}">
-                <a href="{{ path('admin_home') }}" title="Accueil">{{ icon('home') }}</a>
+                <a href="{{ path('admin_home') }}" title={% trans %}"Accueil"{% endtrans %}>{{ icon('home') }}</a>
             </li>
             <li class="{{ app.request.get('_route') == 'admin_user_index' ? 'active' }}">
-                <a href="{{ path('admin_user_index')}}">{{ icon('user') }} Comptes</a>
+                <a href="{{ path('admin_user_index')}}">{{ icon('user') }} {% trans %}Comptes{% endtrans %}</a>
             </li>
             <li class="{{ app.request.get('_route') == 'admin_product_index' ? 'active' }}">
-                <a href="{{ path('admin_product_index')}}">{{ icon('bags') }} Produits</a>
+                <a href="{{ path('admin_product_index')}}">{{ icon('bags') }} {% trans %}Produits{% endtrans %}</a>
             </li>
             <li class="{{ app.request.get('_route') == 'admin_category_index' ? 'active' }}">
-                <a href="{{ path('admin_category_index')}}">{{ icon('category') }} Catégories</a>
+                <a href="{{ path('admin_category_index')}}">{{ icon('category') }} {% trans %}Catégories{% endtrans %}</a>
             </li>
             <li class="{{ app.request.get('_route') == 'admin_emplacement_index' ? 'active' }}">
-                <a href="{{ path('admin_emplacement_index')}}">{{ icon('location') }} Emplacements</a>
+                <a href="{{ path('admin_emplacement_index')}}">{{ icon('location') }} {% trans %}Emplacements{% endtrans %}</a>
             </li>
             <li class="{{ app.request.get('_route') == 'admin_unity_index' ? 'active' }}">
-                <a href="{{ path('admin_unity_index')}}">{{ icon('balance') }} Unités</a>
+                <a href="{{ path('admin_unity_index')}}">{{ icon('balance') }} {% trans %}Unités{% endtrans %}</a>
             </li>
             {% else %}
 
@@ -40,11 +40,11 @@
         <ul class="nav__side">
             {% if app.user %}
             <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
-            <li class="nav__account"><a href="{{ path('security_logout') }}" title="Se déconnecter">{{ icon('door') }}{{ app.user.pseudo }}</a></li>
+            <li class="nav__account"><a href="{{ path('security_logout') }}" title={% trans %}"Se déconnecter"{% endtrans %}>{{ icon('door') }}{{ app.user.pseudo }}</a></li>
             {% else %}
             <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
             <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a
-                    href="{{ path('security_login') }}">{{ icon('user') }} Connexion</a></li>
+                    href="{{ path('security_login') }}">{{ icon('user') }} {% trans %}Connexion{% endtrans %}</a></li>
             {% endif %}
         </ul>
         <button class="nav__burger">

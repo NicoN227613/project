@@ -3,7 +3,7 @@
 {% block body %}
 <div class="dashboard__title">
     {{ icon('balance') }}
-    Gestion des unités
+    {% trans %}Gestion des unités{% endtrans %}
 </div>
 <div class="dashboard__card">
     <div class="dashboard__header">
@@ -12,17 +12,17 @@
         </form>#}
         {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
         {{ form_end(form)}}
-        <a href="{{ path('admin_unity_new')}}" class="btn">Ajouter une unité</a>
+        <a href="{{ path('admin_unity_new')}}" class="btn">{% trans %}Ajouter une unité{% endtrans %}</a>
     </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Auteur</th>
-                <th>Date de création</th>
-                <th>Date de modification</th>
-                <th>Actions</th>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <th>{% trans %}Nom{% endtrans %}</th>
+                <th>{% trans %}Auteur{% endtrans %}</th>
+                <th>{% trans %}Date de création{% endtrans %}</th>
+                <th>{% trans %}Date de modification{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
                 <td>
                     <div class="dashboard__actions">
                         <a href="{{ path('admin_unity_edit', {id: unity.id}) }}">{{ icon('edit')}}</a>
-                        <form method="POST" action="{{ path('admin_unity_delete', {id: unity.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer cette unité ?')">
+                        <form method="POST" action="{{ path('admin_unity_delete', {id: unity.id}) }}" onsubmit="return confirm({% trans %}'Etes-vous sur de supprimer cette unité ?'{% endtrans %})">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ unity.id) }}">
                             <button>{{ icon('trash')}}</button>

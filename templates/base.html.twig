@@ -18,21 +18,21 @@
         {% if app.user %}
         <ul class="nav__menu">
             <li class="nav__home {{ app.request.get('_route') == 'home' ? 'active' }}">
-                <a href="{{ path('home') }}" title="Accueil">{{ icon('home') }}</a>
+                <a href="{{ path('home') }}" title={% trans %}"Accueil"{% endtrans %}>{{ icon('home') }}</a>
             </li>
             <li>
                 {# <a href="{{ path('user_user_index', {id: app.user.id})}}">{{ icon('user') }} Mon compte </a> #}
-                <a href="{{ path('user_user_index')}}">{{ icon('user') }} Mon compte </a>
+                <a href="{{ path('user_user_index')}}">{{ icon('user') }} {% trans %}Mon compte {% endtrans %}</a>
             </li>
             {% if is_granted('ROLE_ADMIN') %}
-            <li><a href="{{ path('admin_home') }}">{{ icon('admin') }} Admin</a></li>
+            <li><a href="{{ path('admin_home') }}">{{ icon('admin') }}{% trans %} Admin<{% endtrans %}/a></li>
             {% endif %}
-            <li><a href="#">{{ icon('shopping-cart') }} Mes Achats</a></li>
+            <li><a href="#">{{ icon('shopping-cart') }} {% trans %}Mes Achats{% endtrans %}</a></li>
             <li class="{{ app.request.get('_route') == 'product_index' ? 'active' }}">
-                <a href="{{ path('product_index')}}">{{ icon('bags') }} Mes produits</a>
+                <a href="{{ path('product_index')}}">{{ icon('bags') }} {% trans %}Mes produits{% endtrans %}</a>
             </li>
             <li class="{{ app.request.get('_route') == 'contact' ? 'active' }}">
-                <a href="{{ path('contact') }}">{{ icon('contact') }} Contact</a>
+                <a href="{{ path('contact') }}">{{ icon('contact') }} {% trans %}Contact{% endtrans %}</a>
             </li>
         </ul>
         {% else %}
@@ -47,7 +47,7 @@
         <ul class="nav__side">
             <li class="nav__search"><a href="#">{{ icon('search') }}</a></li>
             <li class="nav__account {{ app.request.get('_route') == 'security_login' ? 'active' }}"><a
-                    href="{{ path('security_login') }}">{{ icon('user') }} Connexion</a></li>
+                    href="{{ path('security_login') }}">{{ icon('user') }}{% trans %} Connexion{% endtrans %}</a></li>
         </ul>
         {% endif %}
         </ul>

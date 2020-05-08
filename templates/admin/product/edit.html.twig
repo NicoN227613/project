@@ -3,7 +3,7 @@
 {% block body %}
 <div class="dashboard__title">
     {{ icon('pen') }}
-    Edition d'un produit
+    {% trans %}Edition d'un produit{% endtrans %}
 </div>
 {{ include('admin/product/_form.html.twig', {form: form, action: 'product.action.edit' | trans }) }}
 {% endblock %}

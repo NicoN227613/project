@@ -7,41 +7,41 @@
 <h1>S'incrire</h1>
 
 <div class="form__group">
-    <label for="inputPseudo">Nom d'utilisateur</label>
+    <label for="inputPseudo">{% trans %}Nom d'utilisateur{% endtrans %}</label>
     {{ form_widget(form.pseudo, {'attr' : { 'class' : 'form__control' }})}}
     {{ form_errors(form.pseudo) }}
 </div>
 
 {{ form_errors(form.email) }}
 <div class="form__group">
-    <label for="inputEmail">Adresse mail</label>
+    <label for="inputEmail">{% trans %}Adresse mail{% endtrans %}</label>
     {{ form_widget(form.email, {'attr' : { 'class' : 'form__control' }})}}
     {{ form_errors(form.email) }}
 </div>
 
 {{ form_errors(form.password) }}
 <div class="form__group">
-    <label for="inputPassword">Mot de passe</label>
+    <label for="inputPassword">{% trans %}Mot de passe{% endtrans %}</label>
     {{ form_widget(form.password, { 'attr' : { 'class' : 'form__control' } }) }}
     {{ form_errors(form.password) }}
 </div>
 
 {{ form_errors(form.confirm_password) }}
 <div class="form__group">
-    <label for="inputPassword">Confimer mot de passe</label>
+    <label for="inputPassword">{% trans %}Confimer mot de passe{% endtrans %}</label>
     {{ form_widget(form.confirm_password, { 'attr' : {'class' : 'form__control'} })}}
     {{ form_errors(form.confirm_password) }}
 </div>
 
 {{ form_errors(form.image.file) }}
 <div class="">
-<label for="inputImage">Télécharger une image</label>
+<label for="inputImage">{% trans %}Télécharger une image{% endtrans %}</label>
     {{ form_widget(form.image.file, { 'attr' : { 'class' : 'form__control'} } ) }}
 </div>
 
 {{ form_rest(form) }}
 
-<a href="{{ path('security_login')}}">Vous avez un compte ? Connectez-vous</a>
-<button type="submit" class="btn__submit">S'incrire</button>
+<a href="{{ path('security_login')}}">{% trans %}Vous avez un compte ? Connectez-vous{% endtrans %}</a>
+<button type="submit" class="btn__submit">{% trans %}S'incrire{% endtrans %}</button>
 {{ form_end(form) }}
 {% endblock body %}

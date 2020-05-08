@@ -15,5 +15,7 @@ product:
         expirationDate: 'DLC'
         bestBeforeDate: 'DDM'
         author: 'Auteur'
+        browse: 'Parcourir'
+        noFileSelected: 'Aucun fichier sélectionné'
     index:
         title: 'Liste des produits'    

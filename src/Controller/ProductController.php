@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/product")
@@ -86,18 +87,21 @@ class ProductController extends AbstractController
     /**
      * @Route("/new", name="product_new")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, TranslatorInterface $translator): Response
     {
         $product = new Product();
         $product->setAuthor($this->getUser());
         $form = $this->createForm(ProductType::class, $product);
 
         $form->handleRequest($request);
+        $message=$translator->trans('Votre produit a bien été crée !');
 
         if($form->isSubmitted() && $form->isValid()) {
             $this->manager->persist($product);
             $this->manager->flush();
-            $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était crée !');
+            $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien été crée !');
+            $this->addFlash('message', $message);
+
             return $this->redirectToRoute('product_index');
         }
 
@@ -110,7 +114,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}/edit", name="product_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
-    public function edit(Product $product, Request $request): Response
+    public function edit(Product $product, Request $request, TranslatorInterface $translator): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $product);
@@ -120,10 +124,13 @@ class ProductController extends AbstractController
         ]);
 
         $form->handleRequest($request);
+        $message=$translator->trans('Votre produit a bien été modifié !');
 
         if($form->isSubmitted() && $form->isValid()) {
             $this->manager->flush();
-            $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était modifié !');
+            $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien été modifié !');
+            $this->addFlash('message', $message);
+
             return $this->redirectToRoute('product_index');
         }
 
@@ -136,14 +143,17 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}/delete", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      */
-    public function delete(Product $product, Request $request): Response
+    public function delete(Product $product, Request $request, TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted('delete', $product);
+
+            $message=$translator->trans('Votre produit a bien été supprimé !');
 
         if($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))){
             $this->manager->remove($product);
             $this->manager->flush();
-            $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était supprimé !');
+            $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien été supprimé !');
+            $this->addFlash('message', $message);
         }
         return $this->redirectToRoute('product_index');
     }

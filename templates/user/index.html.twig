@@ -11,7 +11,7 @@
 
     <section class="container">
 
-        <h1>Mon Compte</h1>
+        <h1>{% trans %}Mon Compte{% endtrans %}</h1>
 
         <article class='user_card'>
             <header class='user_card_header'>
@@ -28,20 +28,20 @@
             <div class="user_card_body">
                 <h2 class="space"> {{ user.pseudo }} </h2>
                 <p class="space"> {{ user.email }} </p>
-                <p class="space">Créer le : {{ user.createdAt | date('d F Y') }} </p>
+                <p class="space">{% trans %}Créer le {% endtrans %}: {{ user.createdAt | date('d F Y') }} </p>
                 
                 {% if user.updatedAt is not null %}
-                    <p>Modifier le : {{ user.updatedAt | date('d F Y') }} </p>
+                    <p>{% trans %}Modifier le {% endtrans %}: {{ user.updatedAt | date('d F Y') }} </p>
                 {% endif %}
 
                 <div class="mod_sup">  
                     <div class="dashboard__actions ">
-                       <a href="{{ path('user_user_edit') }}" class="middle"> {{ icon('edit') }} Modifier </a>
+                       <a href="{{ path('user_user_edit') }}" class="middle"> {{ icon('edit') }}{% trans %} Modifier {% endtrans %}</a>
                        
-                        <form method="POST" action="{{ path('user_user_delete') }}" class="middle" onsubmit="return confirm('Etes-vous sur de vouloir supprimer votre compte ?')">
+                        <form method="POST" action="{{ path('user_user_delete') }}" class="middle" onsubmit="return confirm({% trans %}'Etes-vous sur de vouloir supprimer votre compte ?'{% endtrans %})">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
-                            <button> {{ icon('trash') }} Supprimer </button>
+                            <button> {{ icon('trash') }} {% trans %}Supprimer {% endtrans %}</button>
                         </form>
                     </div>
                 </div>

@@ -1,22 +1,22 @@
 {{ form_start(form, { 'attr' : { 'class' : 'form'}})}}
 <div class="form__group">
-    <label for="inputEmail">Pseudo</label>
+    <label for="inputEmail">{% trans %}Pseudo{% endtrans %}</label>
     {{ form_widget(form.pseudo, { 'attr' : { 'class' : 'form__control'}})}}
     {{ form_errors(form.pseudo) }}
 </div>
 <div class="form__group">
-    <label for="inputEmail">Email</label>
+    <label for="inputEmail">{% trans %}Email{% endtrans %}</label>
     {{ form_widget(form.email, { 'attr' : { 'class' : 'form__control'}})}}
     {{ form_errors(form.email) }}
     
 </div>
 <div class="form__group">
-    <label for="inputPassword">Mot de passe</label>
+    <label for="inputPassword">{% trans %}Mot de passe{% endtrans %}</label>
     {{ form_widget(form.password, { 'attr' : { 'class' : 'form__control'} } ) }}
     {{ form_errors(form.password) }}
 </div>
 <div class="form__group">
-    <label for="inputRoles">Rôle(s)</label>
+    <label for="inputRoles">{% trans %}Rôle(s){% endtrans %}</label>
     {{ form_widget(form.roles, { 'attr' : { 'class' : 'form__control'} } ) }}
     {{ form_errors(form.roles) }}
 </div>

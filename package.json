@@ -6,6 +6,7 @@
         "regenerator-runtime": "^0.13.2",
         "sass-loader": "7.0.1",
         "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -19,6 +20,8 @@
     "dependencies": {
         "choices.js": "^9.0.1",
         "flatpickr": "^4.6.3",
-        "flip-toolkit": "^7.0.9"
+        "flip-toolkit": "^7.0.9",
+        "yarm": "^0.4.0",
+        "yarn": "^1.22.4"
     }
 }

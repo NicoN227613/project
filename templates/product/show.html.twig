@@ -3,25 +3,25 @@
 {% block body %}
     {# <p style="background: red; color: white;">Cette aliment est périmé</p> #}
     {% if product.expirationDate | date('d F Y') < "now" | date('d F Y') %}
-        <p class="notification__perimer">Cet aliment est périmé</p>
+        <p class="notification__perimer">{% trans %}Cet aliment est périmé{% endtrans %}</p>
     {% elseif product.bestBeforeDate | date('d F Y') < "now" | date('d F Y') %}
-        <p class="notification__perimer">Cet aliment est périmé</p>
+        <p class="notification__perimer">{% trans %}Cet aliment est périmé{% endtrans %}</p>
     {% endif %}
         
     <h1>{{ product.name }}</h1>
-    <h3>Catégorie : {{ product.classifiedIn.name }}</h3>
-    <h3>Emplacement : {{ product.placeIn.name }}</h3>
-    <h3>Quantité : {{ product.quantity }}</h3>
-    <h3>Unité : {{ product.units.name }}</h3>
-    <h3>Date d'achat : {{ product.purchaseDate | date('d F Y') }}</h3>
+    <h3>{% trans %}Catégorie {% endtrans %}: {{ product.classifiedIn.name }}</h3>
+    <h3>{% trans %}Emplacement {% endtrans %}: {{ product.placeIn.name }}</h3>
+    <h3>{% trans %}Quantité {% endtrans %}: {{ product.quantity }}</h3>
+    <h3>{% trans %}Unité {% endtrans %}: {{ product.units.name }}</h3>
+    <h3>{% trans %}Date d'achat {% endtrans %}: {{ product.purchaseDate | date('d F Y') }}</h3>
 
     {% if product.expirationDate is not null %}
-        <h3>A consommer avant le : {{ product.expirationDate | date('d F Y') }}</h3>
+        <h3>{% trans %}A consommer avant le {% endtrans %}: {{ product.expirationDate | date('d F Y') }}</h3>
     {% elseif product.bestBeforeDate is not null %}
-        <h3>A consommer avant le : {{ product.bestBeforeDate | date('d F Y') }}</h3>
+        <h3>{% trans %}A consommer avant le {% endtrans %}: {{ product.bestBeforeDate | date('d F Y') }}</h3>
     {% endif %}
     
-    <h3>Ajouter le : {{ product.createdAt | date('d F Y') }}</h3>
+    <h3>{% trans %}Ajouter le {% endtrans %}: {{ product.createdAt | date('d F Y') }}</h3>
     <a href="{{ path('product_edit', {id: product.id}) }}">
         {{'product.action.edit' | trans }}
     </a>
@@ -30,10 +30,10 @@
     
     
 
-    <form method="POST" action="{{ path('product_delete', {id: product.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
+    <form method="POST" action="{{ path('product_delete', {id: product.id}) }}" onsubmit="return confirm({% trans %}'Etes-vous sur de supprimer ce produit ?'{% endtrans %})">
         <input type="hidden" name="_method" value="DELETE">
         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
-        <button>Supprimer</button>
+        <button>{% trans %}Supprimer{% endtrans %}</button>
     </form>
     <a href="{{ path('product_index')}}">
         {{'product.action.back_to_list' | trans }}

@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="WaxAFdo" resname="button.VoirPlusDeProduits">
+        <source>button.VoirPlusDeProduits</source>
+        <target>See more products</target>
+      </trans-unit>
+      <trans-unit id="OF2HlzJ" resname="La catégorie a bien été créée !">
+        <source>La catégorie a bien été créée !</source>
+        <target>The category has well been created !</target>
+      </trans-unit>
+      <trans-unit id="uNGVSfp" resname="La catégorie a bien été modifiée !">
+        <source>La catégorie a bien été modifiée !</source>
+        <target>The category has well been modified !</target>
+      </trans-unit>
+      <trans-unit id="caGswl2" resname="La catégorie et le(s) produit(s) associé(s) à cette catégorie ont bien été supprimé(s) !">
+        <source>La catégorie et le(s) produit(s) associé(s) à cette catégorie ont bien été supprimé(s) !</source>
+        <target>The category and the product(s) associeted at this category have well been deleted !</target>
+      </trans-unit>
+      <trans-unit id="uvQBZnX" resname="L' emplacement a bien été crée !">
+        <source>L' emplacement a bien été crée !</source>
+        <target>The location has well been created !</target>
+      </trans-unit>
+      <trans-unit id="anpPkXl" resname="L' emplacement a bien été modifié !">
+        <source>L' emplacement a bien été modifié !</source>
+        <target>The location has well been modified !</target>
+      </trans-unit>
+      <trans-unit id="RVyFnoj" resname="L' emplacement et le(s) produit(s) associé(s) à cet emplacement ont bien été supprimé(s) !">
+        <source>L' emplacement et le(s) produit(s) associé(s) à cet emplacement ont bien été supprimé(s) !</source>
+        <target>The location and the product(s) associeted at this location have well been deleted !</target>
+      </trans-unit>
+      <trans-unit id="8QgP5xp" resname="L' unité a bien été créée !">
+        <source>L' unité a bien été créée !</source>
+        <target>The unit has well been created !</target>
+      </trans-unit>
+      <trans-unit id="mgmaoIQ" resname="L' unité a bien été modifiée !">
+        <source>L' unité a bien été modifiée !</source>
+        <target>The unit has well been modified !</target>
+      </trans-unit>
+      <trans-unit id="PToWIjD" resname="L' unité et le(s) produit(s) associé(s) à cette unité ont bien été supprimé(s) !">
+        <source>L' unité et le(s) produit(s) associé(s) à cette unité ont bien été supprimé(s) !</source>
+        <target>The unit and the product(s) associeted at this unit have well been deleted !</target>
+      </trans-unit>
+      <trans-unit id="efiOh1G" resname="Votre produit a bien été crée !">
+        <source>Votre produit a bien été crée !</source>
+        <target>Your product has well been created !</target>
+      </trans-unit>
+      <trans-unit id="GCA7RSM" resname="Votre produit a bien été modifié !">
+        <source>Votre produit a bien été modifié !</source>
+        <target>Your product has well been modified !</target>
+      </trans-unit>
+      <trans-unit id="Jyh4eIR" resname="Votre produit a bien été supprimé !">
+        <source>Votre produit a bien été supprimé !</source>
+        <target>Your product has well been deleted !</target>
+      </trans-unit>
+      <trans-unit id="Uh0eV7V" resname="Votre image est bien enregistré !">
+        <source>Votre image est bien enregistré !</source>
+        <target>your image is well saved !</target>
+      </trans-unit>
+      <trans-unit id="lcmvETj" resname="Votre compte avec ce mail a bien été modifié !">
+        <source>Votre compte avec ce mail a bien été modifié !</source>
+        <target>Your account with this mail has well been modified !</target>
+      </trans-unit>
+      <trans-unit id=".sedGNV" resname="Votre compte a été supprimé !">
+        <source>Votre compte a été supprimé !</source>
+        <target>Your account has been deleted !</target>
+      </trans-unit>
+      <trans-unit id="g80inFh" resname="Votre image a été supprimé !">
+        <source>Votre image a été supprimé !</source>
+        <target>Your image has been deleted !</target>
+      </trans-unit>
+      <trans-unit id="j6kIwlz" resname="Le produit a bien été crée !">
+        <source>Le produit a bien été crée !</source>
+        <target>The product has well been created!</target>
+      </trans-unit>
+      <trans-unit id="i89XX_p" resname="Le produit a bien été modifié !">
+        <source>Le produit a bien été modifié !</source>
+        <target>The product has well been modified !</target>
+      </trans-unit>
+      <trans-unit id="l7zlQMB" resname="Le produit a bien été supprimé !">
+        <source>Le produit a bien été supprimé !</source>
+        <target>The product has well been deleted !</target>
+      </trans-unit>
+      <trans-unit id="4Mc9ziM" resname="L' utilisateur a bien été crée !">
+        <source>L' utilisateur a bien été crée !</source>
+        <target>The user has well been created !</target>
+      </trans-unit>
+      <trans-unit id="RadO8r." resname="L' utilisateur a bien été modifié !">
+        <source>L' utilisateur a bien été modifié !</source>
+        <target>The user has well been modified !</target>
+      </trans-unit>
+      <trans-unit id="MV9r7Ds" resname="L' utilisateur et le(s) produit(s) ont bien été supprimés !">
+        <source>L' utilisateur et le(s) produit(s) ont bien été supprimés !</source>
+        <target>The user ans the product(s) have well been deleted !</target>
+      </trans-unit>
+      <trans-unit id="1d40.Gz" resname="Votre Email a bien été envoyer !">
+        <source>Votre Email a bien été envoyer !</source>
+        <target>Your Email has well been sended !</target>
+      </trans-unit>
+      <trans-unit id="SWtMYIv" resname="Contactez-nous">
+        <source>Contactez-nous</source>
+        <target>Contact us</target>
+      </trans-unit>
+      <trans-unit id="7_QJaq0" resname="Le formulaire contient une erreur !">
+        <source>Le formulaire contient une erreur !</source>
+        <target>The form contains an error !</target>
+      </trans-unit>
+      <trans-unit id="BH9Ys5T" resname="Pseudo">
+        <source>Pseudo</source>
+        <target>Username</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="21nrsnI" resname="Sujet">
+        <source>Sujet</source>
+        <target>Subject</target>
+      </trans-unit>
+      <trans-unit id="L3dmip3" resname="Message">
+        <source>Message</source>
+        <target>Message</target>
+      </trans-unit>
+      <trans-unit id="eQdSCfK" resname="Envoyer">
+        <source>Envoyer</source>
+        <target>Send</target>
+      </trans-unit>
+      <trans-unit id="Ldrsz1G" resname="&quot;Accueil&quot;">
+        <source>"Accueil"</source>
+        <target>Home</target>
+      </trans-unit>
+      <trans-unit id="KPRXHyi" resname="Mon compte">
+        <source>Mon compte</source>
+        <target>My account</target>
+      </trans-unit>
+      <trans-unit id="wcIksDz" resname="Admin">
+        <source>Admin</source>
+        <target>Admin</target>
+      </trans-unit>
+      <trans-unit id="xLrlzaF" resname="Mes Achats">
+        <source>Mes Achats</source>
+        <target>My purchases</target>
+      </trans-unit>
+      <trans-unit id="1HWL_m7" resname="Mes produits">
+        <source>Mes produits</source>
+        <target>My products</target>
+      </trans-unit>
+      <trans-unit id="K1w9JnI" resname="Contact">
+        <source>Contact</source>
+        <target>Contact</target>
+      </trans-unit>
+      <trans-unit id="YdaVBBA" resname="Connexion">
+        <source>Connexion</source>
+        <target>Connection</target>
+      </trans-unit>
+      <trans-unit id="sB0RYun" resname="Adresse mail">
+        <source>Adresse mail</source>
+        <target>Email adress</target>
+      </trans-unit>
+      <trans-unit id=".5yLjAZ" resname="Mot de passe">
+        <source>Mot de passe</source>
+        <target>Password</target>
+      </trans-unit>
+      <trans-unit id="TTsTSsS" resname="Pas de compte ? Incrivez-vous">
+        <source>Pas de compte ? Incrivez-vous</source>
+        <target>No account ? Sign up</target>
+      </trans-unit>
+      <trans-unit id="hRdkX4h" resname="Nom d'utilisateur">
+        <source>Nom d'utilisateur</source>
+        <target>Username</target>
+      </trans-unit>
+      <trans-unit id="hL9G5UJ" resname="Confimer mot de passe">
+        <source>Confimer mot de passe</source>
+        <target>Confirm your password</target>
+      </trans-unit>
+      <trans-unit id="CCEKEdt" resname="Télécharger une image">
+        <source>Télécharger une image</source>
+        <target>Upload a image</target>
+      </trans-unit>
+      <trans-unit id="8LhlLJC" resname="Vous avez un compte ? Connectez-vous">
+        <source>Vous avez un compte ? Connectez-vous</source>
+        <target>You have an account ? Log in</target>
+      </trans-unit>
+      <trans-unit id="cwc3kd_" resname="S'incrire">
+        <source>S'incrire</source>
+        <target>Sign up</target>
+      </trans-unit>
+      <trans-unit id="NEhKPPi" resname="Ajout d'une unité">
+        <source>Ajout d'une unité</source>
+        <target>Adding a unit</target>
+      </trans-unit>
+      <trans-unit id="QuN2BLY" resname="Modifier">
+        <source>Modifier</source>
+        <target>Modify</target>
+      </trans-unit>
+      <trans-unit id="lpQY9NW" resname="Créer">
+        <source>Créer</source>
+        <target>Create</target>
+      </trans-unit>
+      <trans-unit id="tVvCeOK" resname="Gestion des unités">
+        <source>Gestion des unités</source>
+        <target>Management of units</target>
+      </trans-unit>
+      <trans-unit id="UutRmuV" resname="Ajouter une unité">
+        <source>Ajouter une unité</source>
+        <target>Add a unit</target>
+      </trans-unit>
+      <trans-unit id="EhVukhv" resname="Id">
+        <source>Id</source>
+        <target>Id</target>
+      </trans-unit>
+      <trans-unit id="ssEkU20" resname="Nom">
+        <source>Nom</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="WIDlngw" resname="Auteur">
+        <source>Auteur</source>
+        <target>Author</target>
+      </trans-unit>
+      <trans-unit id="VAH_Z9P" resname="Date de création">
+        <source>Date de création</source>
+        <target>Creation date</target>
+      </trans-unit>
+      <trans-unit id="pPFd7EB" resname="Date de modification">
+        <source>Date de modification</source>
+        <target>Modification date</target>
+      </trans-unit>
+      <trans-unit id=".4BZ3Gd" resname="Actions">
+        <source>Actions</source>
+        <target>Actions</target>
+      </trans-unit>
+      <trans-unit id="hVXCusa" resname="'Etes-vous sur de supprimer cette unité ?'">
+        <source>'Etes-vous sur de supprimer cette unité ?'</source>
+        <target>Are you sure to delete this unit ?</target>
+      </trans-unit>
+      <trans-unit id="Oks0A5o" resname="Comptes">
+        <source>Comptes</source>
+        <target>Accounts</target>
+      </trans-unit>
+      <trans-unit id="SbPPeKx" resname="Produits">
+        <source>Produits</source>
+        <target>Products</target>
+      </trans-unit>
+      <trans-unit id="SxUSCLz" resname="Catégories">
+        <source>Catégories</source>
+        <target>Categories</target>
+      </trans-unit>
+      <trans-unit id="aSz3cRx" resname="Emplacements">
+        <source>Emplacements</source>
+        <target>Locations</target>
+      </trans-unit>
+      <trans-unit id="QlfWTMg" resname="Unités">
+        <source>Unités</source>
+        <target>Units</target>
+      </trans-unit>
+      <trans-unit id="IypEjfq" resname="&quot;Se déconnecter&quot;">
+        <source>"Se déconnecter"</source>
+        <target>Log out</target>
+      </trans-unit>
+      <trans-unit id="A2doms2" resname="Edition d'une categorie">
+        <source>Edition d'une categorie</source>
+        <target>Category edition</target>
+      </trans-unit>
+      <trans-unit id="iP5hsC0" resname="Ajout d'une categorie">
+        <source>Ajout d'une categorie</source>
+        <target>Adding a category</target>
+      </trans-unit>
+      <trans-unit id="KB4ccYl" resname="Gestion des categories">
+        <source>Gestion des categories</source>
+        <target>Management of categories</target>
+      </trans-unit>
+      <trans-unit id="kiNWOKu" resname="Ajouter une categorie">
+        <source>Ajouter une categorie</source>
+        <target>Adding a category</target>
+      </trans-unit>
+      <trans-unit id="krC9KjL" resname="Date de creation">
+        <source>Date de creation</source>
+        <target>Creation date</target>
+      </trans-unit>
+      <trans-unit id="a8_vLdQ" resname="'Etes-vous sur de supprimer cette catégorie ?'">
+        <source>'Etes-vous sur de supprimer cette catégorie ?'</source>
+        <target>Are you sure to delete this category ?</target>
+      </trans-unit>
+      <trans-unit id="zZjxqCy" resname="Gestion des emplacements">
+        <source>Gestion des emplacements</source>
+        <target>Management of locations</target>
+      </trans-unit>
+      <trans-unit id="jTtOczR" resname="Ajouter un emplacement">
+        <source>Ajouter un emplacement</source>
+        <target>Add a location</target>
+      </trans-unit>
+      <trans-unit id="HJ7sxD4" resname="'Etes-vous sur de supprimer cette emplacement ?'">
+        <source>'Etes-vous sur de supprimer cette emplacement ?'</source>
+        <target>Are you sure to delete this location ?</target>
+      </trans-unit>
+      <trans-unit id="AILd5Gb" resname="Ajout d'un utilisateur">
+        <source>Ajout d'un utilisateur</source>
+        <target>Adding a user</target>
+      </trans-unit>
+      <trans-unit id="lQz21jl" resname="Gestion des utilisateurs">
+        <source>Gestion des utilisateurs</source>
+        <target>Management of users</target>
+      </trans-unit>
+      <trans-unit id="gQ0Qzhj" resname="Ajouter un utilisateur">
+        <source>Ajouter un utilisateur</source>
+        <target>Add a user</target>
+      </trans-unit>
+      <trans-unit id="RJm1w7W" resname="Rôle(s)">
+        <source>Rôle(s)</source>
+        <target>Role(s)</target>
+      </trans-unit>
+      <trans-unit id="fUUaDSv" resname="'Etes-vous sur de supprimer ce compte ?'">
+        <source>'Etes-vous sur de supprimer ce compte ?'</source>
+        <target>Are you sure to delete this account ?</target>
+      </trans-unit>
+      <trans-unit id="bVeNZ_e" resname="Edition d'un produit">
+        <source>Edition d'un produit</source>
+        <target>Product edition</target>
+      </trans-unit>
+      <trans-unit id="XdmqF2i" resname="product.action.edit">
+        <source>product.action.edit</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="iXBeEF3" resname="Ajout d'un produit">
+        <source>Ajout d'un produit</source>
+        <target>Adding a product</target>
+      </trans-unit>
+      <trans-unit id="8t6LMXg" resname="product.action.add">
+        <source>product.action.add</source>
+        <target>Add</target>
+      </trans-unit>
+      <trans-unit id="y_nfUS." resname="Gestion des produits">
+        <source>Gestion des produits</source>
+        <target>Management of products</target>
+      </trans-unit>
+      <trans-unit id="zTNOCE." resname="Ajouter un produit">
+        <source>Ajouter un produit</source>
+        <target>Add a product</target>
+      </trans-unit>
+      <trans-unit id="tBjx16C" resname="product.form.author">
+        <source>product.form.author</source>
+        <target>Author</target>
+      </trans-unit>
+      <trans-unit id="ZALNapH" resname="product.form.name">
+        <source>product.form.name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="17XN5DS" resname="product.form.category">
+        <source>product.form.category</source>
+        <target>Category</target>
+      </trans-unit>
+      <trans-unit id="5vERoCb" resname="product.form.emplacement">
+        <source>product.form.emplacement</source>
+        <target>Location</target>
+      </trans-unit>
+      <trans-unit id="FJHHKN7" resname="product.form.quantity">
+        <source>product.form.quantity</source>
+        <target>Quantity</target>
+      </trans-unit>
+      <trans-unit id="oy73eE7" resname="product.form.unity">
+        <source>product.form.unity</source>
+        <target>Unity</target>
+      </trans-unit>
+      <trans-unit id="TEG3.5c" resname="product.form.purchaseDate">
+        <source>product.form.purchaseDate</source>
+        <target>PurchaseDate</target>
+      </trans-unit>
+      <trans-unit id="TptKT7m" resname="DLC : Date Limite de Consommation">
+        <source>DLC : Date Limite de Consommation</source>
+        <target> ED: Expiration date</target>
+      </trans-unit>
+      <trans-unit id="LhTkpxk" resname="DDM : Date à Durée Minimale">
+        <source>DDM : Date à Durée Minimale</source>
+        <target> DWMD : Date with minimum duration</target>
+      </trans-unit>
+      <trans-unit id="ph6jKPz" resname="Acheté le">
+        <source>Acheté le</source>
+        <target>Purchased the</target>
+      </trans-unit>
+      <trans-unit id="vtiXTv." resname="Enregistrer le">
+        <source>Enregistrer le</source>
+        <target>Save the</target>
+      </trans-unit>
+      <trans-unit id="VPdEmGo" resname="Modifié le">
+        <source>Modifié le</source>
+        <target>Modified the</target>
+      </trans-unit>
+      <trans-unit id="rx1z61E" resname="'Etes-vous sur de supprimer ce produit ?'">
+        <source>'Etes-vous sur de supprimer ce produit ?'</source>
+        <target>Are you sure to delete this product ?</target>
+      </trans-unit>
+      <trans-unit id="_IUmfLU" resname="Mon Compte">
+        <source>Mon Compte</source>
+        <target>My account</target>
+      </trans-unit>
+      <trans-unit id="8jX8VhZ" resname="Créer le">
+        <source>Créer le</source>
+        <target>Create the</target>
+      </trans-unit>
+      <trans-unit id="pSXswVC" resname="Modifier le">
+        <source>Modifier le</source>
+        <target>Modify the</target>
+      </trans-unit>
+      <trans-unit id="PfvYP4l" resname="'Etes-vous sur de vouloir supprimer votre compte ?'">
+        <source>'Etes-vous sur de vouloir supprimer votre compte ?'</source>
+        <target>Are you sure you want to delete your account ?</target>
+      </trans-unit>
+      <trans-unit id="Xl0CFs4" resname="Supprimer">
+        <source>Supprimer</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="2OC7RUL" resname="Confirmez votre mot de passe">
+        <source>Confirmez votre mot de passe</source>
+        <target>Confirm your password</target>
+      </trans-unit>
+      <trans-unit id=".GF34W8" resname="product.action.new">
+        <source>product.action.new</source>
+        <target>New</target>
+      </trans-unit>
+      <trans-unit id="HqFSjMB" resname="Chargement ...">
+        <source>Chargement ...</source>
+        <target>Loading ...</target>
+      </trans-unit>
+      <trans-unit id="HyZIu_7" resname="Aucun résultat">
+        <source>Aucun résultat</source>
+        <target>No results</target>
+      </trans-unit>
+      <trans-unit id="vIiQny1" resname="Cet aliment est périmé">
+        <source>Cet aliment est périmé</source>
+        <target>This food is expired</target>
+      </trans-unit>
+      <trans-unit id="aKU0H8a" resname="Catégorie">
+        <source>Catégorie</source>
+        <target>Category</target>
+      </trans-unit>
+      <trans-unit id="vZKm25u" resname="Emplacement">
+        <source>Emplacement</source>
+        <target>Location</target>
+      </trans-unit>
+      <trans-unit id="olio7wM" resname="Quantité">
+        <source>Quantité</source>
+        <target>Quantity</target>
+      </trans-unit>
+      <trans-unit id="HuMKhSb" resname="Unité">
+        <source>Unité</source>
+        <target>Unity</target>
+      </trans-unit>
+      <trans-unit id="okyXCTd" resname="Date d'achat">
+        <source>Date d'achat</source>
+        <target>Date of purchase</target>
+      </trans-unit>
+      <trans-unit id="oUWS3LP" resname="A consommer avant le">
+        <source>A consommer avant le</source>
+        <target>Consume before</target>
+      </trans-unit>
+      <trans-unit id="h69.USH" resname="Ajouter le">
+        <source>Ajouter le</source>
+        <target>Add the</target>
+      </trans-unit>
+      <trans-unit id="M2713PJ" resname="product.action.back_to_list">
+        <source>product.action.back_to_list</source>
+        <target>Back_to_list</target>
+      </trans-unit>
+      <trans-unit id="N5WwmNe" resname="Vous Avez reçu un mail de Mr/Mme">
+        <source>Vous Avez reçu un mail de Mr/Mme</source>
+        <target>You have receive a mail of Mr/Mrs</target>
+      </trans-unit>
+      <trans-unit id="wCxVTL5" resname="Rechercher un produit">
+        <source>Rechercher un produit</source>
+        <target>Search a product</target>
+      </trans-unit>
+      <trans-unit id="LbrYrrg" resname="produits laitiers">
+        <source>produits laitiers</source>
+        <target>dairy products</target>
+      </trans-unit>
+      <trans-unit id="4fyD5h2" resname="Rechercher une categorie">
+        <source>Rechercher une categorie</source>
+        <target>Search a cotegory</target>
+      </trans-unit>
+      <trans-unit id="E.0u7y2" resname="Rechercher un emplacement">
+        <source>Rechercher un emplacement</source>
+        <target>Search a location</target>
+      </trans-unit>
+      <trans-unit id="3g5JfsO" resname="Rechercher une unité">
+        <source>Rechercher une unité</source>
+        <target>Search a unit</target>
+      </trans-unit>
+      <trans-unit id="BqkId9b" resname="Rechercher un utilisateur">
+        <source>Rechercher un utilisateur</source>
+        <target>Search a user</target>
+      </trans-unit>
+      <trans-unit id="RHnvMXl" resname="Expiré">
+        <source>Expiré</source>
+        <target>Expired</target>
+      </trans-unit>
+      <trans-unit id="RaqlxK1" resname="Expire aujourd'hui">
+        <source>Expire aujourd'hui</source>
+        <target>Expires today</target>
+      </trans-unit>
+      <trans-unit id="oOK5Ud3" resname="Expire le">
+        <source>Expire le</source>
+        <target>Expires on</target>
+      </trans-unit>
+      <trans-unit id="KydssTm" resname="Ajouté le">
+        <source>Ajouté le</source>
+        <target>Add the</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

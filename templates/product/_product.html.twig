@@ -2,15 +2,15 @@
     <a href="{{ path('product_edit', {id: product.id}) }}">
         <header class="card__thumb">
             {% if product.expirationDate | date('d F Y') < "now" | date('d F Y') %}
-            <span class="card__expiration">Expiré</span>
+            <span class="card__expiration">{% trans %}Expiré{% endtrans %}</span>
             {% elseif product.bestBeforeDate | date('d F Y') < "now" | date('d F Y') %}
-            <span class="card__expiration">Expiré</span>
+            <span class="card__expiration">{% trans %}Expiré{% endtrans %}</span>
             {% elseif product.expirationDate | date('d F Y') == "now" | date('d F Y') %}
-            <span class="card__expiration__now">Expire aujourd'hui</span>
+            <span class="card__expiration__now">{% trans %}Expire aujourd'hui{% endtrans %}</span>
             {% elseif product.bestBeforeDate | date('d F Y') == "now" | date('d F Y') %}
-            <span class="card__expiration__now">Expire aujourd'hui</span>
+            <span class="card__expiration__now">{% trans %}Expire aujourd'hui{% endtrans %}</span>
             {% else %}
-            <span class="card__not__expiration">Expire le {{ product.expirationDate | date('d F Y') }}</span>
+            <span class="card__not__expiration">{% trans %}Expire le {% endtrans %}{{ product.expirationDate | date('d F Y') }}</span>
             {% endif %}
             <img src="https://via.placeholder.com/200" alt="">
         </header>
@@ -20,13 +20,13 @@
             <div class="card__emplacement">{{ product.placeIn.name }}</div>
             <div class="card__quantity">{{ product.quantity }}</div>
             <div class="card__unity">{{ product.units.name }}</div>
-            <div class="card__purchase__date">Acheté le : {{ product.purchaseDate | date('d F Y') }}</div>
+            <div class="card__purchase__date">{% trans %}Acheté le {% endtrans %}: {{ product.purchaseDate | date('d F Y') }}</div>
         </div>
         <footer class="card__footer">
-            <div class="card__createdAt">Ajouté le : {{ product.createdAt | date('d F Y') }}</div>
-            <div class="card__updateddAt">Modifié le : {{ product.updatedAt | date('d F Y') }}</div>
+            <div class="card__createdAt">{% trans %}Ajouté le {% endtrans %}: {{ product.createdAt | date('d F Y') }}</div>
+            <div class="card__updateddAt">{% trans %}Modifié le {% endtrans %}: {{ product.updatedAt | date('d F Y') }}</div>
             <form method="POST" action="{{ path('product_delete', {id: product.id}) }}"
-                onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
+                onsubmit="return confirm({% trans %}'Etes-vous sur de supprimer ce produit ?'{% endtrans %})">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
                 <button>{{ icon('trash')}}</button>

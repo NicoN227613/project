@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @IsGranted("ROLE_ADMIN")
@@ -76,11 +77,12 @@ class UserController extends BaseController
     /**
      * @Route("user/new", name="user_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function new(Request $request, UserPasswordEncoderInterface $encoder, TranslatorInterface $translator): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        $message=$translator->trans('L\' utilisateur a bien été crée !');
 
         if($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getPassword());
@@ -90,6 +92,8 @@ class UserController extends BaseController
             $this->manager->flush();
 
             $this->addFlash('success', 'L\' utilisateur " '. $user->getEmail() .' " a bien été créé !');
+            $this->addFlash('message', $message);
+
             return $this->redirectToRoute('admin_user_index');
         }
         return $this->render('admin/user/new.html.twig', [
@@ -100,18 +104,21 @@ class UserController extends BaseController
     /**
      * @Route("/user/{id}/edit", name="user_edit", methods={"GET", "PUT"})
      */
-    public function edit(User $user, Request $request): Response
+    public function edit(User $user, Request $request, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(UserType::class, $user, [
             'method' => 'PUT',
         ]);
 
         $form->handleRequest($request);
+        $message=$translator->trans('L\' utilisateur a bien été modifié !');
 
         if($form->isSubmitted() && $form->isValid()) {
             $user->setUpdatedAt(new \DateTime());
             $this->manager->flush();
             $this->addFlash('success', 'L\' utilisateur " '. $user->getEmail() .' " a bien été modifié !');
+            $this->addFlash('message', $message);
+
             return $this->redirectToRoute('admin_user_index');
         }
         return $this->render('admin/user/edit.html.twig', [
@@ -124,13 +131,15 @@ class UserController extends BaseController
      * @Route("/user/{id}", name="user_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("user", options={"id" = "id"})
      */
-    public function delete(User $user, Request $request): Response
+    public function delete(User $user, Request $request, TranslatorInterface $translator): Response
     {
+            $message=$translator->trans('L\' utilisateur et le(s) produit(s) ont bien été supprimés !');
         if($this->isCsrfTokenValid('delete' . $user->getId(),
         $request->get('_token'))){
             $this->manager->remove($user);
             $this->manager->flush();
-            $this->addFlash('success','L\' utilisateur " '. $user->getEmail() .' "  et son ou ses produit(s) ont bien été supprimés !');
+            $this->addFlash('success','L\' utilisateur " '. $user->getEmail() .' "  et le(s) produit(s) ont bien été supprimés !');
+            $this->addFlash('message', $message);
         }
         return $this->redirectToRoute('admin_user_index');
     }
