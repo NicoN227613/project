@@ -1,7 +1,7 @@
+<alert-message type="danger" duration="6">
+    {{ form_errors(form) }}
+</alert-message>
 {{ form_start(form, { 'attr' : { 'class' : 'form'} })}}
-
-{{ form_errors(form) }}
-
 <div class="form__group">
     <label for="inputName">{{'product.form.name' | trans }}</label>
     {{ form_widget(form.name, { 'attr' : { 'class' : 'form__control'}})}}

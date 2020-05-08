@@ -5,18 +5,15 @@
 {% block body %}
 <div class="auth__container">
     {% if error %}
-    <alert-message type="danger" duration="6">
-        {{ error.messageKey|trans(error.messageData, 'security') }}
+    <alert-message>
+        {# Eviter d'afficher des erreurs trop précises pour éviter de donner l'infomation qu'une adresse mail existe et que seulement le mot de passe est incorrect. Afficher un message d'erreur unique }
+        {#{{ error.messageKey|trans(error.messageData, 'security') }}#}
+        Email ou mot de passe incorrect(s)
     </alert-message>
-    {% endif %}
-    {% if app.user %}
-    <div>
-        You are logged in as {{ app.user.username }}, <a href="{{ path('security_logout') }}">Logout</a>
-    </div>
     {% endif %}
     <form class="auth__form" action="{{ path('security_login')}}" method="post">
         <div class="form__group">
-            <label for="inputEmail">Adresse mail</label>
+            <label for="inputEmail">Email</label>
             <input type="email" class="form__control" value="{{ last_username }}" name="email" id="inputEmail" required>
         </div>
         <div class="form__group">
