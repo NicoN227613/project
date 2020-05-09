@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
+use App\Entity\Product;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ImageRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ImageProductRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Image
+class ImageProduct
 {
 
 
@@ -32,9 +32,10 @@ class Image
     private $alt;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="image", orphanRemoval=false)
+     * @ORM\OneToOne(targetEntity="App\Entity\Product", mappedBy="imageProduct", orphanRemoval=false)
      */
-    private $user;
+    private $product;
+
     
     private $file;
 
@@ -42,17 +43,17 @@ class Image
     private $tempFilename;
 
     /**
-     * chemin de l'image pour un user
+     * chemin de l'image pour un product
      */
-    private $webPath;
+    private $webPathProduct;
 
 
     /** 
-     * chemin de l'image pour un user
+     * chemin de l'image pour un product
      */
-    public function getWebPath()
+    public function getWebPathProduct()
     {
-        return $this->webPath = $this->getUploadDir() . '/' . $this->getId() . '.' . $this->getUrl();
+        return $this->webPathProduct = $this->getUploadDir() . '/' . $this->getId() . '.' . $this->getUrl();
     } 
 
     /** 
@@ -134,7 +135,7 @@ class Image
      */
     public function getUploadDir()
     {
-        return 'images/user';
+        return 'images/product';
     }
 
     /**
@@ -171,13 +172,13 @@ class Image
     }
 
     /**
-     * Set the value of webPath
+     * Set the value of webPathProduct
      *
      * @return  self
      */ 
-    public function setWebPath($webPath)
+    public function setWebPathProduct($webPathProduct)
     {
-        $this->webPath = $webPath;
+        $this->webPathProduct = $webPathProduct;
 
         return $this;
     }
@@ -211,80 +212,21 @@ class Image
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getProduct(): ?Product
     {
-        return $this->user;
+        return $this->product;
     }
 
-    public function setUser(?User $user): self
+    public function setProduct(?Product $product): self
     {
-        $this->user = $user;
+        $this->product = $product;
 
         // set (or unset) the owning side of the relation if necessary
-        $newImage = null === $user ? null : $this;
-        if ($user->getImage() !== $newImage) {
-            $user->setImage($newImage);
+        $newImage = null === $product ? null : $this;
+        if ($product->getImageProduct() !== $newImage) {
+            $product->setImageProduct($newImage);
         }
 
         return $this;
     }
-
-
-
-
-
-
-
-
-
-
-    /////////////////////////////////////////////////////////////////////////////
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    //private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    //private $name;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="image", cascade={"persist", "remove"})
-     */
-    //private $user;
-
-    
-    /*
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setName(?UploadedFile $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-    */
 }

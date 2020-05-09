@@ -20,6 +20,8 @@
         opacity: 1;
         transition: opacity .3s, transform .3s;
         transform: scale(1);
+        height: 200px;
+        /*height: 100%;/*l'image rempli son espace dédié*/
     }
 
     .card:hover & img {
