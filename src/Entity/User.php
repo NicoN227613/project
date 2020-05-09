@@ -45,10 +45,9 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      * @Assert\Length(
-     *  min=8, 
-     *  max=25, 
-     *  minMessage="Votre mot de passe doit comporter au minimum 8 caractères",
-     *  maxMessage="Votre mot de passe doit comporter au maximum 25 caractères"
+     *      min=8, 
+     *      max=255,
+     *      minMessage="Votre mot de passe doit comporter au minimum 8 caractères"
      * )
      */
     private $password;
