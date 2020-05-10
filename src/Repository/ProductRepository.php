@@ -4,9 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Entity\Product;
-use Doctrine\ORM\Query;
 use App\Entity\Category;
-use App\Entity\ProductSearch;
 use App\Entity\SearchProductData;
 use Doctrine\ORM\Query\Expr\Join;
 use Knp\Component\Pager\PaginatorInterface;
@@ -29,27 +27,8 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
         $this->paginator = $paginator;
     }
-    
-    /**
-     * Affiche tous les produits de tous les utilisateurs en admin
-     * Recherche un produit par son nom complet
-     * @return Query
-     */
-    public function findAllProducts(ProductSearch $search): Query
-    {
-        $query =  $this->createQueryBuilder('p')
-                        ->orderBy('p.id', 'DESC');
-
-        if($search->getName()) {
-            $query = $query->where('p.name LIKE :name')
-            ->setParameter('name', $search->getName());
-        }
-
-        return $query->getQuery();
-    }
 
     /**
-     * Recherche un produit par son nom entier appartenant à l'utilisateur connecté
      * @return PaginationInterface
      */
     public function searchProduct(User $suserId, $search = null, SearchProductData $productData): PaginationInterface
@@ -111,6 +90,7 @@ class ProductRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
     /**
      * @return Product[]
      */
@@ -124,6 +104,9 @@ class ProductRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+    /**
+     * @return Product[]
+     */
     public function findByClassifiedInOne(Category $category)
     {
         return $this->createQueryBuilder('b')

@@ -7,11 +7,9 @@
 </div>
 <div class="dashboard__card">
     <div class="dashboard__header">
-        {#<form class="dashboard__search form__search">
-            <input type="text" name="q" placeholder="Rechercher un produit">
-        </form>#}
-        {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
-        {{ form_end(form)}}
+        <form class="dashboard__search">
+            <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher une unité">
+        </form>
         <a href="{{ path('admin_unity_new')}}" class="btn">Ajouter une unité</a>
     </div>
     <table class="table">
@@ -27,19 +25,20 @@
         </thead>
         <tbody>
             {% for unity in units %}
+            {% set link = path('admin_unity_edit', {id: unity.id}) %}
             <tr>
-                <td><a href="{{ path('admin_unity_edit', {id: unity.id}) }}">{{ unity.id }}</a></td>
-                <td><a href="{{ path('admin_unity_edit', {id: unity.id}) }}">{{ unity.name }}</a></td>
+                <td><a href="{{ link }}">{{ unity.id }}</a></td>
+                <td><a href="{{ link }}">{{ unity.name }}</a></td>
                 <td>{{ unity.author.email }}</td>
-                <td>{{ unity.createdAt | date('d F Y') }}</td>
+                <td>{{ unity.createdAt | format_datetime('long','none', locale='fr') }}</td>
                 {% if unity.updatedAt is not null %}
-                    <td>{{ unity.updatedAt | date('d F Y H:i') }}</td>
+                    <td>{{ unity.updatedAt | format_datetime('long','none', locale='fr') }}</td>
                     {% else %}
                     <td>Aucune</td>
                 {% endif %}
                 <td>
                     <div class="dashboard__actions">
-                        <a href="{{ path('admin_unity_edit', {id: unity.id}) }}">{{ icon('edit')}}</a>
+                        <a href="{{ link }}">{{ icon('edit')}}</a>
                         <form method="POST" action="{{ path('admin_unity_delete', {id: unity.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer cette unité ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ unity.id) }}">

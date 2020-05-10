@@ -15,7 +15,7 @@ class TwigExtension extends AbstractExtension
         ];
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('truncate', [$this, 'truncateTwig']),
@@ -33,10 +33,8 @@ class TwigExtension extends AbstractExtension
         </svg>
         HTML;
     }
-
-    
-
-    public function truncateTwig(string $element)
+     
+    public function truncateTwig(string $element): string
     {
         if(strlen($element) >= 30){
             return substr($element, 0, 30) . '...';

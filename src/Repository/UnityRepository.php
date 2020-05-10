@@ -31,7 +31,7 @@ class UnityRepository extends ServiceEntityRepository
 
         if($search->getName()) {
             $query = $query->where('u.name LIKE :name')
-            ->setParameter('name', $search->getName());
+            ->setParameter('name', "%{$search->getName()}%");
         }
 
         return $query->getQuery();

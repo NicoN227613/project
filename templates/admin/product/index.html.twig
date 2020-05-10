@@ -7,12 +7,10 @@
 </div>
 <div class="dashboard__card">
     <div class="dashboard__header">
-        {#<form class="dashboard__search form__search">
-            <input type="text" name="q" placeholder="Rechercher un produit">
-        </form>#}
-        {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
-        {{ form_end(form)}}
-        <a href="{{ path('admin_product_new')}}" class="btn">Ajouter un produit</a>
+        <form class="dashboard__search">
+            <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher un produit">
+        </form>
+        <a href="{{ path('admin_product_new')}}" class="dashboard__btn">Ajouter un produit</a>
     </div>
     <table class="table">
         <thead>
@@ -28,13 +26,14 @@
         </thead>
         <tbody>
             {% for product in products %}
+            {% set link = path('admin_product_edit', {id: product.id}) %}
             <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
+                <td><a href="{{ link }}">{{ product.id }}</a></td>
+                <td><a href="{{ link }}">{{ product.name }}</a></td>
                 <td>{{ product.author.email }}</td>
-                <td>{{ product.createdAt | date('d F Y') }}</td>
+                <td>{{ product.createdAt | format_datetime('long','none', locale='fr') }}</td>
                 {% if product.updatedAt is not null %}
-                    <td>{{ product.updatedAt | date('d F Y H:i') }}</td>
+                    <td>{{ product.updatedAt | format_datetime('long','none', locale='fr') }}</td>
                     {% else %}
                     <td>Aucune</td>
                 {% endif %}
@@ -47,8 +46,8 @@
                     {% endif %}</td>
                 <td>
                     <div class="dashboard__actions">
-                        {#<a href="#">{{ icon('eye') }}</a>#}
-                        <a href="{{ path('admin_product_edit', {id: product.id}) }}">{{ icon('edit')}}</a>
+                        {#<a href="#">{{ icon('eye') }}</a> // Afficher le produit en détail dans une boite modal #} 
+                        <a href="{{ link }}">{{ icon('edit')}}</a>
                         <form method="POST" action="{{ path('admin_product_delete', {id: product.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">

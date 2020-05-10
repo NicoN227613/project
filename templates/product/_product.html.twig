@@ -10,7 +10,7 @@
             {% elseif product.bestBeforeDate | date('d F Y') == "now" | date('d F Y') %}
             <span class="card__expiration__now">Expire aujourd'hui</span>
             {% else %}
-            <span class="card__not__expiration">Expire le {{ product.expirationDate | date('d F Y') }}</span>
+            <span class="card__not__expiration">Expire le {{ product.expirationDate | format_datetime('long','none', locale='fr')}}</span>
             {% endif %}
             <img src="https://via.placeholder.com/200" alt="">
         </header>
@@ -20,10 +20,10 @@
             <div class="card__emplacement">{{ product.placeIn.name }}</div>
             <div class="card__quantity">{{ product.quantity }}</div>
             <div class="card__unity">{{ product.units.name }}</div>
-            <div class="card__purchase__date">Acheté le : {{ product.purchaseDate | date('d F Y') }}</div>
+            <div class="card__purchase__date">Acheté le : {{ product.purchaseDate | format_datetime('long','none', locale='fr') }}</div>
         </div>
         <footer class="card__footer">
-            <div class="card__createdAt">Ajouté le : {{ product.createdAt | date('d F Y') }}</div>
+            <div class="card__createdAt">Ajouté le : {{ product.createdAt | format_datetime('long','none', locale='fr') }}</div>
             <form method="POST" action="{{ path('product_delete', {id: product.id}) }}"
                 onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
                 <input type="hidden" name="_method" value="DELETE">

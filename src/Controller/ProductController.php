@@ -72,7 +72,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}", name="product_show", requirements={"id": "\d+"})
      */
-    public function show(Product $product, ValidatorInterface $validator)
+    public function show(Product $product, ValidatorInterface $validator): Response
     {
         $this->denyAccessUnlessGranted('show', $product);
 
