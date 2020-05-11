@@ -2,10 +2,11 @@
     display: grid;
     grid-gap: 10px;
     width: 40%;
-    margin: 0 auto;  
+    margin: 20px auto;  
 }
 .stack > * + * {
-    margin-top: 16px;
+    // margin-top: 16px;
+    margin: 16px 0;
 }
 .row {
     display: grid;
