@@ -1,7 +1,12 @@
+.js-filter {
+    display: flex;
+    flex-direction: row;
+}
 .sidebar,
 %sidebar {
     float: left;
     width: 300px;
+    min-width: 300px;
     padding-right: 8px;
 }
 .main {
@@ -13,4 +18,11 @@
     border: 1px solid var(--border);
     border-radius: 4px;
     padding: 16px;
+}
+
+@media only screen and (max-width: 768px) {
+    .js-filter {
+        display: flex;
+        flex-direction: column;
+    }
 }

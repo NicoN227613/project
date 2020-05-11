@@ -33,7 +33,7 @@ class TwigExtension extends AbstractExtension
         </svg>
         HTML;
     }
-     
+    
     public function truncateTwig(string $element): string
     {
         if(strlen($element) >= 30){

@@ -2,7 +2,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    margin: 64px 0;
+    margin: 16px 0;
   }
   .pagination li a,
   .pagination li span {
@@ -10,8 +10,12 @@
     padding: 4px 8px;
     min-width: 35px;
   }
-  .pagination span {
-    opacity: .6;
+  .pagination .is-active span {
+    background: var(--green);
+    border: 1px solid var(--green);
+    border-radius: 4px;
+    color: #FFFFFF;
+    opacity: 1;
   }
   .pagination a {
     background: var(--background);

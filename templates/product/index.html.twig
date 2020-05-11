@@ -5,14 +5,16 @@
     <aside class="sidebar">
         {% include 'product/_filter.html.twig' with {form: form} %}
     </aside>
-    <div class="main js-filter-products">
-        {% include 'product/_products.html.twig' %}
-        {% if products is empty %}
-        <p>Aucun résultat</p>
-        {% endif %}
-    </div>
-    <div class="js-filter-pagination">
-        {% include 'product/_pagination.html.twig' %}
+    <div class="products">
+        <div class="js-filter-pagination">
+            {% include 'product/_pagination.html.twig' %}
+        </div>
+        <div class="main js-filter-products">
+            {% include 'product/_products.html.twig' %}
+            {% if products is empty %}
+            <p>Aucun produit</p>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock body %}

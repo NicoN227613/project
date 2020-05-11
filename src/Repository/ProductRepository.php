@@ -31,7 +31,7 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * @return PaginationInterface
      */
-    public function searchProduct(User $suserId, $search = null, SearchProductData $productData): PaginationInterface
+    public function searchProduct(User $suserId, SearchProductData $productData): PaginationInterface
     {
         $query = $this->createQueryBuilder('p')
             ->select('c', 'e', 'p')
@@ -42,15 +42,6 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('val', $suserId)
         ;
 
-        if ($search->getName()) { 
-            $query = $query->innerJoin('p.classifiedIn', 'c')
-                ->andWhere('p.name = :name')
-                ->orWhere('c.name = :name')
-                ->setParameter('name', $search->getName())
-                ->andWhere('p.author = :val')
-                ->setParameter('val', $suserId)
-            ;
-        }
         if (!empty($productData->q)) {
             $query = $query
             ->andWhere('p.name LIKE :q')
@@ -73,7 +64,7 @@ class ProductRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query,
             $productData->page,
-            8
+            12
         );
     }
 

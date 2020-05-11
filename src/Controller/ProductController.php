@@ -37,20 +37,13 @@ class ProductController extends AbstractController
     */
     public function index(Request $request): Response
     {
-        //$userCurrent = $this->getUser();
-        //$products = $this->repository->findAllProductByUser($userCurrent);
-       
         $data = new SearchProductData();
         $data->page = $request->get('page', 1);
         $form = $this->createForm(SearchProductType::class, $data);
         $form->handleRequest($request);
 
-        $search = new ProductSearch();
-        $formSearch = $this->createForm(ProductSearchType::class, $search);
-        $formSearch->handleRequest($request);
-
         $userCurrent = $this->getUser();
-        $products = $this->repository->searchProduct($userCurrent, $search, $data);
+        $products = $this->repository->searchProduct($userCurrent, $data);
         
         // Convertion d'une requête JSON en HTML pour filtrer les produits en renvoyant des pages HTML
         // $request->get('ajax') = si il a 'ajax' dans l'url, lorsque l'on souhaite revenir en arrière, évite un retour d'une page en JSON
@@ -65,7 +58,7 @@ class ProductController extends AbstractController
         return $this->render('product/index.html.twig', [
             'products' => $products,
             'form' => $form->createView(),
-            'formSearch' => $formSearch->createView()
+            //'formSearch' => $formSearch->createView()
         ]);
     }
 
