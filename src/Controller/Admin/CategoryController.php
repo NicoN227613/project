@@ -4,8 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
-use App\Entity\CategorySearch;
-use App\Form\CategorySearchType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -28,23 +26,25 @@ final class CategoryController extends BaseController
         $this->repository = $repository;
         $this->manager = $manager;
     }
+
     /**
      * @Route("/categories", name="category_index", methods="GET")
      */
     public function index(PaginatorInterface $paginator, Request  $request): Response
     {
-        $search = new CategorySearch();
-        $form = $this->createForm(CategorySearchType::class, $search);
-        $form-> handleRequest($request);
-
+        $query = $this->repository->createQueryBuilder('c')->orderBy('c.id', 'DESC');
+        if ($request->get('q')) {
+            $query = $query->where('c.id LIKE :search')
+                ->orWhere('c.name LIKE :search')
+                ->setParameter('search', "%" . $request->get('q') . "%");
+        }
         $categories = $paginator->paginate(
-            $this->repository->findAllCategories($search),
+            $query->getQuery(),
             $request->query->getInt('page', 1),
             7
         );
         return $this->render('admin/category/index.html.twig', [
             'categories' => $categories,
-            'form' => $form->createView()
         ]);
     }
 

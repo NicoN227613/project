@@ -7,11 +7,9 @@
 </div>
 <div class="dashboard__card">
     <div class="dashboard__header">
-        {#<form class="dashboard__search form__search">
-            <input type="text" name="q" placeholder="Rechercher un produit">
-        </form>#}
-        {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
-        {{ form_end(form)}}
+        <form class="dashboard__search">
+            <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher un produit">
+        </form>
         <a href="{{ path('admin_emplacement_new') }}" class="btn">Ajouter un emplacement</a>
     </div>
     <table class="table">
@@ -27,19 +25,20 @@
         </thead>
         <tbody>
             {% for emplacement in emplacements %}
+            {% set link = path('admin_emplacement_edit', {id: emplacement.id}) %}
             <tr>
-                <td><a href="{{ path('admin_emplacement_edit', {id: emplacement.id}) }}">{{ emplacement.id }}</a></td>
-                <td><a href="{{ path('admin_emplacement_edit', {id: emplacement.id}) }}">{{ emplacement.name }}</a></td>
+                <td><a href="{{ link }}">{{ emplacement.id }}</a></td>
+                <td><a href="{{ link }}">{{ emplacement.name }}</a></td>
                 <td>{{ emplacement.author.email }}</td>
-                <td>{{ emplacement.createdAt | date('d F Y') }}</td>
+                <td>{{ emplacement.createdAt | format_datetime('long','none', locale='fr') }}</td>
                 {% if emplacement.updatedAt is not null %}
-                    <td>{{ emplacement.updatedAt | date('d F Y H:i') }}</td>
+                    <td>{{ emplacement.updatedAt | format_datetime('long','none', locale='fr') }}</td>
                     {% else %}
                     <td>Aucune</td>
                 {% endif %}
                 <td>
                     <div class="dashboard__actions">
-                        <a href="{{ path('admin_emplacement_edit', {id: emplacement.id}) }}">{{ icon('edit')}}</a>
+                        <a href="{{ link }}">{{ icon('edit')}}</a>
                         <form method="POST" action="{{ path('admin_emplacement_delete', {id: emplacement.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer cette emplacement ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ emplacement.id) }}">

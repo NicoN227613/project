@@ -20,6 +20,9 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('imageProduct', ImageProductType::class, [
+                 'required' => false
+            ])
             ->add('name', TextType::class)
             ->add('classifiedIn', EntityType::class, [
                 'class' => Category::class,
@@ -51,7 +54,6 @@ class ProductType extends AbstractType
             ->add('purchaseDate', DateType::class)
             ->add('expirationDate', DateType::class)
             ->add('bestBeforeDate', DateType::class)
-            ->add('imageProduct', ImageProductType::class, [ 'required' => false ])
         ;
     }
 

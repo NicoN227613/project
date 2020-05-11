@@ -4,45 +4,24 @@
 {% block title %}Contactez-nous{% endblock %}
 
 {% block body %}
-
-    {% if not formContact.vars.valid %}
-        <div class='alert alert-danger' duration="6">
-            Le formulaire contient une erreur !
-        </div>
+<div class="form__container">
+    {% if not form.vars.valid %}
+    <alert-message duration="6">
+        {{ form_errors(form) }}
+    </alert-message>
     {% endif %}
-
-    {{ form_start(formContact, { 'attr' : { 'class' : 'form_card' }} ) }}
-        
-        <h1 class="form_card_h1"><span class='span_h1'>Contactez-nous</span></h1>
-
-        {{ form_errors(formContact.pseudo) }}
-        <div class="form_card_div">
-            <label for="inputName" class="form_card_label">Pseudo</label>
-            {{ form_widget(formContact.pseudo, { 'attr' : { 'class' : 'form_card_input'}}) }}
-        </div>
-
-        {{ form_errors(formContact.email) }}
-        <div class="form_card_div">
-             <label for="inputName" class="form_card_label">Email</label>
-            {{ form_widget(formContact.email, { 'attr' : { 'class' : 'form_card_input'}}) }}
-        </div>
-
-        {{ form_errors(formContact.subject) }}
-        <div class="form_card_div">
-            <label for="inputName" class="form_card_label">Sujet</label>
-            {{ form_widget(formContact.subject, { 'attr' : { 'class' : 'form_card_input'}}) }}
-        </div>
-
-        {{ form_errors(formContact.message) }}
-        <div class="form_card_div">
-            <label for="inputName" class="form_card_label">Message</label>
-            {{ form_widget(formContact.message, { 'attr' : { 'class' : 'form_card_input', 'rows': "3"}}) }}
-        </div>
-
-        {{ form_rest(formContact) }}
-
-        <button class="form_card_submit btn__text"> Envoyer </button>
-
-    {{ form_end(formContact) }}
-
+    {{ form_start(form, { 'attr' : { 'class' : 'form'} })}}
+    <div class="form__group">
+        <label for="inputSujet">Sujet</label>
+        {{ form_widget(form.subject, {attr : {class : 'form__control'}}) }}
+        {{ form_errors(form.subject) }}
+    </div>
+    <div class="form__group">
+        <label for="inputMessage">Message</label>
+        {{ form_widget(form.message, {attr : {class : 'form__control'}}) }}
+        {{ form_errors(form.message) }}
+    </div>
+    <button class="btn__submit">Envoyer</button>
+</div>
+{{ form_end(form)}}
 {% endblock %}

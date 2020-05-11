@@ -3,16 +3,14 @@
 {% block body %}
 <div class="dashboard__title">
     {{ icon('user') }}
-    Gestion des utilisateurs
+    Gestion des comptes
 </div>
 <div class="dashboard__card">
     <div class="dashboard__header">
-        {#<form class="dashboard__search form__search">
-            <input type="text" name="q" placeholder="Rechercher un produit">
-        </form>#}
-        {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
-        {{ form_end(form)}}
-        <a href="{{ path('admin_user_new')}}" class="btn">Ajouter un utilisateur</a>
+        <form class="dashboard__search">
+            <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher un compte">
+        </form>
+        <a href="{{ path('admin_user_new')}}" class="dashboard__btn">Créer un compte</a>
     </div>
     <table class="table">
         <thead>
@@ -28,10 +26,11 @@
         </thead>
         <tbody>
             {% for user in users %}
+            {% set link = path('admin_user_edit', {id: user.id}) %}
             <tr>
-                <td><a href="{{ path('admin_user_edit', {id: user.id}) }}">{{ user.id }}</a></td>
-                <td><a href="{{ path('admin_user_edit', {id: user.id}) }}">{{ user.pseudo }}</a></td>
-                <td><a href="{{ path('admin_user_edit', {id: user.id}) }}">{{ user.email }}</a></td>
+                <td><a href="{{ link }}">{{ user.id }}</a></td>
+                <td><a href="{{ link }}">{{ user.pseudo }}</a></td>
+                <td><a href="{{ link }}">{{ user.email }}</a></td>
                 <td>
                     {% for role in user.roles %}
                     {% if role == "ROLE_ADMIN" %}
@@ -41,15 +40,15 @@
                     {% endif %}
                     {% endfor %}
                 </td>
-                <td>{{ user.createdAt | date('d F Y') }}</td>
+                <td>{{ user.createdAt | format_datetime('long','none', locale='fr') }}</td>
                 {% if user.updatedAt is not null %}
-                    <td>{{ user.updatedAt | date('d F Y H:i') }}</td>
+                    <td>{{ user.updatedAt | format_datetime('long','none', locale='fr') }}</td>
                     {% else %}
                     <td>Aucune</td>
                 {% endif %}
                 <td>
                     <div class="dashboard__actions">
-                        <a href="{{ path('admin_user_edit', {id: user.id}) }}">{{ icon('edit')}}</a>
+                        <a href="{{ link }}">{{ icon('edit')}}</a>
                         <form method="POST" action="{{ path('admin_user_delete', {id: user.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce compte ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">

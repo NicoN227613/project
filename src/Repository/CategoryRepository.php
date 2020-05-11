@@ -31,7 +31,7 @@ class CategoryRepository extends ServiceEntityRepository
 
         if($search->getName()) {
             $query = $query->where('c.name LIKE :name')
-            ->setParameter('name', $search->getName());
+            ->setParameter('name', "%{$search->getName()}%");
         }
         return $query->getQuery();
     }

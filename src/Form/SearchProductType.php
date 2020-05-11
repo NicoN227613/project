@@ -3,11 +3,9 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Emplacement;
-use Doctrine\ORM\Mapping\Entity;
 use App\Entity\SearchProductData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class SearchProductType extends AbstractType {

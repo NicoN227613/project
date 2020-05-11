@@ -43,7 +43,7 @@ class UserUserController extends AbstractController
     /**
      * @Route("/upload/image", name="user_image", methods={"GET", "POST"})
      */
-    public function uploadImage(Request $request)
+    public function uploadImage(Request $request): Response
     {
         $user = $this->getUser();
          $form = $this->createForm(UserImageType::class, $user, [

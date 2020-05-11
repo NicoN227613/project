@@ -12,8 +12,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class Image
 {
-
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

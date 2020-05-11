@@ -1,9 +1,5 @@
-{% extends 'admin/base.html.twig' %}
+{% extends "admin/base.html.twig" %}
 
 {% block body %}
-<div class="dashboard__title">
-    {{ icon('pen') }}
-    Ajout d'une categorie
-</div>
 {{ include('admin/category/_form.html.twig', {form: form, action: 'Créer' }) }}
 {% endblock %}

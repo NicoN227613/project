@@ -34,18 +34,19 @@ final class UnityController extends BaseController
      */
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $search = new UnitySearch();
-        $form = $this->createForm(UnitySearchType::class, $search);
-        $form-> handleRequest($request);
-
+        $query = $this->repository->createQueryBuilder('u')->orderBy('u.id', 'DESC');
+        if ($request->get('q')) {
+            $query = $query->where('u.id LIKE :search')
+                ->orWhere('u.name LIKE :search')
+                ->setParameter('search', "%" . $request->get('q') . "%");
+        }
         $units = $paginator->paginate(
-            $this->repository->findAllUnits($search),
+            $query->getQuery(),
             $request->query->getInt('page', 1),
             7
         );
         return $this->render('admin/unity/index.html.twig', [
             'units' => $units,
-            'form' => $form->createView()
         ]);
     }
 
@@ -80,7 +81,6 @@ final class UnityController extends BaseController
         $form = $this->createForm(UnityType::class, $unity, [
             'method' => 'PUT',
         ]);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -108,5 +108,4 @@ final class UnityController extends BaseController
         }
         return $this->redirectToRoute('admin_unity_index');
     }
-
 }

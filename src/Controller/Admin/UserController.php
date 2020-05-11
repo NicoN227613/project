@@ -4,17 +4,15 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Entity\UserSearch;
-use App\Form\UserSearchType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -53,23 +51,26 @@ class UserController extends BaseController
     }
 
     /**
-    * @Route("/users", name="user_index", methods="GET")
-    */
+     * @Route("/users", name="user_index", methods="GET")
+     */
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $search = new UserSearch();
-        $form = $this->createForm(UserSearchType::class, $search);
-        $form->handleRequest($request);
+        $query = $this->repository->createQueryBuilder('u')->orderBy('u.id', 'DESC');
+        if ($request->get('q')) {
+            $query = $query->where('u.id LIKE :search')
+                ->orWhere('u.pseudo LIKE :search')
+                ->orWhere('u.email LIKE :search')
+                ->setParameter('search', "%" . $request->get('q') . "%");
+        }
 
         $users = $paginator->paginate(
-            $this->repository->findAllUsers($search),
+            $query->getQuery(),
             $request->query->getInt('page', 1),
             7
         );
 
         return $this->render('admin/user/index.html.twig', [
             'users' => $users,
-            'form' => $form->createView()
         ]);
     }
 
@@ -82,14 +83,14 @@ class UserController extends BaseController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getPassword());
 
             $user->setPassword($hash);
             $this->manager->persist($user);
             $this->manager->flush();
 
-            $this->addFlash('success', 'L\' utilisateur " '. $user->getEmail() .' " a bien été créé !');
+            $this->addFlash('success', 'L\' utilisateur " ' . $user->getEmail() . ' " a bien été créé !');
             return $this->redirectToRoute('admin_user_index');
         }
         return $this->render('admin/user/new.html.twig', [
@@ -108,10 +109,10 @@ class UserController extends BaseController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $user->setUpdatedAt(new \DateTime());
             $this->manager->flush();
-            $this->addFlash('success', 'L\' utilisateur " '. $user->getEmail() .' " a bien été modifié !');
+            $this->addFlash('success', 'L\' utilisateur " ' . $user->getEmail() . ' " a bien été modifié !');
             return $this->redirectToRoute('admin_user_index');
         }
         return $this->render('admin/user/edit.html.twig', [
@@ -126,11 +127,13 @@ class UserController extends BaseController
      */
     public function delete(User $user, Request $request): Response
     {
-        if($this->isCsrfTokenValid('delete' . $user->getId(),
-        $request->get('_token'))){
+        if ($this->isCsrfTokenValid(
+            'delete' . $user->getId(),
+            $request->get('_token')
+        )) {
             $this->manager->remove($user);
             $this->manager->flush();
-            $this->addFlash('success','L\' utilisateur " '. $user->getEmail() .' "  et son ou ses produit(s) ont bien été supprimés !');
+            $this->addFlash('success', 'L\' utilisateur " ' . $user->getEmail() . ' "  et son ou ses produit(s) ont bien été supprimés !');
         }
         return $this->redirectToRoute('admin_user_index');
     }

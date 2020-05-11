@@ -4,8 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Entity\Emplacement;
 use App\Form\EmplacementType;
-use App\Entity\EmplacementSearch;
-use App\Form\EmplacementSearchType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\EmplacementRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -34,18 +32,20 @@ final class EmplacementController extends BaseController
      */
     public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $search = new EmplacementSearch();
-        $form = $this->createForm(EmplacementSearchType::class, $search);
-        $form-> handleRequest($request);
+        $query = $this->repository->createQueryBuilder('e')->orderBy('e.id', 'DESC');
+        if ($request->get('q')) {
+            $query = $query->where('e.id LIKE :search')
+                ->orWhere('e.name LIKE :search')
+                ->setParameter('search', "%" . $request->get('q') . "%");
+        }
 
         $emplacements = $paginator->paginate(
-            $this->repository->findAllEmplacements($search),
+            $query->getQuery(),
             $request->query->getInt('page', 1),
             7
         );
         return $this->render('admin/emplacement/index.html.twig', [
             'emplacements' => $emplacements,
-            'form' => $form->createView()
         ]);
     }
 
