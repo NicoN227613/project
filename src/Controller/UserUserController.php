@@ -70,7 +70,7 @@ class UserUserController extends AbstractController
     /**
      * @Route("/edit/password", name="user_user_password", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
-    public function editPassword (Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function editPassword (Request $request): Response
     {
         $user = $this->getUser();
 
@@ -82,13 +82,13 @@ class UserUserController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             
-            $hash = $encoder->encodePassword($user, $user->getPassword());
+            $hash = $this->encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             
             $user->setUpdatedAt(new \DateTime());
             $this->manager->flush();
 
-            $this->addFlash('success', "Votre compte avec ce mail : a bien été modifié !");
+            $this->addFlash('success', "Votre mot de passe a bien été modifié !");
 
             return $this->redirectToRoute('user_user_index');
         
@@ -100,9 +100,9 @@ class UserUserController extends AbstractController
     }
 
     /**
-     * @Route("/edit", name="user_user_edit", requirements={"id": "\d+"}, methods={"GET", "PUT"})
+     * @Route("/edit", name="user_user_edit", methods={"GET", "PUT"})
      */
-    public function edit (Request $request, UserPasswordEncoderInterface $encoder): Response
+    public function edit (Request $request): Response
     {
         $user = $this->getUser();
 
@@ -111,11 +111,8 @@ class UserUserController extends AbstractController
         ]);
 
         $form->handleRequest($request);
-
+        
         if($form->isSubmitted() && $form->isValid()) {
-            
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hash);
 
             $user->setUpdatedAt(new \DateTime());
             $this->manager->flush();
@@ -123,7 +120,6 @@ class UserUserController extends AbstractController
             $this->addFlash('success', "Votre compte avec ce mail : {$user->getEmail()} a bien été modifié !");
 
             return $this->redirectToRoute('user_user_index');
-        
         }
         return $this->render('user/edit.html.twig', [
             'user' => $user,

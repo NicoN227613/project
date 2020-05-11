@@ -97,9 +97,30 @@ class Product
      */
     private $author;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ImageProduct", inversedBy="product", cascade={"persist", "remove"})
+     */
+    private $imageProduct;
+
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
         //$this->updateAt = new \DateTimeImmutable();
+    }
+
+    public function getImageProduct(): ?ImageProduct
+    {
+        return $this->imageProduct;
+    }
+
+    public function setImageProduct(?ImageProduct $imageProduct): self
+    {
+        $this->imageProduct = $imageProduct;
+
+        if($imageProduct){
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
     }
 
     public function getId(): ?int
