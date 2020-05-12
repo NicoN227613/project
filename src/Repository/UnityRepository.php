@@ -21,22 +21,6 @@ class UnityRepository extends ServiceEntityRepository
         parent::__construct($registry, Unity::class);
     }
 
-    /**
-     * @return Query
-     */
-    public function findAllUnits(UnitySearch $search): Query
-    {
-        $query =  $this->createQueryBuilder('u')
-                        ->orderBy('u.id', 'DESC');
-
-        if($search->getName()) {
-            $query = $query->where('u.name LIKE :name')
-            ->setParameter('name', "%{$search->getName()}%");
-        }
-
-        return $query->getQuery();
-    }
-
     // /**
     //  * @return Units[] Returns an array of Units objects
     //  */

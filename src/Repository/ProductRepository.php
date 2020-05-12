@@ -20,6 +20,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class ProductRepository extends ServiceEntityRepository
 {
+    /** @var PaginatorInterface $paginator */
     protected $paginator;
 
     public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)

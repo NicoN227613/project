@@ -24,7 +24,7 @@ class ContactNotification {
         $this->renderer = $renderer;
     }
 
-    public function notify(User $user, Contact $contact)
+    public function notify(User $user, Contact $contact): void
     {
         $message = (new \Swift_Message('sujet : ' . $contact->getSubject()))
             ->setFrom($user->getEmail())

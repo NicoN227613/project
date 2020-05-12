@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
-use App\Entity\ProductSearch;
-use App\Form\ProductSearchType;
 use App\Form\SearchProductType;
 use App\Entity\SearchProductData;
 use App\Repository\ProductRepository;

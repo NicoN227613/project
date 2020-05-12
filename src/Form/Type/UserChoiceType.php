@@ -11,8 +11,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class UserChoiceType extends AbstractType implements DataTransformerInterface 
 {
-
+    /** @var EntityManagerInterface $em */
     protected $em;
+
+    /** @var UrlGeneratorInterface $url */
     protected $url;
 
     public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $url)

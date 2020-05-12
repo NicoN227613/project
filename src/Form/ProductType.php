@@ -21,8 +21,8 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('imageProduct', ImageProductType::class, [
-                 'required' => false
-            ])
+                 'required' => false 
+                 ])
             ->add('name', TextType::class)
             ->add('classifiedIn', EntityType::class, [
                 'class' => Category::class,

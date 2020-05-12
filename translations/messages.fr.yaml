@@ -6,6 +6,7 @@ product:
         new: 'Ajouter un produit'
         see: 'Voir'
     form:
+        image: 'Image'
         name: 'Nom'
         category: 'Catégorie'
         emplacement: 'Emplacement'

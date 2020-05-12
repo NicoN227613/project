@@ -21,21 +21,6 @@ class EmplacementRepository extends ServiceEntityRepository
         parent::__construct($registry, Emplacement::class);
     }
 
-    /**
-     * @return Query
-     */
-    public function findAllEmplacements(EmplacementSearch $search): Query
-    {
-        $query =  $this->createQueryBuilder('e')
-                        ->orderBy('e.id', 'DESC');
-
-        if($search->getName()) {
-            $query = $query->where('e.name LIKE :name')
-            ->setParameter('name', "%{$search->getName()}%");
-        }
-
-        return $query->getQuery();
-    }
 
     // /**
     //  * @return Emplacement[] Returns an array of Emplacement objects

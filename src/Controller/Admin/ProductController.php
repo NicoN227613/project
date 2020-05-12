@@ -20,11 +20,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  */
 final class ProductController extends BaseController
 {
+    private $repository;
+    private $manager;
+
     public function __construct(ProductRepository $repository, EntityManagerInterface $manager)
     {
         $this->repository = $repository;
         $this->manager = $manager;
     }
+    
     /**
     * @Route("/products", name="product_index", methods="GET")
     */
