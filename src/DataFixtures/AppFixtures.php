@@ -10,6 +10,8 @@ use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 // faire cette commande pour les envoyers en base de donnée
 // php bin/console doctrine:fixtures:load
