@@ -3,13 +3,10 @@
 {% block body %}
 
     <div class="form_card">
-    {# <div class="taille_img"> #}
         <p class="form_card_h1"><span class='span_h1'>Votre photo de profile actuelle</span></p>
         
         {% if app.user.image is null %}
-
             <img src="/images/user/default/user.png" alt="image" >
-
         {% else %}
 
             <img src="{{ asset(app.user.image.webPath) }}" alt="{{ app.user.image.alt }}">
@@ -22,7 +19,6 @@
                 </form>
             </div>
         {% endif %}
-    {# </div> #}
 
         {{ form_start(formImage, { 'attr' : { 'class' : '' }} ) }}
 
