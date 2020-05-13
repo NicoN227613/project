@@ -2,8 +2,9 @@
 
 namespace App\Notification;
 
-use App\Entity\Contact;
+use App\Entity\User;
 use Twig\Environment;
+use App\Entity\Contact;
 
 class ContactNotification {
 
@@ -23,13 +24,14 @@ class ContactNotification {
         $this->renderer = $renderer;
     }
 
-    public function notify(Contact $contact)
+    public function notify(User $user, Contact $contact)
     {
         $message = (new \Swift_Message('sujet : ' . $contact->getSubject()))
-            ->setFrom($contact->getEmail())
+            ->setFrom($user->getEmail())
             ->setTo('admin@gmail.com')
             ->setBody($this->renderer->render('email/contact.html.twig', [
-                'contact' => $contact
+                'contact' => $contact,
+                'user' => $user
             ]), 'text/html')
         ;
         $this->mailer->send($message);

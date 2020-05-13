@@ -12,8 +12,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class Image
 {
-
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -35,18 +33,20 @@ class Image
      * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="image", orphanRemoval=false)
      */
     private $user;
-
     
     private $file;
 
     //on ajoute cet attribut pour y stocker le nom du fichier temporairement
     private $tempFilename;
 
+    /**
+     * chemin de l'image pour un user
+     */
     private $webPath;
 
 
     /** 
-     * chemin de l'image
+     * chemin de l'image pour un user
      */
     public function getWebPath()
     {

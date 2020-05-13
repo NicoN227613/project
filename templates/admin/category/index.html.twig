@@ -7,12 +7,10 @@
 </div>
 <div class="dashboard__card">
     <div class="dashboard__header">
-        {#<form class="dashboard__search form__search">
-            <input type="text" name="q" placeholder="Rechercher un produit">
-        </form>#}
-        {{ form_start(form, { 'attr' : { 'class' : 'dashboard__search form__search'} })}}
-        {{ form_end(form)}}
-        <a href="{{ path('admin_category_new') }}" class="btn">Ajouter une categorie</a>
+        <form class="dashboard__search">
+            <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher une catégorie">
+        </form>
+        <a href="{{ path('admin_category_new') }}" class="dashboard__btn">Ajouter une catégorie</a>
     </div>
     <table class="table">
         <thead>
@@ -27,16 +25,22 @@
         </thead>
         <tbody>
             {% for category in categories %}
+            {% set link = path('admin_category_edit', {id: category.id}) %}
             <tr>
-                <td><a href="{{ path('admin_category_edit', {id: category.id}) }}">{{ category.id }}</a></td>
-                <td><a href="{{ path('admin_category_edit', {id: category.id}) }}">{{ category.name }}</a></td>
+                <td><a href="{{ link }}">{{ category.id }}</a></td>
+                <td><a href="{{ link }}">{{ category.name }}</a></td>
                 <td>{{ category.author.email }}</td>
-                <td>{{ category.createdAt | date('d F Y') }}</td>
-                <td>{{ category.updatedAt | date('d F Y H:i') }}</td>
+                <td>{{ category.createdAt | format_datetime('long','none', locale='fr') }}</td>
+                {% if category.updatedAt is not null %}
+                    <td>{{ category.updatedAt | format_datetime('long','none', locale='fr') }}</td>
+                    {% else %}
+                    <td>Aucune</td>
+                {% endif %}
                 <td>
                     <div class="dashboard__actions">
-                        <a href="{{ path('admin_category_edit', {id: category.id}) }}">{{ icon('edit')}}</a>
-                        <form method="POST" action="{{ path('admin_category_delete', {id: category.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer cette catégorie ?')">
+                        <a href="{{ link }}">{{ icon('edit')}}</a>
+                        <form method="POST" action="{{ path('admin_category_delete', {id: category.id}) }}"
+                            onsubmit="return confirm('Etes-vous sur de supprimer cette catégorie ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
                             <button>{{ icon('trash')}}</button>

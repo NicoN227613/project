@@ -13,6 +13,7 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('base.html.twig');
+        return $this->redirectToRoute('security_login');
+        //return $this->render('base.html.twig');
     }
 }

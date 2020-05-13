@@ -17,24 +17,22 @@ class ContactController extends AbstractController
      */
     public function contact(Request $request, ContactNotification $notification)
     {
+        $user = $this->getUser();
         $contact = new Contact();
-        $contact->setPseudo($this->getUser()->getPseudo());
-        $contact->setEmail($this->getUser()->getEmail());
-
         $form = $this->createForm(ContactType::class, $contact); 
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
 
-            $notification->notify($contact);
+            $notification->notify($user, $contact);
 
-            $this->addFlash('success', 'Votre Email a bien été envoyer !');
+            $this->addFlash('success', 'Votre email a bien été envoyé !');
             return $this->redirectToRoute('contact');
         }
 
         return $this->render('contact/contact.html.twig', [
-            'formContact' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
 }

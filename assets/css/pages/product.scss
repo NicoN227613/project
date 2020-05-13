@@ -1,12 +1,16 @@
+.js-filter {
+    display: flex;
+    flex-direction: row;
+}
 .sidebar,
 %sidebar {
     float: left;
-    width: 300px;
+    min-width: 300px;
     padding-right: 8px;
 }
 .main {
     float: right;
-    width: calc(100% - 300px);
+    //width: calc(100% - 300px);
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
@@ -14,6 +18,10 @@
     border-radius: 4px;
     padding: 16px;
 }
-.footer {
-    clear: both;
+
+@media only screen and (max-width: 768px) {
+    .js-filter {
+        display: flex;
+        flex-direction: column;
+    }
 }

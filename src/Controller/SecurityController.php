@@ -32,7 +32,7 @@ class SecurityController extends AbstractController
             $user->setPassword($hash);
             $manager->persist($user);
             $manager->flush();
-            $this->addFlash('success', 'Bienvenue '. $user->getPseudo() . ', votre compte a bien était crée !');
+            $this->addFlash('success', 'Votre compte a bien était créé, Connectez-vous !');
 
             return $this->redirectToRoute('security_login');
         }

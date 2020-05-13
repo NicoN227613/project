@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class AdminProductType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
         ->add('author', UserChoiceType::class)
@@ -54,7 +54,7 @@ class AdminProductType extends AbstractType
         ->add('bestBeforeDate', DateType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Product::class,

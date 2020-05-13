@@ -20,31 +20,38 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  */
 final class ProductController extends BaseController
 {
+    public function __construct(ProductRepository $repository, EntityManagerInterface $manager)
+    {
+        $this->repository = $repository;
+        $this->manager = $manager;
+    }
     /**
     * @Route("/products", name="product_index", methods="GET")
     */
-    public function index(ProductRepository $repository, PaginatorInterface $paginator, Request $request): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $search = new ProductSearch();
-        $form = $this->createForm(ProductSearchType::class, $search);
-        $form->handleRequest($request);
+        $query = $this->repository->createQueryBuilder('p')->orderBy('p.id', 'DESC');
+        if ($request->get('q')) {
+            $query = $query->where('p.id LIKE :search')
+            ->orWhere('p.name LIKE :search')
+            ->setParameter('search', "%". $request->get('q') ."%");
+        }
 
         $products = $paginator->paginate(
-            $repository->findAllProducts($search),
+            $query->getQuery(),
             $request->query->getInt('page', 1),
            12 // Le plus petit dénominateur commun 2,3,4,5 et 6 : 60
         );
         
         return $this->render('admin/product/index.html.twig', [
             'products' => $products,
-            'form' => $form->createView()
         ]);
     }
 
     /**
      * @Route("product/new", name="product_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $manager): Response
+    public function new(Request $request): Response
     {
         $product = new Product();
         $product->setAuthor($this->getUser());
@@ -53,8 +60,8 @@ final class ProductController extends BaseController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($product);
-            $manager->flush();
+            $this->manager->persist($product);
+            $this->manager->flush();
 
             $this->addFlash('success', 'Le produit " '. $product->getName() .' " a bien été créé !');
             return $this->redirectToRoute('admin_product_index', [
@@ -70,7 +77,7 @@ final class ProductController extends BaseController
     /**
      * @Route("/product/{id}/edit", name="product_edit", methods={"GET", "PUT"})
      */
-    public function edit(Product $product, Request $request, EntityManagerInterface $manager): Response
+    public function edit(Product $product, Request $request): Response
     {
         $form = $this->createForm(AdminProductType::class, $product, [
             'method' => 'PUT',
@@ -80,7 +87,7 @@ final class ProductController extends BaseController
 
         if($form->isSubmitted() && $form->isValid()) {
             $product->setUpdatedAt(new \DateTime());
-            $manager->flush();
+            $this->manager->flush();
             $this->addFlash('success', 'Le produit " '. $product->getName() .' " a bien été modifié !');
             return $this->redirectToRoute('admin_product_index');
         }
@@ -94,11 +101,11 @@ final class ProductController extends BaseController
      * @Route("/product/{id}", name="product_delete", requirements={"id": "\d+"}, methods="DELETE")
      * @ParamConverter("product", options={"id" = "id"})
      */
-    public function delete(Product $product, Request $request, EntityManagerInterface $manager): Response
+    public function delete(Product $product, Request $request): Response
     {
         if($this->isCsrfTokenValid('delete' . $product->getId(), $request->get('_token'))){
-            $manager->remove($product);
-            $manager->flush();
+            $this->manager->remove($product);
+            $this->manager->flush();
             $this->addFlash('success', 'Le produit " '. $product->getName() .' " a bien été supprimé !');
         }
         return $this->redirectToRoute('admin_product_index');
