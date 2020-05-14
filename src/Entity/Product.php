@@ -5,10 +5,14 @@ namespace App\Entity;
 use App\Entity\User;
 use App\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @Vich\Uploadable()
  */
 class Product
 {
@@ -18,6 +22,18 @@ class Product
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $filename;
+
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="product_image", fileNameProperty="filename")
+     */
+    private $imageFile;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -46,7 +62,7 @@ class Product
     private $purchase_date;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      * @Assert\GreaterThanOrEqual(
      *  propertyPath="purchase_date", 
      *  message="La Date Limite de Consomation doit être supérieur ou égale à la date d'achat du produit"
@@ -55,7 +71,7 @@ class Product
     private $expiration_date;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      * @Assert\GreaterThanOrEqual(
      *  propertyPath="purchase_date", 
      *  message="La Date à Durée Minimale supérieur ou égale à la date d'achat du produit "
@@ -97,30 +113,11 @@ class Product
      */
     private $author;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ImageProduct", inversedBy="product", cascade={"persist", "remove"})
-     */
-    private $imageProduct;
+
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
         //$this->updateAt = new \DateTimeImmutable();
-    }
-
-    public function getImageProduct(): ?ImageProduct
-    {
-        return $this->imageProduct;
-    }
-
-    public function setImageProduct(?ImageProduct $imageProduct): self
-    {
-        $this->imageProduct = $imageProduct;
-
-        if($imageProduct){
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-
-        return $this;
     }
 
     public function getId(): ?int
@@ -265,7 +262,45 @@ class Product
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+        return $this;
+    }
 
+    /**
+     * @return null|string
+     */ 
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param null|string $filename
+     * @return Product
+     */ 
+    public function setFilename(?string $filename): Product
+    {
+        $this->filename = $filename;
+        return $this;
+    }
+    
+    /**
+     * @return null|File
+     */ 
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param null|File $imageFile
+     * @return Product
+     */ 
+    public function setImageFile(?File $imageFile): Product
+    {
+        $this->imageFile = $imageFile;
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
         return $this;
     }
 }

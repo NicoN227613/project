@@ -4,18 +4,18 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
-use App\Entity\ProductSearch;
-use App\Form\ProductSearchType;
 use App\Form\SearchProductType;
 use App\Entity\SearchProductData;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * @Route("/product")
@@ -105,13 +105,11 @@ class ProductController extends AbstractController
      */
     public function edit(Product $product, Request $request): Response
     {
-
         $this->denyAccessUnlessGranted('edit', $product);
 
         $form = $this->createForm(ProductType::class, $product, [
             'method' => 'PUT',
         ]);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {

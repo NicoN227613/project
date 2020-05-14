@@ -12,10 +12,10 @@
             <span class="card__not__expiration">Expire le {{ product.expirationDate | format_datetime('long','none', locale='fr') }}</span>
         {% endif %}
         <header class="card__thumb">
-            {% if product.imageProduct is null %}
-                <img src="/images/product/default/no-photo.png" alt="image" >
-            {% else %}
-                <img src="{{ asset(product.imageProduct.webPathproduct) }}" alt="{{ product.imageProduct.alt }}">
+            {% if product.filename %}
+                <img src="{{ vich_uploader_asset(product, 'imageFile') | imagine_filter('thumb') }}" alt="">
+                {% else %}
+                <img src="{{ '/images/products/empty.jpg' | imagine_filter('thumb') }}" alt="">
             {% endif %}
         </header>
         <div class="card__body">
