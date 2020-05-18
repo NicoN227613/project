@@ -82,6 +82,11 @@ class User implements UserInterface, \Serializable
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $activation_token;
+
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
         //$this->updateAt = new \DateTimeImmutable();
@@ -307,4 +312,18 @@ class User implements UserInterface, \Serializable
 
     //     return $this;
     // }
+
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activation_token;
+    }
+
+    public function setActivationToken(?string $activation_token): self
+    {
+        $this->activation_token = $activation_token;
+
+        return $this;
+    }
+
 }
