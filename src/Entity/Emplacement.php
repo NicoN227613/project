@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Emplacement
 {
     /**
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -26,6 +27,7 @@ class Emplacement
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(min=4, max=255, minMessage="Ce champ a besoin de 4 caractères minimum ")
@@ -38,11 +40,13 @@ class Emplacement
     private $createdAt;
 
     /**
+     * @var \DateTimeInterface|null $updatedAt
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
+     * @var User|null $author
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -52,8 +56,6 @@ class Emplacement
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="placeIn", orphanRemoval=true)
      */
     private $products;
-
-    
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
@@ -78,7 +80,7 @@ class Emplacement
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }

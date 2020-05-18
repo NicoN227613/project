@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
-use App\Notification\ContactNotification;
 use App\Form\ContactType;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Notification\ContactNotification;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ContactController extends AbstractController
 {
@@ -15,7 +16,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="contact", methods={"GET", "POST"})
      */
-    public function contact(Request $request, ContactNotification $notification)
+    public function contact(Request $request, ContactNotification $notification): Response
     {
         $user = $this->getUser();
         $contact = new Contact();

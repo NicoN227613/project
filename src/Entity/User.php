@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, \Serializable
 {
     /**
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -26,6 +27,7 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      *  min = 4, 
@@ -35,6 +37,7 @@ class User implements UserInterface, \Serializable
     private $pseudo;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email()
      */
@@ -58,16 +61,19 @@ class User implements UserInterface, \Serializable
     private $confirm_password;
 
     /**
+     * @var array
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
     /**
+     * @var \DateTimeInterface $createdAt
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
+     * @var \DateTimeInterface $updatedAt
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
@@ -78,6 +84,7 @@ class User implements UserInterface, \Serializable
     private $products;
 
     /**
+     * @var Image|null $image
      * @ORM\OneToOne(targetEntity="App\Entity\Image", inversedBy="user", cascade={"persist", "remove"})
      */
     private $image;
@@ -130,7 +137,7 @@ class User implements UserInterface, \Serializable
     /**
      * @see UserInterface
      */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return (string) $this->password;
     }
@@ -180,7 +187,7 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -214,7 +221,7 @@ class User implements UserInterface, \Serializable
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials() :void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
@@ -270,7 +277,7 @@ class User implements UserInterface, \Serializable
     /**
      * @see \Serializable::serialize()
      */
-    public function serialize()
+    public function serialize(): string
     {
         return serialize([ 
             $this->id, 
@@ -284,7 +291,7 @@ class User implements UserInterface, \Serializable
     /**
      * @see \Serializable::unserialize()
      */
-    public function unserialize($serialized)
+    public function unserialize($serialized): void
     {
         list( 
             $this->id, 

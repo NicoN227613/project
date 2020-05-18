@@ -3,9 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
-use App\Entity\ProductSearch;
 use App\Form\AdminProductType;
-use App\Form\ProductSearchType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -20,6 +18,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  */
 final class ProductController extends BaseController
 {
+    /** @var ProductRepository $repository */
+    private $repository;
+
+    /** @var EntityManagerInterface $manager */
+    private $manager;
+    
     public function __construct(ProductRepository $repository, EntityManagerInterface $manager)
     {
         $this->repository = $repository;

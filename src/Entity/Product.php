@@ -17,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Product
 {
     /**
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -36,6 +37,7 @@ class Product
     private $imageFile;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(
@@ -46,6 +48,7 @@ class Product
     private $name;
 
     /**
+     * @var float
      * @ORM\Column(type="float")
      * @Assert\NotBlank()
      * @Assert\GreaterThan(0, message="Définissez une quantité ")
@@ -85,35 +88,38 @@ class Product
     private $createdAt;
 
     /**
+     * @var \DateTimeInterface|null $updatedAt
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
+     * @var Category|null $classifiedIn
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
     private $classifiedIn;
 
     /**
+     * @var Emplacement|null $placeIn
      * @ORM\ManyToOne(targetEntity="App\Entity\Emplacement", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
     private $placeIn;
 
     /**
+     * @var Unity|null $units
      * @ORM\ManyToOne(targetEntity="App\Entity\Unity", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
     private $units;
 
     /**
+     * @var User|null $author
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="products")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
-
-
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable();
@@ -149,7 +155,7 @@ class Product
         return $this;
     }
 
-    public function getPurchaseDate(): ?\DateTimeInterface
+    public function getPurchaseDate(): \DateTimeInterface
     {
         return $this->purchase_date;
     }
@@ -185,7 +191,7 @@ class Product
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -193,7 +199,6 @@ class Product
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -217,7 +222,7 @@ class Product
         return $this->classifiedIn;
     }
 
-    public function setClassifiedIn(?Category $classifiedIn)
+    public function setClassifiedIn(?Category $classifiedIn): self
     {
         $this->classifiedIn = $classifiedIn;
 
@@ -232,10 +237,9 @@ class Product
         return $this->placeIn;
     }
 
-    public function setPlaceIn(?Emplacement $placeIn)
+    public function setPlaceIn(?Emplacement $placeIn): self
     {
         $this->placeIn = $placeIn;
-
         return $this;
     }
 
@@ -247,10 +251,9 @@ class Product
         return $this->units;
     }
 
-    public function setUnits(?Unity $units)
+    public function setUnits(?Unity $units): self
     {
         $this->units = $units;
-
         return $this;
     }
 

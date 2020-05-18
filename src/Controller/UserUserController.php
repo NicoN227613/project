@@ -2,17 +2,15 @@
 
 namespace App\Controller;
 
-use App\Form\ImageType;
 use App\Entity\Image;
-use App\Entity\User;
 use App\Form\UserImageType;
 use App\Form\UserAccountType;
 use App\Form\UserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -21,9 +19,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserUserController extends AbstractController
 {
     private $manager;
+
+    /** @var UserPasswordEncoderInterface $encoder */
     protected $encoder;
 
-    public function __construct( EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    public function __construct(EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $this->manager = $manager;
         $this->encoder = $encoder;
@@ -46,14 +46,13 @@ class UserUserController extends AbstractController
     public function uploadImage(Request $request): Response
     {
         $user = $this->getUser();
-         $form = $this->createForm(UserImageType::class, $user, [
-             'method' => 'POST'
-         ]);
+        $form = $this->createForm(UserImageType::class, $user, [
+            'method' => 'POST'
+        ]);
 
-         $form->handleRequest($request);
+        $form->handleRequest($request);
 
-         if($form->isSubmitted() && $form->isValid()) {
-
+        if($form->isSubmitted() && $form->isValid()) {
             $this->manager->persist($user);
             $this->manager->flush();
 
@@ -117,7 +116,7 @@ class UserUserController extends AbstractController
             $user->setUpdatedAt(new \DateTime());
             $this->manager->flush();
 
-            $this->addFlash('success', "Votre compte avec ce mail : {$user->getEmail()} a bien été modifié !");
+            $this->addFlash('success', "Votre compte a bien été modifié !");
 
             return $this->redirectToRoute('user_user_index');
         }
@@ -137,7 +136,7 @@ class UserUserController extends AbstractController
         if($this->isCsrfTokenValid('delete', $request->get('_token'))){
 
             $this->manager->remove($user);
-            $this->manager->flush($user);
+            $this->manager->flush();
             
 
             $this->get('security.token_storage')->setToken(null);
@@ -152,7 +151,7 @@ class UserUserController extends AbstractController
     /**
      * @Route("/delete/image/{id}", name="user_image_delete", methods="DELETE")
      */
-    public function deleteImage(Image $image, Request $request)
+    public function deleteImage(Image $image, Request $request): Response
     {
         $user = $this->getUser();
         if($this->isCsrfTokenValid('delete' . $image->getId(), $request->get('_token'))){

@@ -29,6 +29,9 @@
 .table tbody tr {
     border-bottom: 1px solid var(--border);
 }
+.table tbody tr:last-child {
+    border-bottom: none;
+}
 .table svg {
     display: block;
     width: 20px;

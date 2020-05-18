@@ -21,7 +21,7 @@ class ProductVoter extends Voter
             && $subject instanceof Product;
     }
 
-    protected function voteOnAttribute($attribute, $product, TokenInterface $token)
+    protected function voteOnAttribute(string $attribute, $product, TokenInterface $token)
     {
         return $user = $token->getUser();
         // if the user is anonymous, do not grant access
