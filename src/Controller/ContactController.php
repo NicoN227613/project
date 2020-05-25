@@ -20,6 +20,9 @@ class ContactController extends AbstractController
     {
         $user = $this->getUser();
         $contact = new Contact();
+        $contact->setPseudo($user->getPseudo());
+        $contact->setEmail($user->getEmail());
+        
         $form = $this->createForm(ContactType::class, $contact); 
 
         $form->handleRequest($request);

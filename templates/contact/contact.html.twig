@@ -4,24 +4,38 @@
 {% block title %}Contactez-nous{% endblock %}
 
 {% block body %}
-<div class="form__container">
+
     {% if not form.vars.valid %}
-    <alert-message duration="6">
-        {{ form_errors(form) }}
-    </alert-message>
+        <alert-message duration="6">
+            {{ form_errors(form) }}
+        </alert-message>
     {% endif %}
-    {{ form_start(form, { 'attr' : { 'class' : 'form'} })}}
-    <div class="form__group">
-        <label for="inputSujet">Sujet</label>
-        {{ form_widget(form.subject, {attr : {class : 'form__control'}}) }}
+
+    {{ form_start(form, { 'attr' : { 'class' : 'form_card'} })}}
+
+    <div class="form_card_div">
+        <label for="inputSujet" class="form_card_label">Pseudo</label>
+        {{ form_widget(form.pseudo, {attr : {class : 'form_card_input'}}) }}
+        {{ form_errors(form.pseudo) }}
+    </div>
+
+    <div class="form_card_div">
+        <label for="inputSujet" class="form_card_label">Email</label>
+        {{ form_widget(form.email, {attr : {class : 'form_card_input'}}) }}
+        {{ form_errors(form.email) }}
+    </div>
+
+    <div class="form_card_div">
+        <label for="inputSujet" class="form_card_label">Sujet</label>
+        {{ form_widget(form.subject, {attr : {class : 'form_card_input'}}) }}
         {{ form_errors(form.subject) }}
     </div>
-    <div class="form__group">
-        <label for="inputMessage">Message</label>
-        {{ form_widget(form.message, {attr : {class : 'form__control'}}) }}
+
+    <div class="form_card_div">
+        <label for="inputMessage" class="form_card_label" rows="3">Message</label>
+        {{ form_widget(form.message, {attr : {class : 'form_card_input'}}) }}
         {{ form_errors(form.message) }}
     </div>
-    <button class="btn__submit">Envoyer</button>
-</div>
+    <button class="form_card_submit">Envoyer</button>
 {{ form_end(form)}}
 {% endblock %}

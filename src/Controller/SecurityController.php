@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Notification\CreateAccountNotification;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +15,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+    /**
+     * @var CreateAccountNotification
+     */
+    private $createAccountNotify;
+
+    public function __construct(CreateAccountNotification $createAccountNotify)
+    {
+        $this->createAccountNotify = $createAccountNotify;
+    }
 
     /**
      *@Route("/registration", name="security_registration")
@@ -32,8 +42,10 @@ class SecurityController extends AbstractController
             $user->setPassword($hash);
             $manager->persist($user);
             $manager->flush();
-            $this->addFlash('success', 'Votre compte a bien était créé, Connectez-vous !');
+            
+            $this->createAccountNotify->notifyCreateAccount();
 
+            $this->addFlash('success', 'Votre compte a bien était créé, Connectez-vous !');
             return $this->redirectToRoute('security_login');
         }
         return $this->render('security/registration.html.twig', [

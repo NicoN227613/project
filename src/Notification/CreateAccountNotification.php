@@ -2,11 +2,12 @@
 
 namespace App\Notification;
 
-use App\Entity\User;
 use Twig\Environment;
-use App\Entity\Contact;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxeError;
 
-class ContactNotification {
+class CreateAccountNotification {
 
     /**
      * @var \Swift_Mailer
@@ -24,15 +25,14 @@ class ContactNotification {
         $this->renderer = $renderer;
     }
 
-    public function notify(User $user, Contact $contact): void
+    public function notifyCreateAccount()
     {
-        $message = (new \Swift_Message('sujet : ' . $contact->getSubject()))
-            ->setFrom($user->getEmail())
+        $message = (new \Swift_Message('Fresh Food - Nouvelle inscription '))
+            ->setFrom('no-reply@freshfood.fr')
             ->setTo('admin@gmail.com')
             ->setBody(
-                $this->renderer->render('email/contact.html.twig', [
-                    'contact' => $contact,
-                    'user' => $user
+                $this->renderer->render('email/createAccount.html.twig', [
+                   
                 ]), 
                 'text/html'
             )

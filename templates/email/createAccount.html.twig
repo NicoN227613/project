@@ -5,26 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <style>
         section{
             width: 80%;
             padding: 10px;
         }
-        h1, h2, h3, p{
+        h1, h2, p{
             margin: 20px;
         }
     </style>
 </head>
+
 <body>
+    <section>
+        <h1>Fresh Food Mail</h1>
 
-    <h1>Fresh Food Mail</h1>
+        <h2> Nouveau compte </h2>
 
-    <h2> Vous Avez reçu un mail de Mr/Mme : {{ user.pseudo }} </h2>
-    
-    <p> Email : <strong> {{ user.email }} </strong> </p>
-
-    <h3> Sujet : {{ contact.subject | capitalize }} </h3>
-
-    <p> {{ contact.message }} </p>
+        <p> Un Nouveau compte vient d'être créer sur dans l'application </p>
+    </section>
 </body>
 </html>
