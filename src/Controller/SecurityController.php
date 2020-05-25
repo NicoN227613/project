@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use App\Notification\CreateAccountNotification;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,11 +40,14 @@ class SecurityController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $hash = $encoder->encodePassword($user, $user->getPassword());
 
+            $user->setActivationToken(md5(uniqid()));
+
             $user->setPassword($hash);
             $manager->persist($user);
             $manager->flush();
             
-            $this->createAccountNotify->notifyCreateAccount();
+            $this->createAccountNotify->notifyCreateAccountForAdmin();
+            $this->createAccountNotify->notifyCreateAccountForUser($user);
 
             $this->addFlash('success', 'Votre compte a bien était créé, Connectez-vous !');
             return $this->redirectToRoute('security_login');
@@ -51,6 +55,26 @@ class SecurityController extends AbstractController
         return $this->render('security/registration.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/activation/{token}", name="activation")
+     */
+    public function activation($token, UserRepository $userRepo, EntityManagerInterface $manager)
+    {
+        //vérifie si un utilisateur a ce token
+        $user = $userRepo->findOneBy(['activation_token' => $token]);
+
+        if(!$user){// 0 user
+            throw $this->createNotFoundException('cet utilisateur n\'existe pas');
+        }
+
+        $user->setActivationToken(null);//supprime le token
+        $manager->persist($user);
+        $manager->flush();
+        
+        $this->addFlash('success', 'votre compte est bien activer !');
+        return $this->redirectToRoute('home');
     }
 
     /**
