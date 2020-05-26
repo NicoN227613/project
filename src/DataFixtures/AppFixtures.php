@@ -195,7 +195,7 @@ class AppFixtures extends Fixture
                 ->setClassifiedIn($category)
                 ->setPlaceIn($emplacement)
                 ->setUnits($unity)
-                ->setQuantity($faker->randomDigit())
+                ->setQuantity($faker->randomDigit)
                 ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
             ;
 
@@ -225,7 +225,7 @@ class AppFixtures extends Fixture
                 ->setClassifiedIn($category2)
                 ->setPlaceIn($emplacement2)
                 ->setUnits($unity2)
-                ->setQuantity($faker->randomDigit())
+                ->setQuantity($faker->randomDigit)
                 ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
             ;
 
@@ -255,7 +255,7 @@ class AppFixtures extends Fixture
                 ->setClassifiedIn($category3)
                 ->setPlaceIn($emplacement3)
                 ->setUnits($unity3)
-                ->setQuantity($faker->randomDigit())
+                ->setQuantity($faker->randomDigit)
                 ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
             ;
 
@@ -280,7 +280,7 @@ class AppFixtures extends Fixture
         for($e = 1; $e <= 10; $e++){
             $user = new User();
             $user->setPseudo($faker->firstName())
-                ->setEmail($faker->email())
+                ->setEmail($faker->email)
                 ->setPassword($faker->password())
                 ->setRoles(["ROLE_USER"])
                 ->setCreatedAt($faker->dateTimeBetween($minimun))
@@ -297,7 +297,7 @@ class AppFixtures extends Fixture
                     ->setClassifiedIn($category)
                     ->setPlaceIn($emplacement)
                     ->setUnits($unity)
-                    ->setQuantity($faker->randomDigit())
+                    ->setQuantity($faker->randomDigit)
                     ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
                 ;
     
@@ -327,7 +327,7 @@ class AppFixtures extends Fixture
                     ->setClassifiedIn($category2)
                     ->setPlaceIn($emplacement2)
                     ->setUnits($unity2)
-                    ->setQuantity($faker->randomDigit())
+                    ->setQuantity($faker->randomDigit)
                     ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
                 ;
     
@@ -357,7 +357,7 @@ class AppFixtures extends Fixture
                     ->setClassifiedIn($category3)
                     ->setPlaceIn($emplacement3)
                     ->setUnits($unity3)
-                    ->setQuantity($faker->randomDigit())
+                    ->setQuantity($faker->randomDigit)
                     ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
                 ;
     
@@ -387,7 +387,7 @@ class AppFixtures extends Fixture
                     ->setClassifiedIn($category2)
                     ->setPlaceIn($emplacement1)
                     ->setUnits($unity3)
-                    ->setQuantity($faker->randomDigit())
+                    ->setQuantity($faker->randomDigit)
                     ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
                 ;
     
@@ -417,7 +417,7 @@ class AppFixtures extends Fixture
                     ->setClassifiedIn($category3)
                     ->setPlaceIn($emplacement2)
                     ->setUnits($unity1)
-                    ->setQuantity($faker->randomDigit())
+                    ->setQuantity($faker->randomDigit)
                     ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
                 ;
     
@@ -447,7 +447,7 @@ class AppFixtures extends Fixture
                     ->setClassifiedIn($category1)
                     ->setPlaceIn($emplacement3)
                     ->setUnits($unity3)
-                    ->setQuantity($faker->randomDigit())
+                    ->setQuantity($faker->randomDigit)
                     ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
                 ;
     
@@ -477,7 +477,7 @@ class AppFixtures extends Fixture
                     ->setClassifiedIn($category1)
                     ->setPlaceIn($emplacement3)
                     ->setUnits($unity1)
-                    ->setQuantity($faker->randomDigit())
+                    ->setQuantity($faker->randomDigit)
                     ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
                 ;
     
@@ -507,7 +507,7 @@ class AppFixtures extends Fixture
                     ->setClassifiedIn($category1)
                     ->setPlaceIn($emplacement3)
                     ->setUnits($unity2)
-                    ->setQuantity($faker->randomDigit())
+                    ->setQuantity($faker->randomDigit)
                     ->setPurchaseDate($faker->dateTimeBetween($emplacementDays))
                 ;
     

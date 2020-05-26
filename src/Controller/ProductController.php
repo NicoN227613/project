@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Form\ProductType;
-use App\Entity\ProductSearch;
-use App\Form\ProductSearchType;
-use App\Form\SearchProductType;
 use App\Entity\SearchProductData;
+use App\Form\ProductType;
+use App\Form\SearchProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +20,10 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ProductController extends AbstractController
 {
+    /** @var ProductRepository $repository */
     private $repository;
+    
+    /** @var EntityManagerInterface $manager */
     private $manager;
 
     public function __construct(ProductRepository $repository, EntityManagerInterface $manager)
