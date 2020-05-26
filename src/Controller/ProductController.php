@@ -82,6 +82,12 @@ class ProductController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $user = $this->getUser();
+        if($user->getActivationToken()){
+            $this->addFlash('message', 'Vous devez activer votre compte pour ajouter un produit');
+            return $this->redirectToRoute('home');
+        }
+
         $product = new Product();
         $product->setAuthor($this->getUser());
         $form = $this->createForm(ProductType::class, $product);
@@ -106,8 +112,13 @@ class ProductController extends AbstractController
      */
     public function edit(Product $product, Request $request): Response
     {
-
         $this->denyAccessUnlessGranted('edit', $product);
+
+        $user = $this->getUser();
+        if($user->getActivationToken()){
+            $this->addFlash('message', 'Vous devez activer votre compte pour modifier un produit');
+            return $this->redirectToRoute('home');
+        }
 
         $form = $this->createForm(ProductType::class, $product, [
             'method' => 'PUT',
