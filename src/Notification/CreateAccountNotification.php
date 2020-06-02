@@ -2,6 +2,7 @@
 
 namespace App\Notification;
 
+use App\Entity\User;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -25,14 +26,24 @@ class CreateAccountNotification {
         $this->renderer = $renderer;
     }
 
-    public function notifyCreateAccount()
+    public function notifyCreateAccountForAdmin()
     {
         $message = (new \Swift_Message('Fresh Food - Nouvelle inscription '))
             ->setFrom('no-reply@freshfood.fr')
             ->setTo('admin@gmail.com')
+            ->setBody( $this->renderer->render('email/createAccountForAdmin.html.twig'),'text/html' )
+        ;
+        $this->mailer->send($message);
+    }
+
+    public function notifyCreateAccountForUser(User $user)
+    {
+        $message = (new \Swift_Message('Fresh Food - inscription '))
+            ->setFrom('no-reply@freshfood.fr')
+            ->setTo($user->getEmail())
             ->setBody(
-                $this->renderer->render('email/createAccount.html.twig', [
-                   
+                $this->renderer->render('email/createAccountForUser.html.twig', [
+                   'token' => $user->getActivationToken(),
                 ]), 
                 'text/html'
             )

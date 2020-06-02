@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\ImageType;
 use App\Entity\Image;
-use App\Entity\User;
 use App\Form\UserImageType;
 use App\Form\UserAccountType;
 use App\Form\UserPasswordType;
@@ -23,7 +21,7 @@ class UserUserController extends AbstractController
     private $manager;
     protected $encoder;
 
-    public function __construct( EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    public function __construct(EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $this->manager = $manager;
         $this->encoder = $encoder;
@@ -137,7 +135,7 @@ class UserUserController extends AbstractController
         if($this->isCsrfTokenValid('delete', $request->get('_token'))){
 
             $this->manager->remove($user);
-            $this->manager->flush($user);
+            $this->manager->flush();
             
 
             $this->get('security.token_storage')->setToken(null);
