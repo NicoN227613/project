@@ -31,8 +31,8 @@
             {% set link = path('admin_product_edit', {id: product.id}) %}
             <tr>
                 <td><a href="{{ link }}">{{ product.id }}</a></td>
-                <td><a href="{{ link }}">{{ product.name }}</a></td>
-                <td>{{ product.author.email }}</td>
+                <td><a href="{{ link }}">{{ product.name | truncate }}</a></td>
+                <td>{{ product.author.email | truncate }}</td>
                 <td>{{ product.createdAt | format_datetime('long','none', locale='fr') }}</td>
                 {% if product.updatedAt is not null %}
                     <td>{{ product.updatedAt | format_datetime('long','none', locale='fr') }}</td>

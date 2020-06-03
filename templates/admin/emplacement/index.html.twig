@@ -30,8 +30,8 @@
             {% set link = path('admin_emplacement_edit', {id: emplacement.id}) %}
             <tr>
                 <td><a href="{{ link }}">{{ emplacement.id }}</a></td>
-                <td><a href="{{ link }}">{{ emplacement.name }}</a></td>
-                <td>{{ emplacement.author.email }}</td>
+                <td><a href="{{ link }}">{{ emplacement.name | truncate }}</a></td>
+                <td>{{ emplacement.author.email | truncate }}</td>
                 <td>{{ emplacement.createdAt | format_datetime('long','none', locale='fr') }}</td>
                 {% if emplacement.updatedAt is not null %}
                     <td>{{ emplacement.updatedAt | format_datetime('long','none', locale='fr') }}</td>
