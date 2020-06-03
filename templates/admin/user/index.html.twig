@@ -31,7 +31,7 @@
             {% set link = path('admin_user_edit', {id: user.id}) %}
             <tr>
                 <td><a href="{{ link }}">{{ user.id }}</a></td>
-                <td><a href="{{ link }}">{{ user.pseudo }}</a></td>
+                <td><a href="{{ link }}">{{ user.pseudo | truncate }}</a></td>
                 <td><a href="{{ link }}">{{ user.email | truncate }}</a></td>
                 <td>
                     {% for role in user.roles %}

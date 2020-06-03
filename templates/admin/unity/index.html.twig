@@ -30,8 +30,8 @@
             {% set link = path('admin_unity_edit', {id: unity.id}) %}
             <tr>
                 <td><a href="{{ link }}">{{ unity.id }}</a></td>
-                <td><a href="{{ link }}">{{ unity.name }}</a></td>
-                <td>{{ unity.author.email }}</td>
+                <td><a href="{{ link }}">{{ unity.name | truncate }}</a></td>
+                <td>{{ unity.author.email | truncate }}</td>
                 <td>{{ unity.createdAt | format_datetime('long','none', locale='fr') }}</td>
                 {% if unity.updatedAt is not null %}
                     <td>{{ unity.updatedAt | format_datetime('long','none', locale='fr') }}</td>
