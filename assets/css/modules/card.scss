@@ -16,6 +16,7 @@
     transition: height .3s;
 
     & img {
+        width: 225px;
         display: block;
         opacity: 1;
         transition: opacity .3s, transform .3s;
