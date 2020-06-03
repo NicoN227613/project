@@ -26,7 +26,7 @@
             <div class="card__unity">{{ product.units.name }}</div>
             <div class="card__purchase__date">Acheté le : {{ product.purchaseDate | format_datetime('long','none', locale='fr') }}</div>
         </div>
-        <footer class="card__footer">
+        <footer class="card__footer"> 
             <div class="card__createdAt">Ajouté le : {{ product.createdAt | format_datetime('long','none', locale='fr') }}</div>
             <form method="POST" action="{{ path('product_delete', {id: product.id}) }}"
                 onsubmit="return confirm('Etes-vous sur de supprimer ce produit ?')">
