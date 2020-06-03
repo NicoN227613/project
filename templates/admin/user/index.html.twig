@@ -6,13 +6,15 @@
     Gestion des comptes
 </div>
 <div class="dashboard__card">
-    <div class="dashboard__header">
-        <form class="dashboard__search">
-            <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher un compte">
-        </form>
-        <a href="{{ path('admin_user_new')}}" class="dashboard__btn">Créer un compte</a>
+    <div class="header-responsive">
+        <div class="dashboard__header">
+            <form class="dashboard__search">
+                <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher un compte">
+            </form>
+            <a href="{{ path('admin_user_new')}}" class="dashboard__btn">Créer un compte</a>
+        </div>
     </div>
-    <table class="table">
+    <table class="table table-responsive">
         <thead>
             <tr>
                 <th>Id</th>
@@ -30,7 +32,7 @@
             <tr>
                 <td><a href="{{ link }}">{{ user.id }}</a></td>
                 <td><a href="{{ link }}">{{ user.pseudo }}</a></td>
-                <td><a href="{{ link }}">{{ user.email }}</a></td>
+                <td><a href="{{ link }}">{{ user.email | truncate }}</a></td>
                 <td>
                     {% for role in user.roles %}
                     {% if role == "ROLE_ADMIN" %}

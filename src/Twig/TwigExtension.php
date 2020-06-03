@@ -36,8 +36,8 @@ class TwigExtension extends AbstractExtension
     
     public function truncateTwig(string $element): string
     {
-        if(strlen($element) >= 30){
-            return substr($element, 0, 30) . '...';
+        if(strlen($element) >= 22){
+            return substr($element, 0, 22) . '...';
         }
         return $element;
     }
