@@ -6,13 +6,15 @@
     Gestion des emplacements
 </div>
 <div class="dashboard__card">
-    <div class="dashboard__header">
-        <form class="dashboard__search">
-            <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher un produit">
-        </form>
-        <a href="{{ path('admin_emplacement_new') }}" class="btn">Ajouter un emplacement</a>
+    <div class="header-responsive">
+        <div class="dashboard__header">
+            <form class="dashboard__search">
+                <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher un produit">
+            </form>
+            <a href="{{ path('admin_emplacement_new') }}" class="btn">Ajouter un emplacement</a>
+        </div>
     </div>
-    <table class="table">
+    <table class="table table-responsive">
         <thead>
             <tr>
                 <th>Id</th>
