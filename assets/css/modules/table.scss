@@ -1,3 +1,5 @@
+ 
+
 @media only screen and (max-width: 700px)
 {
     .table {
@@ -57,11 +59,12 @@
     }
 
     .table-responsive td {
-        padding: 8px 16px 8px 150px ;
+        padding: 8px 16px 8px 90px ;
         position: relative;
         border: 1px solid var(--border);
         background-color:white;
         margin-top: -1px;
+        font-size: 0.9em;
     }
 
     .table-responsive td:nth-child(odd){
@@ -74,13 +77,13 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 130px;
+        width: 80px;
         bottom: 0;
 
         font-weight: 300;
         text-transform: uppercase;
         opacity: .8;
-        font-size: 0.9em;
+        font-size: 0.8em;
         text-align: left;
         background-color: var(--green);
     }

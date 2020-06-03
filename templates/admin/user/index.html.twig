@@ -32,7 +32,7 @@
             <tr>
                 <td><a href="{{ link }}">{{ user.id }}</a></td>
                 <td><a href="{{ link }}">{{ user.pseudo }}</a></td>
-                <td><a href="{{ link }}">{{ user.email }}</a></td>
+                <td><a href="{{ link }}">{{ user.email | truncate }}</a></td>
                 <td>
                     {% for role in user.roles %}
                     {% if role == "ROLE_ADMIN" %}
