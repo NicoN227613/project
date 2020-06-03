@@ -2,9 +2,7 @@
 
 namespace App\Repository;
 
-use Doctrine\ORM\Query;
 use App\Entity\Emplacement;
-use App\Entity\EmplacementSearch;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -19,22 +17,6 @@ class EmplacementRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Emplacement::class);
-    }
-
-    /**
-     * @return Query
-     */
-    public function findAllEmplacements(EmplacementSearch $search): Query
-    {
-        $query =  $this->createQueryBuilder('e')
-                        ->orderBy('e.id', 'DESC');
-
-        if($search->getName()) {
-            $query = $query->where('e.name LIKE :name')
-            ->setParameter('name', "%{$search->getName()}%");
-        }
-
-        return $query->getQuery();
     }
 
     // /**

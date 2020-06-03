@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Form\ProductType;
-use App\Entity\ProductSearch;
-use App\Form\ProductSearchType;
-use App\Form\SearchProductType;
 use App\Entity\SearchProductData;
+use App\Form\ProductType;
+use App\Form\SearchProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +20,10 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ProductController extends AbstractController
 {
+    /** @var ProductRepository $repository */
     private $repository;
+    
+    /** @var EntityManagerInterface $manager */
     private $manager;
 
     public function __construct(ProductRepository $repository, EntityManagerInterface $manager)
@@ -81,6 +82,12 @@ class ProductController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $user = $this->getUser();
+        if($user->getActivationToken()){
+            $this->addFlash('message', 'Vous devez activer votre compte pour ajouter un produit');
+            return $this->redirectToRoute('home');
+        }
+
         $product = new Product();
         $product->setAuthor($this->getUser());
         $form = $this->createForm(ProductType::class, $product);
@@ -105,8 +112,13 @@ class ProductController extends AbstractController
      */
     public function edit(Product $product, Request $request): Response
     {
-
         $this->denyAccessUnlessGranted('edit', $product);
+
+        $user = $this->getUser();
+        if($user->getActivationToken()){
+            $this->addFlash('message', 'Vous devez activer votre compte pour modifier un produit');
+            return $this->redirectToRoute('home');
+        }
 
         $form = $this->createForm(ProductType::class, $product, [
             'method' => 'PUT',
