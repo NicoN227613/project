@@ -6,13 +6,15 @@
     Gestion des categories
 </div>
 <div class="dashboard__card">
-    <div class="dashboard__header">
-        <form class="dashboard__search">
-            <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher une catégorie">
-        </form>
-        <a href="{{ path('admin_category_new') }}" class="dashboard__btn">Ajouter une catégorie</a>
+    <div class="header-responsive">
+        <div class="dashboard__header">
+            <form class="dashboard__search">
+                <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher une catégorie">
+            </form>
+            <a href="{{ path('admin_category_new') }}" class="dashboard__btn">Ajouter une catégorie</a>
+        </div>
     </div>
-    <table class="table">
+    <table class="table table-responsive">
         <thead>
             <tr>
                 <th>Id</th>
@@ -28,8 +30,8 @@
             {% set link = path('admin_category_edit', {id: category.id}) %}
             <tr>
                 <td><a href="{{ link }}">{{ category.id }}</a></td>
-                <td><a href="{{ link }}">{{ category.name }}</a></td>
-                <td>{{ category.author.email }}</td>
+                <td><a href="{{ link }}">{{ category.name | truncate }}</a></td>
+                <td>{{ category.author.email | truncate }}</td>
                 <td>{{ category.createdAt | format_datetime('long','none', locale='fr') }}</td>
                 {% if category.updatedAt is not null %}
                     <td>{{ category.updatedAt | format_datetime('long','none', locale='fr') }}</td>
