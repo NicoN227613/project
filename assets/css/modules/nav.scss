@@ -73,7 +73,7 @@
         transition: transform .5s, opacity .5s;
         opacity: 0;
     }
-    @each $i in 2, 3, 4{
+    @each $i in 2, 3, 4 {
         .nav__menu > *:nth-child(#{$i}n) {
             transition-delay: $i * .1s;
         }

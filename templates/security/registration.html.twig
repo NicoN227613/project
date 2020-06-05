@@ -4,10 +4,10 @@
 
 {% block body %}
 <div class="form__container">
-    {{ form_start(form, { 'attr' : { 'class' : 'form' }} ) }}
+    {{ form_start(form, {attr : {class : 'form' }} ) }}
     <div class="form__group">
         <label for="inputPseudo">Nom d'utilisateur</label>
-        {{ form_widget(form.pseudo, {attr : {class : 'form__control' }})}}
+        {{ form_widget(form.pseudo, {attr : {class : 'form__control', 'autofocus': 'autofocus' }})}}
         {{ form_errors(form.pseudo) }}
     </div>
     <div class="form__group">
