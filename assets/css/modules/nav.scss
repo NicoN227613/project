@@ -35,7 +35,6 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    height: 16px;
     border-right: 1px solid var(--border);
     margin-right: 16px;
     padding-right: 8px;
@@ -43,13 +42,22 @@
 .nav__home + li {
     margin-left: 0;
 }
+
 @media only screen and (max-width: 768px) {
-    .nav__menu svg,
-    .nav__home {
+    .nav__menu li a svg {
         display: none;
     }
+    .nav__menu .nav__home a svg {
+        display: block;
+    }
     .nav__home {
+        margin-right: 0;
+        padding-right: 0;
         border-right: none;
+
+        & svg {
+            margin-right: 0;
+        }
     }
     .nav__menu {
         display: flex;
@@ -73,8 +81,9 @@
         transition: transform .5s, opacity .5s;
         opacity: 0;
     }
-    @each $i in 2, 3, 4 {
-        .nav__menu > *:nth-child(#{$i}n) {
+    @each $i in 2, 3, 4, 5, 6 {
+        .nav__menu > *:nth-child(#{$i}n),
+        .nav__home > *:nth-child(#{$i}n) {
             transition-delay: $i * .1s;
         }
     }
@@ -88,7 +97,8 @@
             transform: translateY(0px);
         }
     }
-    .nav__menu > * + * {
+    .nav__menu > * + *,
+    .nav__home > * + * {
         margin-left: 0;
         margin-top: 24px;
     }
