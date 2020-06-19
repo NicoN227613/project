@@ -3,16 +3,17 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\AdminNewUserType;
+use App\Form\AdminEditUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -80,7 +81,7 @@ class UserController extends BaseController
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(AdminNewUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -94,7 +95,7 @@ class UserController extends BaseController
             return $this->redirectToRoute('admin_user_index');
         }
         return $this->render('admin/user/new.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 
@@ -103,7 +104,7 @@ class UserController extends BaseController
      */
     public function edit(User $user, Request $request): Response
     {
-        $form = $this->createForm(UserType::class, $user, [
+        $form = $this->createForm(AdminEditUserType::class, $user, [
             'method' => 'PUT',
         ]);
 
@@ -116,8 +117,8 @@ class UserController extends BaseController
             return $this->redirectToRoute('admin_user_index');
         }
         return $this->render('admin/user/edit.html.twig', [
-            'product' => $user,
-            'form' => $form->createView(),
+            'user' => $user,
+            'form' => $form->createView()
         ]);
     }
 

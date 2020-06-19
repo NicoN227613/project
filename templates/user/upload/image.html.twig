@@ -3,7 +3,7 @@
 {% block body %}
 
     <div class="form_card">
-        <p class="form_card_h1"><span class='span_h1'>Votre photo de profile actuelle</span></p>
+        <p class="form_card_h1"><span class='span_h1'>Votre photo de profil actuelle</span></p>
         
         {% if app.user.image is null %}
             <img src="/images/user/default/user.png" alt="image" >
@@ -24,11 +24,11 @@
 
         {{ form_errors(formImage.image.file) }}
         <div class="form_card_div">
-            <label for="inputImage" class="form_card_label">Télécharger une autre image</label>
+            <label for="inputImage" class="form_card_label">Photo de profil</label>
             {{ form_widget(formImage.image.file, { 'attr' : { 'class' : 'form_card_input'} } ) }}
         </div>
 
-        <button type="submit" class="form_card_submit btn__text" > Envoyer </button>
+        <button type="submit" class="form_card_submit btn__text">Ajouter</button>
         {{ form_end(formImage) }}
     </div>
 
