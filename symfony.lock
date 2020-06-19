@@ -121,7 +121,7 @@
         "version": "2.2.3"
     },
     "php": {
-        "version": "7.4"
+        "version": "7.3"
     },
     "phpstan/phpstan": {
         "version": "0.12.22"
@@ -257,6 +257,12 @@
             "./src/Controller/.gitignore",
             "./src/Kernel.php"
         ]
+    },
+    "symfony/http-client": {
+        "version": "v5.0.9"
+    },
+    "symfony/http-client-contracts": {
+        "version": "v2.1.2"
     },
     "symfony/http-foundation": {
         "version": "v5.0.5"

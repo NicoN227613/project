@@ -6,21 +6,19 @@
     Gestion des emplacements
 </div>
 <div class="dashboard__card">
-    <div class="header-responsive">
-        <div class="dashboard__header">
-            <form class="dashboard__search">
-                <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher un produit">
-            </form>
-            <a href="{{ path('admin_emplacement_new') }}" class="btn">Ajouter un emplacement</a>
-        </div>
+    <div class="dashboard__header">
+        <form class="dashboard__search">
+            <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher un produit">
+        </form>
+        <a href="{{ path('admin_emplacement_new') }}" class="btn">Ajouter un emplacement</a>
     </div>
-    <table class="table table-responsive">
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
                 <th>Auteur</th>
-                <th>Date de creation</th>
+                <th>Date de création</th>
                 <th>Date de modification</th>
                 <th>Actions</th>
             </tr>
@@ -29,19 +27,36 @@
             {% for emplacement in emplacements %}
             {% set link = path('admin_emplacement_edit', {id: emplacement.id}) %}
             <tr>
-                <td><a href="{{ link }}">{{ emplacement.id }}</a></td>
-                <td><a href="{{ link }}">{{ emplacement.name | truncate }}</a></td>
-                <td>{{ emplacement.author.email | truncate }}</td>
-                <td>{{ emplacement.createdAt | format_datetime('long','none', locale='fr') }}</td>
+                <td>
+                    <span>Id</span>
+                    <a href="{{ link }}">{{ emplacement.id }}</a></td>
+                <td>
+                    <span>Nom</span>
+                    <a href="{{ link }}">{{ emplacement.name | truncate }}</a></td>
+                <td>
+                    <span>Auteur</span>
+                    {{ emplacement.author.email | truncate }}</td>
+                <td>
+                    <span>Date de création</span>
+                    {{ emplacement.createdAt | format_datetime('long','none', locale='fr') }}
+                </td>
                 {% if emplacement.updatedAt is not null %}
-                    <td>{{ emplacement.updatedAt | format_datetime('long','none', locale='fr') }}</td>
-                    {% else %}
-                    <td>Aucune</td>
+                <td>
+                    <span>Date de modification</span>
+                    {{ emplacement.updatedAt | format_datetime('long','none', locale='fr') }}
+                </td>
+                {% else %}
+                <td>
+                    <span>Date de modification</span>
+                    Aucune
+                </td>
                 {% endif %}
                 <td>
+                    <span>Actions</span>
                     <div class="dashboard__actions">
                         <a href="{{ link }}">{{ icon('edit')}}</a>
-                        <form method="POST" action="{{ path('admin_emplacement_delete', {id: emplacement.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer cette emplacement ?')">
+                        <form method="POST" action="{{ path('admin_emplacement_delete', {id: emplacement.id}) }}"
+                            onsubmit="return confirm('Etes-vous sur de supprimer cette emplacement ?')">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ emplacement.id) }}">
                             <button>{{ icon('trash')}}</button>

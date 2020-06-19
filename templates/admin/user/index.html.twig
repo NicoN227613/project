@@ -6,22 +6,22 @@
     Gestion des comptes
 </div>
 <div class="dashboard__card">
-    <div class="header-responsive">
+    {#<div class="header-responsive">#}
         <div class="dashboard__header">
             <form class="dashboard__search">
                 <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher un compte">
             </form>
             <a href="{{ path('admin_user_new')}}" class="dashboard__btn">Créer un compte</a>
         </div>
-    </div>
-    <table class="table table-responsive">
+    {#</div>#}
+    <table class="table"> {#table-responsive#}
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Pseudo</th>
                 <th>Email</th>
                 <th>Rôle(s)</th>
-                <th>Date de creation</th>
+                <th>Date de création</th>
                 <th>Date de modification</th>
                 <th>Actions</th>
             </tr>
@@ -30,10 +30,20 @@
             {% for user in users %}
             {% set link = path('admin_user_edit', {id: user.id}) %}
             <tr>
-                <td><a href="{{ link }}">{{ user.id }}</a></td>
-                <td><a href="{{ link }}">{{ user.pseudo | truncate }}</a></td>
-                <td><a href="{{ link }}">{{ user.email | truncate }}</a></td>
                 <td>
+                    <span>Id</span>
+                    <a href="{{ link }}">{{ user.id }}</a>
+                </td>
+                <td>
+                    <span>Pseudo</span>
+                    <a href="{{ link }}">{{ user.pseudo | truncate }}</a>
+                </td>
+                <td>
+                    <span>Email</span>
+                    <a href="{{ link }}">{{ user.email | truncate }}</a>
+                </td>
+                <td>
+                    <span>Rôle(s)</span>
                     {% for role in user.roles %}
                     {% if role == "ROLE_ADMIN" %}
                     Administrateur -
@@ -42,13 +52,23 @@
                     {% endif %}
                     {% endfor %}
                 </td>
-                <td>{{ user.createdAt | format_datetime('long','none', locale='fr') }}</td>
+                <td>
+                    <span>Date de création</span>
+                    {{ user.createdAt | format_datetime('long','none', locale='fr') }}
+                </td>
                 {% if user.updatedAt is not null %}
-                    <td>{{ user.updatedAt | format_datetime('long','none', locale='fr') }}</td>
+                    <td>
+                        <span>Date de modification</span>
+                        {{ user.updatedAt | format_datetime('long','none', locale='fr') }}
+                    </td>
                     {% else %}
-                    <td>Aucune</td>
+                    <td>
+                        <span>Date de modification</span>
+                        Aucune
+                    </td>
                 {% endif %}
                 <td>
+                    <span>Actions</span>
                     <div class="dashboard__actions">
                         <a href="{{ link }}">{{ icon('edit')}}</a>
                         <form method="POST" action="{{ path('admin_user_delete', {id: user.id}) }}" onsubmit="return confirm('Etes-vous sur de supprimer ce compte ?')">

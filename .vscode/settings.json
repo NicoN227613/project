@@ -28,5 +28,17 @@
         "sqlite",
         "symfony",
         "voir"
+    ],
+    "sqltools.connections": [
+        {
+            "askForPassword": true,
+            "connectionTimeout": 0,
+            "database": "fresh_food",
+            "dialect": "MySQL",
+            "name": "MySQL",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        }
     ]
 }

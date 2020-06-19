@@ -2,17 +2,23 @@
 
 namespace App\Controller;
 
+use App\Entity\PasswordResetConfirmData;
 use App\Entity\User;
 use App\Form\RegistrationType;
-use App\Notification\CreateAccountNotification;
+use App\Entity\PasswordResetData;
+use App\Entity\PasswordResetToken;
+use App\Form\PasswordResetConfirmType;
 use App\Repository\UserRepository;
+use App\Form\PasswordResetRequestForm;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Notification\CreateAccountNotification;
+use App\Service\PasswordResetService;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
@@ -94,6 +100,54 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername, 
             'error' => $error
+        ]);
+    }
+
+    /**
+     * @Route("/password-reset", name="security_password_reset")
+     */
+    public function passwordReset(Request $request, PasswordResetService $resetService): Response 
+    {
+        $error = null;
+        $data = new PasswordResetData();
+        $form = $this->createForm(PasswordResetRequestForm::class, $data);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            try {
+                $resetService->resetPassword($form->getData());
+                $this->addFlash('success', 'Les instructions pour réinitialiser votre mot de passe vous ont été envoyées');
+                return $this->redirectToRoute('security_login');
+            } catch (\Exception $e) {
+                $error = $e;
+            }
+        }
+        return $this->render('security/password_reset.html.twig', [
+            'error' => $error,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/password/new/{id}/{token}",  name="security_password_reset_confirm")
+     */
+    public function passwordResetConfirm(Request $request, User $user, PasswordResetToken $token, PasswordResetService $service): Response
+    {
+        if ($service->isExpired($token) || $token->getUser() !== $user) {
+            $this->addFlash('error', 'Ce token a expiré');
+            return $this->redirectToRoute('security_login');
+        }
+        $error = null;
+        $data = new PasswordResetConfirmData();
+        $form = $this->createForm(PasswordResetConfirmType::class, $data);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $service->updatePassword($data->getPassword(),$user);
+            $this->addFlash('success', 'Votre mot de passe a bien été réinitialisé');
+            return $this->redirectToRoute('security_login');
+        }
+        return $this->render('security/password_reset_confirm.html.twig', [
+            'error' => $error,
+            'form' => $form->createView($error)
         ]);
     }
 
