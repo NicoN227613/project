@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, \Serializable
 {
     /**
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -26,6 +27,7 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      *  min = 4, 
@@ -35,6 +37,7 @@ class User implements UserInterface, \Serializable
     private $pseudo;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email()
      */
@@ -53,11 +56,13 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * @var string
      * @Assert\EqualTo(propertyPath="password", message="Les 2 mots de passe doîvent être identiques")
      */
     private $confirm_password;
 
     /**
+     * @var array
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -68,6 +73,7 @@ class User implements UserInterface, \Serializable
     private $createdAt;
 
     /**
+     * @var \DateTimeInterface|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
@@ -78,11 +84,13 @@ class User implements UserInterface, \Serializable
     private $products;
 
     /**
+     * @var Image|null
      * @ORM\OneToOne(targetEntity="App\Entity\Image", inversedBy="user", cascade={"persist", "remove"})
      */
     private $image;
 
     /**
+     * @var string|null
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $activation_token;
@@ -96,6 +104,12 @@ class User implements UserInterface, \Serializable
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     public function getPseudo(): ?string
@@ -135,7 +149,7 @@ class User implements UserInterface, \Serializable
     /**
      * @see UserInterface
      */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return (string) $this->password;
     }
@@ -185,7 +199,7 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -202,7 +216,7 @@ class User implements UserInterface, \Serializable
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -220,7 +234,7 @@ class User implements UserInterface, \Serializable
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;

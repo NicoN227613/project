@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ContactController extends AbstractController
 {
-
+    
     /**
      * @Route("/contact", name="contact", methods={"GET", "POST"})
      */
@@ -31,7 +31,7 @@ class ContactController extends AbstractController
             $notification->notify($user, $contact);
 
             $this->addFlash('success', 'Votre email a bien été envoyé !');
-            return $this->redirectToRoute('contact');
+            return $this->redirectToRoute('product_index');
         }
 
         return $this->render('contact/contact.html.twig', [

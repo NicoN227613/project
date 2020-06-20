@@ -8,14 +8,10 @@ use App\Entity\Contact;
 
 class ContactNotification {
 
-    /**
-     * @var \Swift_Mailer
-     */
+    /** @var \Swift_Mailer */
     private $mailer;
 
-    /**
-     * @var Environment
-     */
+    /** @var Environment */
     private $renderer;
 
     public function __construct(\Swift_Mailer $mailer, Environment $renderer)
@@ -24,10 +20,10 @@ class ContactNotification {
         $this->renderer = $renderer;
     }
 
-    public function notify(User $user, Contact $contact)
+    public function notify(User $user, Contact $contact): void
     {
         $message = (new \Swift_Message('sujet : ' . $contact->getSubject()))
-            ->setFrom($user->getEmail())
+            ->setFrom([$user->getEmail()])
             ->setTo('admin@gmail.com')
             ->setBody(
                 $this->renderer->render('email/contact.html.twig', [

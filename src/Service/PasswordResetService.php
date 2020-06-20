@@ -24,6 +24,7 @@ class PasswordResetService
     private $manager;
     private $generator;
     private $dispatcher;
+    private $encoder;
 
     public function __construct(
         UserRepository $userRepository,

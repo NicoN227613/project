@@ -23,7 +23,7 @@
             {% if is_granted('ROLE_ADMIN') %}
             <li><a href="{{ path('admin_home') }}">{{ icon('admin') }} Admin</a></li>
             {% endif %}
-            <li>
+            <li class="{{ app.request.get('_route') == 'user_user_index' ? 'active' }}">
                 <a href="{{ path('user_user_index')}}">{{ icon('user') }} Mon compte </a>
             </li>
             <li class="{{ app.request.get('_route') == 'product_index' ? 'active' }}">

@@ -36,13 +36,14 @@
     padding-left: 16px;
     outline: none;
     background: url(../../../public/input-search.svg) right 16px center / 12px 12px no-repeat;
-    border: 1px solid #ADADAD;
+    border: 1px solid var(--lightgray);
     border-radius: 4px;
     transition: .3s;
 }
 .dashboard__search input:hover,
 .dashboard__search input:focus {
     border: 1px solid var(--border);
+    background-color: var(--lightgreen);
 }
 .dashboard__btn {
     @extend .btn;

@@ -12,8 +12,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class UserChoiceType extends AbstractType implements DataTransformerInterface 
 {
 
-    protected $em;
-    protected $url;
+    private $em;
+    private $url;
 
     public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $url)
     {
@@ -72,7 +72,7 @@ class UserChoiceType extends AbstractType implements DataTransformerInterface
     /**
      * @param int $userId
      */
-    public function reverseTransform($userId): User {
+    public function reverseTransform($userId): ?User {
         return $this->em->getRepository(User::class)->find($userId);
     }
 }

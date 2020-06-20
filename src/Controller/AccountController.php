@@ -11,15 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
  */
-class UserUserController extends AbstractController
+class AccountController extends AbstractController
 {
     private $manager;
-    protected $encoder;
+    private $encoder;
 
     public function __construct(EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
@@ -44,21 +45,17 @@ class UserUserController extends AbstractController
     public function uploadImage(Request $request): Response
     {
         $user = $this->getUser();
-         $form = $this->createForm(UserImageType::class, $user, [
+        $form = $this->createForm(UserImageType::class, $user, [
              'method' => 'POST'
-         ]);
+        ]);
+        $form->handleRequest($request);
 
-         $form->handleRequest($request);
-
-         if($form->isSubmitted() && $form->isValid()) {
-
+        if($form->isSubmitted() && $form->isValid()) {
             $this->manager->persist($user);
             $this->manager->flush();
-
             $this->addFlash('success', "Votre image est bien enregistré !");
-
             return $this->redirectToRoute('user_user_index');
-         }
+        }
 
         return $this->render('user/upload/image.html.twig', [
             'formImage' => $form->createView(),
@@ -68,7 +65,7 @@ class UserUserController extends AbstractController
     /**
      * @Route("/edit/password", name="user_user_password", requirements={"id": "\d+"}, methods={"GET", "PUT"})
      */
-    public function editPassword (Request $request): Response
+    public function editPassword(Request $request): Response
     {
         $user = $this->getUser();
 
@@ -115,7 +112,7 @@ class UserUserController extends AbstractController
             $user->setUpdatedAt(new \DateTime());
             $this->manager->flush();
 
-            $this->addFlash('success', "Votre compte avec ce mail : {$user->getEmail()} a bien été modifié !");
+            $this->addFlash('success', "Votre compte a bien été modifié !");
 
             return $this->redirectToRoute('user_user_index');
         }
@@ -126,7 +123,7 @@ class UserUserController extends AbstractController
     }
 
     /**
-     * @Route("/detlete", name="user_user_delete", methods="DELETE")
+     * @Route("/delete", name="user_user_delete", methods="DELETE")
      */
     public function delete(Request $request): Response
     {
@@ -150,7 +147,7 @@ class UserUserController extends AbstractController
     /**
      * @Route("/delete/image/{id}", name="user_image_delete", methods="DELETE")
      */
-    public function deleteImage(Image $image, Request $request)
+    public function deleteImage(Image $image, Request $request): RedirectResponse
     {
         $user = $this->getUser();
         if($this->isCsrfTokenValid('delete' . $image->getId(), $request->get('_token'))){

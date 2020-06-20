@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Category
 {
     /**
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -26,6 +27,7 @@ class Category
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Length(min=4, max=255, minMessage="Ce champ a besoin de 4 caractères minimum ")
@@ -38,11 +40,13 @@ class Category
     private $createdAt;
 
     /**
+     * @var \DateTimeInterface|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
     
     /**
+     * @var User|null
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -54,8 +58,7 @@ class Category
     private $products;
 
     public function __construct() {
-        $this->createdAt = new \DateTimeImmutable();
-        //$this->updateAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTime();
         $this->products = new ArrayCollection();
     }
 
@@ -76,7 +79,7 @@ class Category
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
@@ -93,7 +96,7 @@ class Category
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 

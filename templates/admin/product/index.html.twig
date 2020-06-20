@@ -12,7 +12,7 @@
         </form>
         <a href="{{ path('admin_product_new')}}" class="dashboard__btn">Ajouter un produit</a>
     </div>
-    <table class="table table-responsive">
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -77,11 +77,6 @@
             {% endfor %}
         </tbody>
     </table>
-    {#<div class="dashboard__body">
-        {% for product in products %}
-        {% include 'admin/product/_product.html.twig' with {product: product} only %}
-        {% endfor %}
-    </div>#}
     {{ knp_pagination_render(products) }}
 </div>
 

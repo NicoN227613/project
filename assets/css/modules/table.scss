@@ -3,19 +3,28 @@
     text-transform: uppercase;
     font-size: 0.9em;
     text-align: left;
-}
-.table thead th:last-child {
-    text-align: right;
+    font-style: normal;
+    line-height: 16px;
+    letter-spacing: 1px;
 }
 .table thead th:first-child {
     padding-left: 8px;
+}
+.table thead th:last-child {
+    text-align: right;
 }
 .table td {
     vertical-align: middle;
     padding: 8px 16px 8px 0;
 }
-.table td:first-child() {
+.table td:first-child {
     padding-left: 8px;
+}
+.table td:last-child {
+    padding-right: 0 !important;
+}
+.table td span {
+    display: none;
 }
 .table td a {
     color: var(--border);
@@ -25,11 +34,12 @@
         color: var(--green);
     }
 }
-.table td:last-child {
-    padding-right: 0 !important;
-}
 .table tbody tr {
     border-bottom: 1px solid var(--border);
+
+    &:hover {
+        background-color: var(--lightgreen);
+    }
 }
 .table svg {
     display: block;
@@ -37,14 +47,11 @@
     height: 20px;
     color: var(--lightgray);
     transition: .3s;
-}
-.table svg:hover {
-    color: var(--gray);
-}
-.table td span {
-    display: none;
-}
 
+    &:hover {
+        color: var(--gray);
+    }
+}
 @media only screen and (max-width: 768px) {
     .dashboard__header {
         display: flex;
@@ -52,10 +59,6 @@
     }
     .dashboard__header form {
         padding-bottom: 16px;
-    }
-    .table td span {
-        display: inline-block;
-        flex: 1;
     }
     .table thead {
         display: block;
@@ -68,7 +71,7 @@
         display: flex;
         flex-direction: column;
         border: 1px solid var(--border);
-        border-radius: 8px;
+        border-radius: 4px;
         margin-bottom: 16px;
     }
     .table td {
@@ -76,111 +79,15 @@
         justify-content: flex-end;
         padding: 8px;
     }
-    .table td:last-child(){
-        display: flex;
-    }
-    /*.table td:nth-child(odd) {
-        background-color: #EEEEEE;
-    }*/
-    .table td span {
-        font-weight: 300;
-        text-transform: uppercase;
-        font-size: 0.9em;
-        text-align: left;
-    }
-    /*.table .dashboard__actions {
-        justify-content: flex-start;
-    }*/
-    /*.table thead th {
-        font-weight: 300;
-        text-transform: uppercase;
-        opacity: .8;
-        font-size: 0.9em;
-        text-align: left;
-    }
-    .table thead th:last-child {
-        text-align: left;
-    }
-    .table td {
-        vertical-align: middle;
-    }
-    .table td a {
-        color: var(--border);
-        transition: color .3s;
-
-        &:hover {
-            color: var(--green);
-        }
-    }
     .table td:last-child {
-        padding-right: 0 !important;
+        display: flex;
     }
-    /*.table tbody tr {
-         border-bottom: 1px solid var(--border);
-    }*/
-    /*.table svg {
-        display: block;
-        width: 20px;
-        height: 20px;
-        color: var(--color);
-        opacity: .5;
-        transition: .3s;
-    }
-    .table svg:hover {
-        opacity: 1;
-    }
-    .table table,
-    .table thead,
-    .table tbody,
-    .table tr,
-    .table th,
-    .table td {
-        display: block;
-    }
-
-    /*.table thead {
-        display: none;
-    }*/
-    /*.table td {
-        padding: 8px 16px 8px 90px;
-        //position: relative;
-        // border: 1px solid var(--border);
-        background-color: white;
-        //margin-top: -1px;
-        font-size: 0.9em;
-    }
-    .table td:nth-child(odd) {
-        background-color: #EEEEEE;
-    }
-    
-    /*.table td::before {
-        content: attr(data-label);
-        padding: 0 0 0 5px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 85px;
-        bottom: 0;
-
+    .table td span {
+        display: inline-block;
+        flex: 1;
         font-weight: 300;
         text-transform: uppercase;
-        opacity: .8;
-        font-size: 0.8em;
+        font-size: 0.9em;
         text-align: left;
-        background-color: var(--green);
-    }*/
-    /*.table tr {
-        margin-bottom: 16px;
     }
-    .table .dashboard__actions {
-        justify-content: flex-start;
-    }
-//
-    .dashboard__header {
-        display: flex;
-        flex-direction: column;
-    }
-    .dashboard__header form {
-        padding-bottom: 16px;
-    }*/
 }

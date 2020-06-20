@@ -1,5 +1,5 @@
-.form_card{
-    background-color: white; 
+.form_card {
+    background-color: var(--white); 
     padding: 20px 30px;
     margin: 1rem auto;
     text-align: center;
@@ -7,42 +7,43 @@
     text-align: left;
     border-radius: 10px;
 }
+.form_card a {
+    display: flex;
+    justify-content: center;
+    font-size: .9rem;
+    margin-top: 20px;
 
-.form_card_h1{
+    &:hover {
+        color: var(--green);
+        text-decoration: underline;
+    }
+}
+.form_card_h1 {
     font-size: large;
     font-weight: bold;
     text-align: center;
     margin: 10px 0;
 }
-
-.form_card_h1 .span_h1{
+.form_card_h1 .span_h1 {
     background: linear-gradient(to left, green, var(--green)) left bottom no-repeat ;
     background-size: 100% 2px;
 }
-
-.form_card_div, .form_card_div_mdp{
+.form_card_div, .form_card_div_mdp {
     font-size: 12px;
     margin-bottom: 0.5rem;
     transition: color .3s;
 }
-
-.form_card_div{
+.form_card_div {
     margin: 30px 0;
 }
-
-.form_card_label{
-    font-weight: bold;
-}
-
-.form_card_input{
+.form_card_input {
     width: 100%;
     padding: 5px 0;
     border: none;
     background: linear-gradient(to right, rgb(28, 169, 28), var(--green)) left bottom no-repeat ;
     background-size: 100% 2px;
 } 
-
-.form_card_submit{
+.form_card_submit {
     width: 100%;
     border-radius: 24px;
     font-family: "Roboto", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -54,22 +55,18 @@
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%) var(--btn);
     transition: background .3s;
 }
-
 input[type="text"].form_card_input:focus, 
 input[type="textarea"].form_card_input:focus,
 input[type="email"].form_card_input:focus, 
 input[type="file"].form_card_input:focus,
-input[type="password"].form_card_input:focus{
+input[type="password"].form_card_input:focus {
     outline: none;
 }
-
-textarea{
+textarea {
     resize: none;
 }
-
 /*------------------ CSS TABLETTE  -------------------------*/
 @media screen and (min-width: 500px) {
-
     .form_card{
         width: 45%;
     }

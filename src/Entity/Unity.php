@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Unity
 {
     /**
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -26,6 +27,7 @@ class Unity
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
@@ -37,11 +39,13 @@ class Unity
     private $createdAt;
 
     /**
+     * @var \DateTimeInterface|null
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
+     * @var User|null
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -55,7 +59,7 @@ class Unity
     
 
     public function __construct() {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTime();
         //$this->updateAt = new \DateTimeImmutable();
         $this->products = new ArrayCollection();
     }
@@ -77,7 +81,7 @@ class Unity
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }

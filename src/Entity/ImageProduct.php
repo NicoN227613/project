@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class ImageProduct
 {
     /**
+     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -20,27 +21,37 @@ class ImageProduct
     private $id;
 
     /**
+     * @var string|null
      * @ORM\Column(type="string", length=255)
      */
     private $url;
 
     /**
+     * @var string|null
      * @ORM\Column(type="string", length=255)
      */
     private $alt;
 
     /**
+     * @var Product|null
      * @ORM\OneToOne(targetEntity="App\Entity\Product", mappedBy="imageProduct", orphanRemoval=false)
      */
     private $product;
 
-    
+    /**
+     * @var UploadedFile|null
+     */
     private $file;
 
+    /**
+     * @var mixed
+     */
     //on ajoute cet attribut pour y stocker le nom du fichier temporairement
     private $tempFilename;
 
     /**
+     *
+     * @var mixed
      * chemin de l'image pour un product
      */
     private $webPathProduct;
@@ -49,7 +60,7 @@ class ImageProduct
     /** 
      * chemin de l'image pour un product
      */
-    public function getWebPathProduct()
+    public function getWebPathProduct(): string
     {
         return $this->webPathProduct = $this->getUploadDir() . '/' . $this->getId() . '.' . $this->getUrl();
     } 
@@ -58,7 +69,7 @@ class ImageProduct
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function preUpload()
+    public function preUpload(): void
     {
         //s'il n'y a pas de fichier, on ne fait rien
         if(null === $this->file){
@@ -77,7 +88,7 @@ class ImageProduct
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
      */
-    public function upload()
+    public function upload(): void
     {
         //s'il n'y a pas de fichier, on ne fait rien
         if(null === $this->file){
@@ -107,7 +118,7 @@ class ImageProduct
     /**
      * @ORM\PreRemove()
      */
-    public function preRemoveUpload()
+    public function preRemoveUpload(): void
     {
         // On sauvegarde temporairement le nom du fichier, car il dépend de l'id
         $this->tempFilename = $this->getUploadRootDir() . '/' . $this->id . '.' . $this->url;
@@ -116,7 +127,7 @@ class ImageProduct
     /**
      * @ORM\PostRemove()
      */
-    public function removeUpload()
+    public function removeUpload(): void
     {
         /* En PostRemove, on n'a pas accès à l'id,
         on utilise notre nom sauvegardé */
@@ -131,7 +142,7 @@ class ImageProduct
     /**
      * On retourne le chemin relatif vers l'image pour un navigateur
      */
-    public function getUploadDir()
+    public function getUploadDir(): string
     {
         return 'images/product';
     }
@@ -139,7 +150,7 @@ class ImageProduct
     /**
      * On retourne le chemin relatif vers l'image pour notre code PHP
      */
-    public function getUploadRootDir()
+    public function getUploadRootDir(): string
     {
         return dirname(__DIR__) . "/../public/{$this->getUploadDir()}";
     }
@@ -169,12 +180,7 @@ class ImageProduct
         return $this;
     }
 
-    /**
-     * Set the value of webPathProduct
-     *
-     * @return  self
-     */ 
-    public function setWebPathProduct($webPathProduct)
+    public function setWebPathProduct($webPathProduct): self
     {
         $this->webPathProduct = $webPathProduct;
 

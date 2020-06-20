@@ -66,16 +66,16 @@ class SecurityController extends AbstractController
     /**
      * @Route("/activation/{token}", name="activation")
      */
-    public function activation($token, UserRepository $userRepo, EntityManagerInterface $manager)
+    public function activation($token, UserRepository $userRepo, EntityManagerInterface $manager): Response
     {
-        //vérifie si un utilisateur a ce token
+        // vérifie si un utilisateur a ce token
         $user = $userRepo->findOneBy(['activation_token' => $token]);
 
         if(!$user){// 0 user
             throw $this->createNotFoundException('cet utilisateur n\'existe pas');
         }
 
-        $user->setActivationToken(null);//supprime le token
+        $user->setActivationToken(null); // supprime le token
         $manager->persist($user);
         $manager->flush();
         
@@ -154,7 +154,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/logout", name="security_logout")
      */
-    public function logout()
+    public function logout(): void
     {
         //throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }

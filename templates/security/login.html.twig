@@ -6,9 +6,9 @@
 <div class="form__container">
     {% if error %}
     <alert-message>
-        {# Eviter d'afficher des erreurs trop précises pour éviter de donner l'infomation qu'une adresse mail existe et que seulement le mot de passe est incorrect. Afficher un message d'erreur unique }
-        {#{{ error.messageKey|trans(error.messageData, 'security') }}#}
-        Email ou mot de passe incorrect(s)
+        {# Eviter d'afficher des erreurs trop précises pour éviter de donner l'infomation qu'une adresse mail existe et que seulement le mot de passe est incorrect. Afficher un message d'erreur unique
+        Email ou mot de passe incorrect(s)#}
+        {{ error.messageKey|trans(error.messageData, 'security') }}
     </alert-message>
     {% endif %}
     <form class="form" action="{{ path('security_login')}}" method="post">

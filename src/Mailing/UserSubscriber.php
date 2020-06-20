@@ -9,6 +9,7 @@ use Twig\Environment;
 
 class UserSubscriber implements EventSubscriberInterface 
 {
+    private $factory;
     private $mailer;
     private $renderer;
     

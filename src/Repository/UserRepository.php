@@ -23,6 +23,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
+     * Requête permettant de récupérer un utilisateur 
+     * @param string $username
+     * @return User|null
+     */
+    public function findForAuth(string $username): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.email = :pseudo')
+            ->orWhere('u.pseudo = :pseudo')
+            ->setMaxResults(1)
+            ->setParameter('pseudo', $username)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void

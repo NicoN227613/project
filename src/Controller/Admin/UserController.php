@@ -23,7 +23,7 @@ class UserController extends BaseController
 {
     private $repository;
     private $manager;
-    protected $encoder;
+    private $encoder;
 
     public function __construct(UserRepository $repository, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
