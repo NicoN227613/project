@@ -69,3 +69,13 @@
         color: var(--red);
     }
 }
+
+@media only screen and (max-width: 359px) {
+    .dashboard__card {
+        background: none; 
+        border: none;
+        box-shadow: none;
+        border-radius: none;
+        padding: 0 ;
+    }
+}
