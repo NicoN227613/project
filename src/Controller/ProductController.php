@@ -84,7 +84,7 @@ class ProductController extends AbstractController
     {
         $user = $this->getUser();
         if($user->getActivationToken()){
-            $this->addFlash('message', 'Vous devez activer votre compte pour ajouter un produit');
+            $this->addFlash('danger', 'Vous devez activer votre compte pour ajouter un produit');
             return $this->redirectToRoute('home');
         }
 

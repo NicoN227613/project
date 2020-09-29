@@ -161,7 +161,7 @@ class Product
         return $this;
     }
 
-    public function getPurchaseDate(): \DateTimeInterface
+    public function getPurchaseDate(): ?\DateTimeInterface
     {
         return $this->purchase_date;
     }
