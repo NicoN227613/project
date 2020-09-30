@@ -1,4 +1,7 @@
 {
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -221,6 +224,9 @@
     "symfony/dependency-injection": {
         "version": "v5.0.10"
     },
+    "symfony/deprecation-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/doctrine-bridge": {
         "version": "v5.0.10"
     },
@@ -342,6 +348,9 @@
     },
     "symfony/polyfill-intl-normalizer": {
         "version": "v1.17.1"
+    },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.18.1"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.17.1"

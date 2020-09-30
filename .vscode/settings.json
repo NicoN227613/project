@@ -40,5 +40,6 @@
             "server": "localhost",
             "username": "root"
         }
-    ]
+    ],
+    "git.ignoreLimitWarning": true
 }

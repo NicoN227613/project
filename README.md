@@ -43,6 +43,18 @@ Installer et lancer `maildev` pour l'envoi de mail :
 Ce rendre dans l'url `localhost:1080` dans une nouvelle fenêtre de votre navigateur, 
 puis écrire `MAILER_URL=smtp://localhost:1025` dans le fichier `.env.local`
 
+Création de la base de données :
+
+> php bin/console doctrine:database:create
+
+Créer ensuite le schéma de données :
+
+> php bin/console doctrine:schema:create
+
+Et enfin créer un jeu de données :
+
+> php bin/console doctrine:fixtures:load
+
 ## Scénario  ##
     
     - Création d'un compte et connexion au site
