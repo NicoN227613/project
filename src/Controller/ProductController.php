@@ -4,26 +4,24 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Entity\SearchProductData;
+use App\Entity\User;
 use App\Form\ProductType;
 use App\Form\SearchProductType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/product")
  */
 class ProductController extends AbstractController
 {
-    /** @var ProductRepository $repository */
     private $repository;
-    
-    /** @var EntityManagerInterface $manager */
     private $manager;
 
     public function __construct(ProductRepository $repository, EntityManagerInterface $manager)
@@ -43,6 +41,7 @@ class ProductController extends AbstractController
         $form = $this->createForm(SearchProductType::class, $data);
         $form->handleRequest($request);
 
+        /** @var User $userCurrent */
         $userCurrent = $this->getUser();
         $products = $this->repository->searchProduct($userCurrent, $data);
         
@@ -82,19 +81,21 @@ class ProductController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $user = $this->getUser();
-        if($user->getActivationToken()){
+        /** @var User $userCurrent */
+        $userCurrent = $this->getUser();
+        if($userCurrent->getActivationToken()){
             $this->addFlash('message', 'Vous devez activer votre compte pour ajouter un produit');
             return $this->redirectToRoute('home');
         }
 
         $product = new Product();
-        $product->setAuthor($this->getUser());
+        $product->setAuthor($userCurrent);
         $form = $this->createForm(ProductType::class, $product);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $product->setCreatedAt(new \DateTime());
             $this->manager->persist($product);
             $this->manager->flush();
             $this->addFlash('success', 'Votre produit ' . $product->getName() . ' a bien était crée !');
@@ -114,8 +115,9 @@ class ProductController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $product);
 
-        $user = $this->getUser();
-        if($user->getActivationToken()){
+        /** @var User $userCurrent */
+        $userCurrent = $this->getUser();
+        if($userCurrent->getActivationToken()){
             $this->addFlash('message', 'Vous devez activer votre compte pour modifier un produit');
             return $this->redirectToRoute('home');
         }

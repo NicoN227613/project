@@ -34,6 +34,7 @@ class Unity
     private $name;
 
     /**
+     * @var \DateTimeInterface
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -56,11 +57,7 @@ class Unity
      */
     private $products;
     
-    
-
     public function __construct() {
-        $this->createdAt = new \DateTime();
-        //$this->updateAt = new \DateTimeImmutable();
         $this->products = new ArrayCollection();
     }
 

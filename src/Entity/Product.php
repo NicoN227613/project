@@ -6,9 +6,11 @@ use App\Entity\User;
 use App\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @Vich\Uploadable
  */
 class Product
 {
@@ -40,6 +42,7 @@ class Product
     private $quantity;
 
     /**
+     * @var \DateTimeInterface|null
      * @ORM\Column(type="datetime")
      * @Assert\LessThanOrEqual(
      *  "today", 
@@ -49,6 +52,7 @@ class Product
     private $purchase_date;
 
     /**
+     * @var \DateTimeInterface|null 
      * @ORM\Column(type="datetime", nullable=true)
      * @Assert\GreaterThanOrEqual(
      *  propertyPath="purchase_date", 
@@ -58,15 +62,7 @@ class Product
     private $expiration_date;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Assert\GreaterThanOrEqual(
-     *  propertyPath="purchase_date", 
-     *  message="La Date à Durée Minimale supérieur ou égale à la date d'achat du produit "
-     * )
-     */
-    private $best_before_date;
-
-    /**
+     * @var \DateTimeInterface
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -108,29 +104,9 @@ class Product
     /**
      * @var ImageProduct|null
      * @ORM\OneToOne(targetEntity="App\Entity\ImageProduct", inversedBy="product", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="image_product_id", referencedColumnName="id")
      */
     private $imageProduct;
-
-    public function __construct() {
-        $this->createdAt = new \DateTimeImmutable();
-        //$this->updateAt = new \DateTimeImmutable();
-    }
-
-    public function getImageProduct(): ?ImageProduct
-    {
-        return $this->imageProduct;
-    }
-
-    public function setImageProduct(?ImageProduct $imageProduct): self
-    {
-        $this->imageProduct = $imageProduct;
-
-        if($imageProduct){
-            $this->updatedAt = new \DateTime();
-        }
-
-        return $this;
-    }
 
     public function getId(): ?int
     {
@@ -161,12 +137,12 @@ class Product
         return $this;
     }
 
-    public function getPurchaseDate(): \DateTimeInterface
+    public function getPurchaseDate(): ?\DateTimeInterface
     {
         return $this->purchase_date;
     }
 
-    public function setPurchaseDate(\DateTimeInterface $purchase_date): self
+    public function setPurchaseDate(?\DateTimeInterface $purchase_date): self
     {
         $this->purchase_date = $purchase_date;
 
@@ -181,18 +157,6 @@ class Product
     public function setExpirationDate(?\DateTimeInterface $expiration_date): self
     {
         $this->expiration_date = $expiration_date;
-
-        return $this;
-    }
-
-    public function getBestBeforeDate(): ?\DateTimeInterface
-    {
-        return $this->best_before_date;
-    }
-
-    public function setBestBeforeDate(?\DateTimeInterface $best_before_date): self
-    {
-        $this->best_before_date = $best_before_date;
 
         return $this;
     }
@@ -274,6 +238,18 @@ class Product
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+ 
+    public function getImageProduct(): ?ImageProduct
+    {
+        return $this->imageProduct;
+    }
+
+    public function setImageProduct(?ImageProduct $imageProduct): self
+    {
+        $this->imageProduct = $imageProduct;
 
         return $this;
     }

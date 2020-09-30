@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
@@ -53,12 +54,15 @@ final class CategoryController extends BaseController
      */
     public function new(Request $request): Response
     {
+        /** @var User $userCurrent */
+        $userCurrent = $this->getUser();
         $category = new Category();
-        $category->setAuthor($this->getUser());
+        $category->setAuthor($userCurrent);
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $category->setCreatedAt(new \DateTime());
             $this->manager->persist($category);
             $this->manager->flush();
 

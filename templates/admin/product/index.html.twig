@@ -53,9 +53,9 @@
                 <td>
                     <span>Etat</span>
                     {% if product.expirationDate | date('d F Y') < "now" | date('d F Y') %}
-                    Périmé (DLC dépassé)
-                    {% elseif product.bestBeforeDate | date('d F Y') < "now" | date('d F Y') %}
-                    Périmé (DDM dépassé)
+                    Périmé
+                    {% elseif product.expirationDate | date('d F Y') == "now" | date('d F Y') %}
+                    Périme aujourd'hui
                     {% else %}
                     Consommable
                     {% endif %}

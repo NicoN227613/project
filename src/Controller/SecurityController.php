@@ -3,28 +3,25 @@
 namespace App\Controller;
 
 use App\Entity\PasswordResetConfirmData;
-use App\Entity\User;
-use App\Form\RegistrationType;
 use App\Entity\PasswordResetData;
 use App\Entity\PasswordResetToken;
+use App\Entity\User;
+use App\Form\RegistrationType;
 use App\Form\PasswordResetConfirmType;
-use App\Repository\UserRepository;
 use App\Form\PasswordResetRequestForm;
+use App\Notification\CreateAccountNotification;
+use App\Repository\UserRepository;
+use App\Service\PasswordResetService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Notification\CreateAccountNotification;
-use App\Service\PasswordResetService;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @var CreateAccountNotification
-     */
     private $createAccountNotify;
 
     public function __construct(CreateAccountNotification $createAccountNotify)
@@ -38,17 +35,14 @@ class SecurityController extends AbstractController
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User();
-
         $form = $this->createForm(RegistrationType::class, $user);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             $hash = $encoder->encodePassword($user, $user->getPassword());
-
             $user->setActivationToken(md5(uniqid()));
-
             $user->setPassword($hash);
+            $user->setCreatedAt(new \DateTime());
             $manager->persist($user);
             $manager->flush();
             
@@ -66,13 +60,13 @@ class SecurityController extends AbstractController
     /**
      * @Route("/activation/{token}", name="activation")
      */
-    public function activation($token, UserRepository $userRepo, EntityManagerInterface $manager): Response
+    public function activation($token, UserRepository $userRepository, EntityManagerInterface $manager): Response
     {
         // vérifie si un utilisateur a ce token
-        $user = $userRepo->findOneBy(['activation_token' => $token]);
+        $user = $userRepository->findOneBy(['activation_token' => $token]);
 
         if(!$user){// 0 user
-            throw $this->createNotFoundException('cet utilisateur n\'existe pas');
+            throw $this->createNotFoundException('Cet utilisateur n\'existe pas');
         }
 
         $user->setActivationToken(null); // supprime le token
@@ -141,7 +135,7 @@ class SecurityController extends AbstractController
         $form = $this->createForm(PasswordResetConfirmType::class, $data);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $service->updatePassword($data->getPassword(),$user);
+            $service->updatePassword($data->getPassword(), $token);
             $this->addFlash('success', 'Votre mot de passe a bien été réinitialisé');
             return $this->redirectToRoute('security_login');
         }

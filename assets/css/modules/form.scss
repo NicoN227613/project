@@ -4,6 +4,19 @@
     margin-left: auto;
     margin-right: auto;
 }
+.form__product__container {
+    @extend .form__container;
+    max-width: 1028px;
+}
+.form__title {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--green);
+    margin-bottom: 24px;
+    padding-left: 24px;
+}
 .form {
     @extend %card;
     padding: 0 24px 24px;
@@ -43,7 +56,7 @@
     font-size: .9rem;
     white-space: wrap;
 }
-.stack > * + * {
+/*.stack > * + * {
     margin-top: 16px;
 }
 .row {
@@ -55,6 +68,13 @@
         align-items: center;
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
+}*/
+.form__group {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 8px;
+    /*grid-template-rows: min-content;*/
+    align-content: flex-start;
 }
 .form__group svg {
     width: 25px;
@@ -65,7 +85,7 @@
     text-transform: uppercase;
     font-size: .85em;
     padding-left: .25rem;
-    margin-bottom: 0.5rem;
+    /*margin-bottom: 0.5rem;*/
     transition: color .3s;
 }
 .form__group ul li {
@@ -85,7 +105,7 @@
     min-height: 48px;
     cursor: pointer;
     outline: none;
-    padding: .75em ;
+    padding: .75em;
     background-color: var(--white);
     border: 1px solid var(--border);
     border-radius: 4px;
@@ -94,9 +114,32 @@
 .form__control:hover,
 .form__control:focus {
     border: 1px solid var(--green);
-    box-shadow: 0px 0px 3px var(--green);
+    box-shadow: 0px 0px 4px var(--green);
 }
-//.form__group input.is-invalid,
-//.form__group select.is-invalid {
-//    border-color: var(--red);
-//}
+.form__actions {
+    grid-column: 1 / -1;
+}
+.grid {
+    @extend %card;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 24px;
+    align-items: stretch;
+}
+.grid .form__image {
+    grid-row-end: span 2;
+    height: 100%;
+    align-content: stretch;
+}
+.grid .form__btn {
+    display: flex;
+    justify-content: flex-end;
+    grid-column-end: -1;
+}
+@media only screen and (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+        padding: 8px;
+    }
+}

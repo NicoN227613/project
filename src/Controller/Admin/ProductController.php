@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use App\Entity\Product;
 use App\Form\AdminProductType;
 use App\Repository\ProductRepository;
@@ -54,13 +55,16 @@ final class ProductController extends BaseController
      */
     public function new(Request $request): Response
     {
+        /** @var User $userCurrent */
+        $userCurrent = $this->getUser();
         $product = new Product();
-        $product->setAuthor($this->getUser());
+        $product->setAuthor($userCurrent);
 
         $form = $this->createForm(AdminProductType::class, $product);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $product->setCreatedAt(new \DateTime());
             $this->manager->persist($product);
             $this->manager->flush();
 
@@ -71,6 +75,7 @@ final class ProductController extends BaseController
         }
 
         return $this->render('admin/product/new.html.twig', [
+            'product' => $product,
             'form' => $form->createView(),
         ]);
     }

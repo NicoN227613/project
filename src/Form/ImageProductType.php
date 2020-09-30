@@ -13,7 +13,7 @@ class ImageProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('file', FileType::class, [
+            ->add('imageFile', FileType::class, [
                 'label' => false
             ])
         ;

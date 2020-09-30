@@ -68,6 +68,7 @@ class User implements UserInterface, \Serializable
     private $roles = [];
 
     /**
+     * @var \DateTimeInterface
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -96,8 +97,6 @@ class User implements UserInterface, \Serializable
     private $activation_token;
 
     public function __construct() {
-        $this->createdAt = new \DateTimeImmutable();
-        //$this->updateAt = new \DateTimeImmutable();
         $this->products = new ArrayCollection();
     }
 

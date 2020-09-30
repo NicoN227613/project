@@ -35,6 +35,7 @@ class Emplacement
     private $name;
 
     /**
+     * @var \DateTimeInterface
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -57,10 +58,7 @@ class Emplacement
      */
     private $products;
 
-    
-
     public function __construct() {
-        $this->createdAt = new \DateTime();
         $this->products = new ArrayCollection();
     }
 

@@ -1,3 +1,12 @@
+category:
+    form:
+        name: 'Nom'
+emplacement:
+    form:
+        name: 'Nom'
+unity:
+    form:
+        name: 'Nom'
 product:
     action:
         add: 'Ajouter'
@@ -6,14 +15,14 @@ product:
         new: 'Ajouter un produit'
         see: 'Voir'
     form:
+        image: 'Image'
+        author: 'Auteur'
         name: 'Nom'
         category: 'Catégorie'
         emplacement: 'Emplacement'
         quantity: 'Quantité'
         unity: 'Unité'
         purchaseDate: "Date d'achat"
-        expirationDate: 'DLC'
-        bestBeforeDate: 'DDM'
-        author: 'Auteur'
+        expirationDate: 'Date de péremption'
     index:
         title: 'Liste des produits'    

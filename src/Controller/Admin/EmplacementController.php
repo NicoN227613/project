@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use App\Entity\Emplacement;
 use App\Form\EmplacementType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,12 +55,15 @@ final class EmplacementController extends BaseController
      */
     public function new(Request $request): Response
     {
+        /** @var User $userCurrent */
+        $userCurrent = $this->getUser();
         $emplacement = new Emplacement();
-        $emplacement->setAuthor($this->getUser());
+        $emplacement->setAuthor($userCurrent);
         $form = $this->createForm(EmplacementType::class, $emplacement);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $emplacement->setCreatedAt(new \DateTime());
             $this->manager->persist($emplacement);
             $this->manager->flush();
 

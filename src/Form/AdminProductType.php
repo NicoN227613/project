@@ -6,11 +6,14 @@ use App\Entity\Unity;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\Emplacement;
+use App\Entity\ImageProduct;
 use App\Form\Type\DateType;
+use App\Form\Type\InputImageType;
 use App\Form\Type\UserChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -20,6 +23,9 @@ class AdminProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+        ->add('imageProduct', InputImageType::class, [
+            'required' => false
+        ])
         ->add('author', UserChoiceType::class)
         ->add('name', TextType::class)
         ->add('classifiedIn', EntityType::class, [
@@ -50,8 +56,7 @@ class AdminProductType extends AbstractType
             'required' => true,
         ])
         ->add('purchaseDate', DateType::class)
-        ->add('expirationDate', DateType::class)
-        ->add('bestBeforeDate', DateType::class);
+        ->add('expirationDate', DateType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

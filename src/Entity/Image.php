@@ -223,13 +223,13 @@ class Image
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
+        /*
         // set (or unset) the owning side of the relation if necessary
         $newImage = null === $user ? null : $this;
         if ($user->getImage() !== $newImage) {
             $user->setImage($newImage);
         }
-
+        */
         return $this;
     }
 

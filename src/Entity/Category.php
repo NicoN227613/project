@@ -35,6 +35,7 @@ class Category
     private $name;
 
     /**
+     * @var \DateTimeInterface
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -58,7 +59,6 @@ class Category
     private $products;
 
     public function __construct() {
-        $this->createdAt = new \DateTime();
         $this->products = new ArrayCollection();
     }
 

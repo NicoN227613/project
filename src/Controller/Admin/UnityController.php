@@ -2,10 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use App\Entity\Unity;
 use App\Form\UnityType;
-use App\Entity\UnitySearch;
-use App\Form\UnitySearchType;
 use App\Repository\UnityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -55,12 +54,15 @@ final class UnityController extends BaseController
      */
     public function new(Request $request): Response
     {
+        /** @var User $userCurrent */
+        $userCurrent = $this->getUser();
         $unity = new Unity();
-        $unity->setAuthor($this->getUser());
+        $unity->setAuthor($userCurrent);
         $form = $this->createForm(UnityType::class, $unity);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $unity->setCreatedAt(new \DateTime());
             $this->manager->persist($unity);
             $this->manager->flush();
 

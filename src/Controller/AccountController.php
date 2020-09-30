@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Image;
 use App\Form\UserImageType;
 use App\Form\UserAccountType;
 use App\Form\UserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -44,12 +45,13 @@ class AccountController extends AbstractController
      */
     public function uploadImage(Request $request): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
         $form = $this->createForm(UserImageType::class, $user, [
              'method' => 'POST'
         ]);
-        $form->handleRequest($request);
 
+        $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $this->manager->persist($user);
             $this->manager->flush();
@@ -67,6 +69,7 @@ class AccountController extends AbstractController
      */
     public function editPassword(Request $request): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         $form = $this->createForm(UserPasswordType::class, $user, [
@@ -97,8 +100,9 @@ class AccountController extends AbstractController
     /**
      * @Route("/edit", name="user_user_edit", methods={"GET", "PUT"})
      */
-    public function edit (Request $request): Response
+    public function edit(Request $request): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         $form = $this->createForm(UserAccountType::class, $user, [
@@ -127,6 +131,7 @@ class AccountController extends AbstractController
      */
     public function delete(Request $request): Response
     {
+        /** @var User $user */
         $user = $this->getUser();
 
         if($this->isCsrfTokenValid('delete', $request->get('_token'))){
@@ -149,6 +154,7 @@ class AccountController extends AbstractController
      */
     public function deleteImage(Image $image, Request $request): RedirectResponse
     {
+        /** @var User $user */
         $user = $this->getUser();
         if($this->isCsrfTokenValid('delete' . $image->getId(), $request->get('_token'))){
             

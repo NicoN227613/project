@@ -23,12 +23,11 @@
     </div>
     <div class="form__group">
         <label for="inputRoles">Rôle(s)</label>
-        {{ form_widget(form.roles, {attr: {class: 'form__control'} } ) }}
+        {{ form_widget(form.roles) }}
         {{ form_errors(form.roles) }}
     </div>
     <div class="form__btn">
         <button type="submit" class="btn__submit">Créer</button>
-        <a href="{{ path('admin_user_index') }}">Retour</a>
     </div>
     {{ form_end(form)}}
 </div>

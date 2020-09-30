@@ -5,6 +5,7 @@ import './elements/Alert'
 import './elements/Burger'
 import './elements/DatePicker'
 import './elements/UserSelect'
+import './elements/Image'
 import Filter from './modules/filter'
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.

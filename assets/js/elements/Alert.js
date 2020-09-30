@@ -1,6 +1,6 @@
 import {slideToTop} from '../modules/animation'
 
-export class Alert extends HTMLElement {
+export default class Alert extends HTMLElement {
     constructor ({type, message} = {}) {
         super()
         if (type !== undefined) {

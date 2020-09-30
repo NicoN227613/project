@@ -6,15 +6,13 @@
     Gestion des categories
 </div>
 <div class="dashboard__card">
-    {#<div class="header-responsive">#}
         <div class="dashboard__header">
             <form class="dashboard__search">
                 <input type="text" name="q" value="{{ app.request.get('q') }}" placeholder="Rechercher une catégorie">
             </form>
             <a href="{{ path('admin_category_new') }}" class="dashboard__btn">Ajouter une catégorie</a>
         </div>
-    {#</div>#}
-    <table class="table"> {#table-responsive#}
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>

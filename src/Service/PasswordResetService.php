@@ -54,12 +54,11 @@ class PasswordResetService
             throw new UserNotFoundException();
         }
         $token = $this->tokenRepository->findOneBy(['user' => $user]);
-        $expirationDate = new \DateTime('-'. self::EXPIRE_IN . ' minutes');
         if ($token !== null && !$this->isExpired($token)) {
             throw new CurrentPasswordResetException();
         }
         if ($token === null) {
-            $token = (new PasswordResetToken());
+            $token = new PasswordResetToken();
             $this->manager->persist($token);
         }
         $token->setUser($user)
@@ -75,9 +74,11 @@ class PasswordResetService
         return $token->getCreatedAt() < $expirationDate;
     }
 
-    public function updatePassword(string $password, User $user): void 
+    public function updatePassword(string $password, PasswordResetToken $token): void 
     {
+        $user = $token->getUser();
         $user->setPassword($this->encoder->encodePassword($user, $password));
+        $this->manager->remove($token);
         $this->manager->flush();
         $this->dispatcher->dispatch(new PasswordUpdatedEvent($user));
     }

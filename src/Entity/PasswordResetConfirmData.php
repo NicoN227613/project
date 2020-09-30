@@ -18,7 +18,7 @@ final class PasswordResetConfirmData
      */
     public $password;
 
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }

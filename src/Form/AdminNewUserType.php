@@ -26,6 +26,9 @@ class AdminNewUserType extends AbstractType
                     'Admin' => 'ROLE_ADMIN',
                     'User' => 'ROLE_USER',
                 ],
+            'attr' => [
+                'class' => 'form__control'
+            ],
             ],
         ])
     ;

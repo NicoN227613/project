@@ -3,7 +3,6 @@
 namespace App\ParamConverter;
 
 use App\Entity\PasswordResetToken;
-use App\Repository\PasswordResetTokenRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
@@ -27,7 +26,7 @@ class PasswordResetTokenParamConverter implements ParamConverterInterface
         return true;
     }
 
-    public function supports(\Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter $configuration)
+    public function supports(ParamConverter $configuration)
     {
         return $configuration->getClass() === PasswordResetToken::class && $configuration->getName() === 'token';
     }
